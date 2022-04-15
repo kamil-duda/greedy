@@ -29,7 +29,7 @@
 		<scala.plugin.version>2.15.2</scala.plugin.version>
 
 		<spark.version>2.1.0</spark.version>
-		<spark.jackson.version>2.6.7</spark.jackson.version>
+		<spark.jackson.version>2.9.10.4</spark.jackson.version>
 		<spark.janino.version>3.0.6</spark.janino.version>
 
 		<docker.maven.version>0.4.11</docker.maven.version>
