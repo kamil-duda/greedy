@@ -1,0 +1,3790 @@
+{
+  "comparedWith" : {
+    "sparkMaster" : "local[1]",
+    "shufflePartitions" : "1",
+    "localityWait" : "3s",
+    "javaVersion" : "1.8.0_392",
+    "date" : "2026-11-07T20:16:45.517Z"
+  },
+  "cases" : [ {
+    "input" : "edge/mcd-tie",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/mcd-tie",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/numeric-like",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/numeric-like",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/numeric-like",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/numeric-like",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/numeric-like",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/numeric-like",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/numeric-like",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/numeric-like",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/numeric-like",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/numeric-like",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/numeric-like",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/numeric-like",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/numeric-like",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/numeric-like",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "edge/numeric-like",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "fixtures/sample",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "fixtures/sample",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "fixtures/sample",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "fixtures/sample",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "fixtures/sample",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "fixtures/sample",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "fixtures/sample",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "fixtures/sample",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "fixtures/sample",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "fixtures/sample",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "fixtures/sample",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "fixtures/sample",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "fixtures/sample",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "fixtures/sample",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "fixtures/sample",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/car",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/car",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/car",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/car",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/car",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/car",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/car",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/car",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/car",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/car",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/car",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/car",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/car",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/car",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/car",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/lenses",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/lenses",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/lenses",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/lenses",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/lenses",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/lenses",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/lenses",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/lenses",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/lenses",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/lenses",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/lenses",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/lenses",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/lenses",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/lenses",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/lenses",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/monks-3",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/monks-3",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/monks-3",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/monks-3",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/monks-3",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/monks-3",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/monks-3",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/monks-3",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/monks-3",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/monks-3",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/monks-3",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/monks-3",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/monks-3",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/monks-3",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "public/monks-3",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-003",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-003",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-003",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-003",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-003",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-003",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-003",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-003",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-003",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-003",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-003",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-003",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-003",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-003",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-003",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-006",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-011",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-011",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-011",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-011",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-011",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-011",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-011",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-011",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-011",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-011",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-011",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-011",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-011",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-011",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-011",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-016",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-016",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-016",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-016",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-016",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-016",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-016",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-016",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-016",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-016",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-016",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-016",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-016",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-016",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-016",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-023",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-026",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-026",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-026",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-026",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-026",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-026",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-026",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-026",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-026",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-026",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-026",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-026",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-026",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-026",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-026",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-028",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-028",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-028",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-028",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-028",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-028",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-028",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-028",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-028",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-028",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-028",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-028",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-028",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-028",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-028",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-029",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-029",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-029",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-029",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-029",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-029",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-029",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-029",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-029",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-029",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-029",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-029",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-029",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-029",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-029",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-030",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-030",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-030",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-030",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-030",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-030",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-030",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-030",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-030",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-030",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-030",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-030",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-030",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-030",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-030",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-034",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-034",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-034",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-034",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-034",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-034",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-034",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-034",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-034",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-034",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-034",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-034",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-034",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-034",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-034",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-035",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-035",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-035",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-035",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-035",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-035",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-035",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-035",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-035",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-035",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-035",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-035",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-035",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-035",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-035",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-036",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-036",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-036",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-036",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-036",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-036",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-036",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-036",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-036",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-036",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-036",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-036",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-036",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-036",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-036",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-043",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-047",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-047",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-047",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-047",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-047",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-047",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-047",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-047",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-047",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-047",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-047",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-047",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-047",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-047",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-047",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-051",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-051",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-051",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-051",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-051",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-051",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-051",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-051",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-051",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-051",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-051",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-051",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-051",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-051",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-051",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-056",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-056",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-056",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-056",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-056",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-056",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-056",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-056",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-056",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-056",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-056",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-056",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-056",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-056",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-056",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-060",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-060",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-060",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-060",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-060",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-060",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-060",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-060",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-060",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-060",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-060",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-060",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-060",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-060",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-060",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-061",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-061",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-061",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-061",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-061",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-061",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-061",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-061",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-061",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-061",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-061",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-061",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-061",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-061",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-061",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-064",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-064",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-064",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-064",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-064",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-064",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-064",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-064",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-064",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-064",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-064",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-064",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-064",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-064",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-064",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-066",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-066",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-066",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-066",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-066",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-066",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-066",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-066",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-066",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-066",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-066",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-066",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-066",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-066",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-066",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-073",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-073",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-073",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-073",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-073",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-073",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-073",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-073",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-073",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-073",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-073",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-073",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-073",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-073",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-073",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-080",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-080",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-080",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-080",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-080",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-080",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-080",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-080",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-080",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-080",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-080",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-080",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-080",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-080",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-080",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-083",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-085",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-085",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-085",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-085",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-085",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-085",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-085",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-085",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-085",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-085",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-085",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-085",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-085",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-085",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-085",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-087",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-091",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-091",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-091",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-091",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-091",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-091",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-091",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-091",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-091",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-091",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-091",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-091",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-091",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-091",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-091",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-095",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-095",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-095",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-095",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-095",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-095",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-095",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-095",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-095",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-095",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-095",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-095",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-095",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-095",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-095",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-096",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-096",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-096",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-096",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-096",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-096",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-096",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-096",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-096",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-096",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-096",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-096",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-096",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-096",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-096",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "dt",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "dt",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "dt",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "dt",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "dt",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "is",
+    "heuristic" : "m",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "is",
+    "heuristic" : "rm",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "is",
+    "heuristic" : "maxCov",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "is",
+    "heuristic" : "poly",
+    "format" : "csvm",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csv",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "rses",
+    "reason" : "content differs"
+  }, {
+    "input" : "random/random-099",
+    "mode" : "is",
+    "heuristic" : "log",
+    "format" : "csvm",
+    "reason" : "content differs"
+  } ]
+}

@@ -1,0 +1,10 @@
+index,rule,coverage,length
+0,(a = z) -> (d = n),1,1
+1,(a = x,1) -> (d = y),1,1
+2,(a = "say ""hi""") -> (d = n),1,1
+coverage
+min,avg,max
+1,1.0,1
+length
+min,avg,max
+1,1.0,1

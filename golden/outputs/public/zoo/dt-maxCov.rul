@@ -1,0 +1,9 @@
+(hair=0)&(feathers=1)=>(type=2[12]) 12
+(feathers=0)&(milk=1)=>(type=1[19]) 19
+(hair=0)&(feathers=0)&(milk=0)&(airborne=0)&(toothed=0)&(backbone=0)&(predator=1)=>(type=7[7]) 7
+(feathers=0)&(eggs=1)&(milk=0)&(aquatic=0)&(toothed=0)&(backbone=0)&(breathes=1)&(legs=6)=>(type=6[6]) 6
+(hair=0)&(feathers=0)&(milk=0)&(airborne=0)&(toothed=0)&(backbone=0)&(legs=0)=>(type=7[3]) 3
+(hair=0)&(feathers=0)&(eggs=1)&(airborne=0)&(aquatic=1)&(toothed=1)&(breathes=0)=>(type=4[5]) 5
+(hair=0)&(feathers=0)&(eggs=1)&(airborne=0)&(aquatic=1)&(toothed=1)&(breathes=1)=>(type=5[4]) 4
+(hair=0)&(feathers=0)&(milk=0)&(airborne=0)&(backbone=1)&(fins=0)&(tail=1)&(legs=0)=>(type=3[3]) 3
+(hair=0)&(feathers=0)&(milk=0)&(airborne=0)&(backbone=1)&(fins=0)&(tail=1)&(aquatic=0)=>(type=3[4]) 4

@@ -1,0 +1,6 @@
+0,(łzawienie = tak) -> młody,1
+1,(łzawienie = nie) -> stary,1
+2,(wiek = stary) -> nie,1
+3,(wiek = młody) -> tak,1
+4,(wiek = młody) -> ą,1
+5,(wiek = stary) -> ę,1

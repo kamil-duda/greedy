@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Test-only logging. Tests that do not start Spring (characterization tests, golden generator) would otherwise get
+	logback's default DEBUG level: Spark then logs megabytes per job (including generated code), surefire's single
+	output reader falls behind writing reports, the forked test JVM blocks on stdout and Spark looks stalled.
+	Spring Boot tests still apply logging.level.* from src/test/resources/application.yml on top of this.
+-->
+<configuration>
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="WARN">
+		<appender-ref ref="CONSOLE"/>
+	</root>
+</configuration>

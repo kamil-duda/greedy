@@ -1,0 +1,6 @@
+(łzawienie=tak)=>(wiek=młody[1]) 1
+(łzawienie=nie)=>(wiek=stary[1]) 1
+(wiek=stary)=>(łzawienie=nie[1]) 1
+(wiek=młody)=>(łzawienie=tak[1]) 1
+(wiek=młody)=>(decyzja=ą[1]) 1
+(wiek=stary)=>(decyzja=ę[1]) 1

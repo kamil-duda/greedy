@@ -42,6 +42,11 @@
 		<commons.io.version>2.5</commons.io.version>
 
 		<failsafe.version>2.19.1</failsafe.version>
+
+		<!--Spark settings for test JVMs only (override with -D); main spark.properties is unaffected-->
+		<legacy.spark.master>local[4]</legacy.spark.master>
+		<legacy.spark.shufflePartitions>200</legacy.spark.shufflePartitions>
+		<legacy.spark.localityWait>3s</legacy.spark.localityWait>
 	</properties>
 
 
@@ -209,17 +214,108 @@
 				</executions>
 			</plugin>
 
+			<!--unit tests-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<systemPropertyVariables>
+						<greedy.spark.master>${legacy.spark.master}</greedy.spark.master>
+						<spark.sql.shuffle.partitions>${legacy.spark.shufflePartitions}</spark.sql.shuffle.partitions>
+						<spark.locality.wait>${legacy.spark.localityWait}</spark.locality.wait>
+						<!--keep Spark's job/SQL listeners from retaining per-task metrics of 1000 jobs: in a long-lived test JVM
+						(golden generation) that filled the heap; results are unaffected-->
+						<spark.ui.enabled>false</spark.ui.enabled>
+						<spark.ui.retainedJobs>50</spark.ui.retainedJobs>
+						<spark.ui.retainedStages>50</spark.ui.retainedStages>
+						<spark.sql.ui.retainedExecutions>50</spark.sql.ui.retainedExecutions>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin>
+
 			<!--failsafe integration tests-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>${failsafe.version}</version>
+				<configuration>
+					<!--failsafe 2.19.1 puts the Spring Boot repackaged jar on the classpath (classes under BOOT-INF/classes,
+					not loadable) even when classesDirectory is set to its default, so add target/classes explicitly-->
+					<additionalClasspathElements>
+						<additionalClasspathElement>${project.build.outputDirectory}</additionalClasspathElement>
+					</additionalClasspathElements>
+					<systemPropertyVariables>
+						<greedy.spark.master>${legacy.spark.master}</greedy.spark.master>
+						<spark.sql.shuffle.partitions>${legacy.spark.shufflePartitions}</spark.sql.shuffle.partitions>
+						<spark.locality.wait>${legacy.spark.localityWait}</spark.locality.wait>
+						<!--keep Spark's job/SQL listeners from retaining per-task metrics of 1000 jobs: in a long-lived test JVM
+						(golden generation) that filled the heap; results are unaffected-->
+						<spark.ui.enabled>false</spark.ui.enabled>
+						<spark.ui.retainedJobs>50</spark.ui.retainedJobs>
+						<spark.ui.retainedStages>50</spark.ui.retainedStages>
+						<spark.sql.ui.retainedExecutions>50</spark.sql.ui.retainedExecutions>
+					</systemPropertyVariables>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
 							<goal>integration-test</goal>
 							<goal>verify</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!--coverage: surefire and failsafe both pick up the agent via ${argLine} and append to target/jacoco.exec;
+			declared after failsafe so the report in the verify phase includes integration tests-->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.12</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<includes>
+								<include>org.kduda.greedy.*</include>
+							</includes>
+						</configuration>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<!--Phase 0 coverage target: algorithm, formatter and service code; accepted gaps in docs/plans/phase-0-notes.md-->
+					<execution>
+						<id>check</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<rule>
+									<element>PACKAGE</element>
+									<includes>
+										<include>org.kduda.greedy.algorithm*</include>
+										<include>org.kduda.greedy.service*</include>
+									</includes>
+									<limits>
+										<limit>
+											<counter>LINE</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>0.95</minimum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

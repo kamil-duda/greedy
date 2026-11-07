@@ -1,0 +1,9 @@
+index,rule,coverage,length
+0,(c3 = 0) -> (d = c),2,1
+1,(c3 = 2) -> (d = b),3,1
+coverage
+min,avg,max
+2,2.5,3
+length
+min,avg,max
+1,1.0,1

@@ -1,0 +1,13 @@
+index,rule,coverage,length
+0,(łzawienie = tak) -> (wiek = młody),1,1
+1,(łzawienie = nie) -> (wiek = stary),1,1
+2,(wiek = stary) -> (łzawienie = nie),1,1
+3,(wiek = młody) -> (łzawienie = tak),1,1
+4,(wiek = młody) -> (decyzja = ą),1,1
+5,(wiek = stary) -> (decyzja = ę),1,1
+coverage
+min,avg,max
+1,1.0,1
+length
+min,avg,max
+1,1.0,1

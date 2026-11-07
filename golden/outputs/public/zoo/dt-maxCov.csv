@@ -1,0 +1,9 @@
+0,(hair = 0)(feathers = 1) -> 2,2
+1,(feathers = 0)(milk = 1) -> 1,2
+2,(hair = 0)(feathers = 0)(milk = 0)(airborne = 0)(toothed = 0)(backbone = 0)(predator = 1) -> 7,7
+3,(feathers = 0)(eggs = 1)(milk = 0)(aquatic = 0)(toothed = 0)(backbone = 0)(breathes = 1)(legs = 6) -> 6,8
+4,(hair = 0)(feathers = 0)(milk = 0)(airborne = 0)(toothed = 0)(backbone = 0)(legs = 0) -> 7,7
+5,(hair = 0)(feathers = 0)(eggs = 1)(airborne = 0)(aquatic = 1)(toothed = 1)(breathes = 0) -> 4,7
+6,(hair = 0)(feathers = 0)(eggs = 1)(airborne = 0)(aquatic = 1)(toothed = 1)(breathes = 1) -> 5,7
+7,(hair = 0)(feathers = 0)(milk = 0)(airborne = 0)(backbone = 1)(fins = 0)(tail = 1)(legs = 0) -> 3,8
+8,(hair = 0)(feathers = 0)(milk = 0)(airborne = 0)(backbone = 1)(fins = 0)(tail = 1)(aquatic = 0) -> 3,8

@@ -1,0 +1,2 @@
+# Golden corpus files are byte-exact test data: never convert line endings (bom-crlf.csv must keep CRLF).
+* -text

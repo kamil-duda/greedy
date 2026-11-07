@@ -1,0 +1,17 @@
+index,rule,coverage,length
+0,(age = 1) & (astigmatic = 2) & (tear-production-rate = 2) -> (contact-lenses = 1),2,3
+1,(age = 2) & (spectacle-prescription = 2) & (astigmatic = 2) -> (contact-lenses = 3),2,3
+2,(age = 3) & (spectacle-prescription = 2) & (astigmatic = 2) -> (contact-lenses = 3),2,3
+3,(age = 2) & (astigmatic = 1) & (tear-production-rate = 2) -> (contact-lenses = 2),2,3
+4,(tear-production-rate = 1) -> (contact-lenses = 3),12,1
+5,(age = 3) & (spectacle-prescription = 1) & (astigmatic = 2) & (tear-production-rate = 2) -> (contact-lenses = 1),1,4
+6,(age = 1) & (astigmatic = 1) & (tear-production-rate = 2) -> (contact-lenses = 2),2,3
+7,(age = 3) & (spectacle-prescription = 1) & (astigmatic = 1) -> (contact-lenses = 3),2,3
+8,(age = 3) & (spectacle-prescription = 2) & (astigmatic = 1) & (tear-production-rate = 2) -> (contact-lenses = 2),1,4
+9,(age = 2) & (spectacle-prescription = 1) & (astigmatic = 2) & (tear-production-rate = 2) -> (contact-lenses = 1),1,4
+coverage
+min,avg,max
+1,2.7,12
+length
+min,avg,max
+1,3.1,4

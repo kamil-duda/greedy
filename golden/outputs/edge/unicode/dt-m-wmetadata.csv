@@ -1,0 +1,9 @@
+index,rule,coverage,length
+0,(wiek = młody) -> (decyzja = ą),1,1
+1,(wiek = stary) -> (decyzja = ę),1,1
+coverage
+min,avg,max
+1,1.0,1
+length
+min,avg,max
+1,1.0,1

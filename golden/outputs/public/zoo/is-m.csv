@@ -1,0 +1,279 @@
+0,(breathes = 0)(legs = 4) -> 1,2
+1,(legs = 4)(toothed = 0)(hair = 1) -> 1,3
+2,(feathers = 1) -> 0,1
+3,(legs = 2)(fins = 0) -> 0,2
+4,(type = 3)(eggs = 1) -> 0,2
+5,(hair = 1)(predator = 0) -> 0,2
+6,(domestic = 1)(hair = 1) -> 0,2
+7,(breathes = 0)(legs = 6) -> 1,2
+8,(fins = 1) -> 1,1
+9,(predator = 0)(toothed = 0) -> 0,2
+10,(legs = 5) -> 1,1
+11,(breathes = 0)(eggs = 0) -> 1,2
+12,(airborne = 1) -> 0,1
+13,(type = 6) -> 0,1
+14,(backbone = 0)(legs = 0)(venomous = 0) -> 0,3
+15,(breathes = 0)(legs = 8) -> 1,2
+16,(hair = 1)(fins = 0)(eggs = 0) -> 0,3
+17,(hair = 1)(catsize = 0) -> 0,2
+18,(breathes = 0)(venomous = 1) -> 1,2
+19,(legs = 2)(predator = 0) -> 0,2
+20,(type = 5) -> 1,1
+21,(legs = 8)(eggs = 0) -> 0,2
+22,(backbone = 0) -> 0,1
+23,(type = 3)(predator = 0) -> 0,2
+24,(type = 3)(predator = 1) -> 1,2
+25,(eggs = 0)(hair = 1) -> 1,2
+26,(eggs = 0)(aquatic = 1) -> 1,2
+27,(eggs = 1)(hair = 1) -> 0,2
+28,(fins = 1) -> 1,1
+29,(type = 5) -> 1,1
+30,(feathers = 1) -> 0,1
+31,(milk = 1)(tail = 0)(legs = 2)(predator = 1) -> 1,4
+32,(airborne = 1) -> 0,1
+33,(aquatic = 1) -> 0,1
+34,(hair = 0) -> 0,1
+35,(predator = 0)(legs = 2) -> 0,2
+36,(predator = 1)(legs = 4) -> 0,2
+37,(milk = 1)(tail = 0)(catsize = 0) -> 1,3
+38,(tail = 1) -> 0,1
+39,(eggs = 1) -> 0,1
+40,(type = 7) -> 0,1
+41,(legs = 8) -> 0,1
+42,(milk = 1)(legs = 2) -> 1,2
+43,(type = 6)(venomous = 1) -> 1,2
+44,(milk = 0)(airborne = 0) -> 0,2
+45,(milk = 1)(eggs = 1) -> 1,2
+46,(milk = 1)(aquatic = 0) -> 1,2
+47,(domestic = 1)(backbone = 0) -> 1,2
+48,(legs = 0)(tail = 1) -> 0,2
+49,(milk = 1)(airborne = 1) -> 1,2
+50,(type = 5) -> 0,1
+51,(milk = 1)(fins = 0) -> 1,2
+52,(milk = 1)(tail = 0) -> 1,2
+53,(feathers = 1) -> 0,1
+54,(breathes = 0) -> 0,1
+55,(type = 3) -> 0,1
+56,(milk = 0)(venomous = 0) -> 0,2
+57,(milk = 0)(predator = 1) -> 0,2
+58,(milk = 1)(aquatic = 0) -> 0,2
+59,(toothed = 0)(breathes = 0) -> 1,2
+60,(milk = 1)(toothed = 1) -> 0,2
+61,(milk = 1)(airborne = 1) -> 0,2
+62,(type = 4) -> 1,1
+63,(legs = 5) -> 1,1
+64,(feathers = 1) -> 1,1
+65,(toothed = 0)(aquatic = 1) -> 1,2
+66,(toothed = 0)(hair = 1) -> 1,2
+67,(type = 3)(aquatic = 0) -> 1,2
+68,(milk = 1)(hair = 0) -> 0,2
+69,(legs = 8)(aquatic = 0) -> 0,2
+70,(type = 3)(aquatic = 1) -> 0,2
+71,(legs = 6) -> 1,1
+72,(type = 5) -> 1,1
+73,(toothed = 0)(predator = 0) -> 1,2
+74,(type = 1) -> 1,1
+75,(venomous = 1) -> 0,1
+76,(feathers = 1) -> 0,1
+77,(breathes = 0) -> 0,1
+78,(type = 5) -> 0,1
+79,(backbone = 0) -> 0,1
+80,(type = 3) -> 0,1
+81,(eggs = 0) -> 0,1
+82,(legs = 4) -> 0,1
+83,(catsize = 1)(predator = 1) -> 0,2
+84,(breathes = 0) -> 0,1
+85,(legs = 0) -> 0,1
+86,(feathers = 1)(domestic = 1) -> 1,2
+87,(predator = 1)(feathers = 1)(aquatic = 0) -> 0,3
+88,(catsize = 1)(aquatic = 0) -> 0,2
+89,(feathers = 1)(predator = 0)(catsize = 0) -> 1,3
+90,(feathers = 0)(hair = 0)(predator = 0) -> 0,3
+91,(feathers = 1)(aquatic = 1)(predator = 0) -> 1,3
+92,(toothed = 1) -> 0,1
+93,(type = 6)(hair = 1) -> 1,2
+94,(type = 6)(predator = 1) -> 1,2
+95,(milk = 1) -> 0,1
+96,(feathers = 1)(aquatic = 1)(catsize = 0) -> 1,3
+97,(hair = 1) -> 0,1
+98,(eggs = 0) -> 0,1
+99,(legs = 4) -> 0,1
+100,(toothed = 1) -> 0,1
+101,(backbone = 0) -> 0,1
+102,(type = 2) -> 1,1
+103,(eggs = 0)(predator = 0) -> 1,2
+104,(legs = 2)(airborne = 1) -> 1,2
+105,(backbone = 0)(eggs = 1) -> 0,2
+106,(type = 4) -> 1,1
+107,(feathers = 1) -> 1,1
+108,(legs = 8)(eggs = 0) -> 1,2
+109,(legs = 6) -> 0,1
+110,(type = 5)(venomous = 1) -> 0,2
+111,(fins = 1)(hair = 1)(legs = 0) -> 0,3
+112,(type = 3) -> 1,1
+113,(milk = 1)(eggs = 1) -> 1,2
+114,(eggs = 0)(legs = 4) -> 1,2
+115,(legs = 5) -> 0,1
+116,(fins = 1)(hair = 0) -> 1,2
+117,(domestic = 1)(predator = 1)(legs = 2) -> 0,3
+118,(type = 5)(predator = 0) -> 0,2
+119,(type = 5)(predator = 1)(venomous = 0) -> 1,3
+120,(fins = 1)(legs = 2) -> 1,2
+121,(legs = 2)(predator = 0) -> 1,2
+122,(legs = 6) -> 0,1
+123,(type = 3) -> 1,1
+124,(legs = 5) -> 0,1
+125,(toothed = 1) -> 1,1
+126,(milk = 1) -> 1,1
+127,(type = 7) -> 0,1
+128,(feathers = 1) -> 1,1
+129,(legs = 8) -> 0,1
+130,(backbone = 0)(venomous = 1) -> 0,2
+131,(domestic = 1)(predator = 0) -> 0,2
+132,(predator = 0)(hair = 1)(legs = 4) -> 0,3
+133,(backbone = 0)(eggs = 0) -> 0,2
+134,(venomous = 1)(eggs = 0) -> 0,2
+135,(airborne = 1) -> 0,1
+136,(fins = 1)(venomous = 1) -> 1,2
+137,(domestic = 1)(predator = 1) -> 1,2
+138,(milk = 1)(predator = 1)(tail = 0) -> 1,3
+139,(milk = 1)(aquatic = 1) -> 1,2
+140,(backbone = 0)(legs = 4) -> 0,2
+141,(feathers = 1)(aquatic = 0)(predator = 1) -> 0,3
+142,(legs = 5) -> 0,1
+143,(type = 5) -> 0,1
+144,(legs = 8)(eggs = 1) -> 1,2
+145,(predator = 0)(hair = 1)(tail = 1) -> 0,3
+146,(milk = 1)(eggs = 1) -> 1,2
+147,(milk = 1)(tail = 0)(legs = 2) -> 1,3
+148,(backbone = 0)(aquatic = 0) -> 0,2
+149,(type = 4)(predator = 0) -> 0,2
+150,(venomous = 1)(aquatic = 0) -> 0,2
+151,(legs = 4)(eggs = 0)(aquatic = 0)(tail = 1)(domestic = 0) -> 0,5
+152,(fins = 1)(hair = 1) -> 1,2
+153,(legs = 6) -> 0,1
+154,(type = 4)(venomous = 0) -> 0,2
+155,(type = 3)(predator = 0) -> 1,2
+156,(fins = 1)(eggs = 0) -> 1,2
+157,(feathers = 1)(airborne = 0)(predator = 0) -> 1,3
+158,(type = 3)(predator = 1) -> 0,2
+159,(feathers = 1)(airborne = 0)(aquatic = 1) -> 1,3
+160,(eggs = 0)(aquatic = 0) -> 1,2
+161,(type = 7)(aquatic = 1) -> 0,2
+162,(milk = 1) -> 1,1
+163,(aquatic = 0)(toothed = 1) -> 1,2
+164,(legs = 5) -> 0,1
+165,(feathers = 1) -> 1,1
+166,(type = 5) -> 1,1
+167,(aquatic = 0)(predator = 0) -> 1,2
+168,(type = 7)(eggs = 1)(predator = 1) -> 0,3
+169,(type = 4) -> 0,1
+170,(type = 6) -> 1,1
+171,(airborne = 1) -> 1,1
+172,(hair = 1) -> 1,1
+173,(legs = 8)(eggs = 1) -> 0,2
+174,(type = 3)(eggs = 0) -> 0,2
+175,(fins = 1)(hair = 1)(tail = 1) -> 2,3
+176,(domestic = 1)(predator = 1)(tail = 0) -> 2,3
+177,(breathes = 0)(aquatic = 0) -> 0,2
+178,(type = 4) -> 0,1
+179,(type = 3)(predator = 0) -> 4,2
+180,(type = 6) -> 6,1
+181,(milk = 1)(aquatic = 0)(predator = 1)(domestic = 0) -> 4,4
+182,(feathers = 1) -> 2,1
+183,(milk = 1)(aquatic = 0)(predator = 1)(tail = 1) -> 4,4
+184,(type = 7)(predator = 0) -> 0,2
+185,(type = 3)(venomous = 0) -> 4,2
+186,(fins = 1)(hair = 0) -> 0,2
+187,(type = 7)(catsize = 1) -> 8,2
+188,(milk = 1)(aquatic = 1)(fins = 0) -> 4,3
+189,(breathes = 0)(eggs = 0) -> 0,2
+190,(fins = 1)(tail = 0) -> 0,2
+191,(type = 3)(venomous = 1) -> 0,2
+192,(type = 7)(eggs = 0) -> 8,2
+193,(type = 7)(aquatic = 1)(venomous = 0)(catsize = 0) -> 4,4
+194,(airborne = 1)(eggs = 0) -> 2,2
+195,(milk = 1)(catsize = 0)(airborne = 0) -> 4,3
+196,(domestic = 1)(eggs = 0)(predator = 0) -> 4,3
+197,(milk = 1)(predator = 0)(airborne = 0)(tail = 1) -> 4,4
+198,(domestic = 1)(eggs = 0)(tail = 1) -> 4,3
+199,(milk = 1)(tail = 0)(predator = 0)(domestic = 0) -> 2,4
+200,(milk = 1)(eggs = 1) -> 4,2
+201,(breathes = 0)(venomous = 1) -> 0,2
+202,(type = 5) -> 4,1
+203,(feathers = 1) -> 2,1
+204,(venomous = 1)(legs = 4) -> 5,2
+205,(backbone = 0)(breathes = 0) -> 7,2
+206,(backbone = 0)(legs = 0) -> 7,2
+207,(fins = 1)(eggs = 1) -> 4,2
+208,(legs = 4)(hair = 0)(aquatic = 1)(toothed = 1) -> 5,4
+209,(backbone = 0)(aquatic = 1) -> 7,2
+210,(legs = 6)(aquatic = 0) -> 6,2
+211,(legs = 6)(hair = 1) -> 6,2
+212,(legs = 4)(toothed = 0)(aquatic = 0) -> 3,3
+213,(legs = 5) -> 7,1
+214,(milk = 1) -> 1,1
+215,(legs = 6)(airborne = 1) -> 6,2
+216,(venomous = 1)(eggs = 0)(aquatic = 1) -> 3,3
+217,(venomous = 1)(toothed = 1)(aquatic = 0) -> 3,3
+218,(legs = 4)(hair = 0)(aquatic = 1)(predator = 0) -> 5,4
+219,(legs = 0)(aquatic = 0)(toothed = 1) -> 3,3
+220,(legs = 4)(hair = 0)(aquatic = 0) -> 3,3
+221,(legs = 8) -> 7,1
+222,(domestic = 1)(hair = 0) -> 0,2
+223,(breathes = 0)(aquatic = 0) -> 1,2
+224,(type = 3)(toothed = 1) -> 1,2
+225,(legs = 5) -> 1,1
+226,(catsize = 1)(domestic = 1) -> 1,2
+227,(legs = 8) -> 1,1
+228,(airborne = 1)(aquatic = 1)(catsize = 1) -> 0,3
+229,(type = 5) -> 1,1
+230,(breathes = 0)(venomous = 1) -> 1,2
+231,(legs = 2)(hair = 1)(aquatic = 0)(tail = 1) -> 0,4
+232,(legs = 2)(hair = 1)(catsize = 0) -> 0,3
+233,(legs = 4)(domestic = 0)(hair = 1) -> 1,3
+234,(aquatic = 1)(hair = 1) -> 1,2
+235,(domestic = 1)(catsize = 0) -> 0,2
+236,(fins = 1)(hair = 1) -> 1,2
+237,(feathers = 1)(aquatic = 1)(catsize = 0) -> 1,3
+238,(legs = 2)(tail = 0)(domestic = 0) -> 0,3
+239,(type = 7)(breathes = 1)(eggs = 1) -> 0,3
+240,(airborne = 1)(hair = 1) -> 0,2
+241,(breathes = 0)(eggs = 0) -> 1,2
+242,(feathers = 1)(airborne = 0) -> 1,2
+243,(type = 6)(hair = 1) -> 0,2
+244,(type = 6)(airborne = 0) -> 0,2
+245,(legs = 4)(tail = 0)(domestic = 0) -> 1,3
+246,(type = 3)(toothed = 0) -> 0,2
+247,(feathers = 1)(aquatic = 0)(domestic = 0) -> 1,3
+248,(breathes = 0)(toothed = 0) -> 1,2
+249,(fins = 1)(eggs = 0) -> 1,2
+250,(breathes = 0)(domestic = 0) -> 1,2
+251,(legs = 4)(catsize = 1)(hair = 1) -> 1,3
+252,(legs = 6)(hair = 0)(airborne = 1) -> 1,3
+253,(legs = 0)(hair = 1) -> 1,2
+254,(milk = 1)(aquatic = 1)(legs = 2) -> 1,3
+255,(feathers = 1) -> 0,1
+256,(type = 4) -> 1,1
+257,(aquatic = 0) -> 0,1
+258,(legs = 0)(milk = 1) -> 1,2
+259,(toothed = 0) -> 0,1
+260,(legs = 4) -> 0,1
+261,(airborne = 1) -> 0,1
+262,(type = 3) -> 0,1
+263,(eggs = 1)(hair = 0)(aquatic = 0) -> 0,3
+264,(legs = 4) -> 0,1
+265,(type = 3)(eggs = 0) -> 1,2
+266,(fins = 1) -> 0,1
+267,(type = 6)(domestic = 1) -> 1,2
+268,(legs = 8)(eggs = 0) -> 1,2
+269,(feathers = 1) -> 0,1
+270,(toothed = 1)(eggs = 1) -> 0,2
+271,(predator = 0)(hair = 0) -> 0,2
+272,(catsize = 1) -> 0,1
+273,(hair = 1)(domestic = 0) -> 0,2
+274,(legs = 5) -> 0,1
+275,(airborne = 1)(hair = 0) -> 0,2
+276,(milk = 1) -> 0,1
+277,(legs = 6)(hair = 0) -> 0,2
+278,(type = 7)(legs = 0)(aquatic = 1) -> 1,3

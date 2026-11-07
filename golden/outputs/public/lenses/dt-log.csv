@@ -1,0 +1,9 @@
+0,(astigmatic = 1)(tear-production-rate = 2)(age = 1) -> 2,3
+1,(age = 2)(spectacle-prescription = 2)(astigmatic = 2) -> 3,3
+2,(age = 3)(spectacle-prescription = 2)(astigmatic = 2) -> 3,3
+3,(astigmatic = 2)(tear-production-rate = 2)(age = 1) -> 1,3
+4,(astigmatic = 1)(tear-production-rate = 2)(spectacle-prescription = 2) -> 2,3
+5,(astigmatic = 1)(tear-production-rate = 2)(age = 2) -> 2,3
+6,(tear-production-rate = 1) -> 3,1
+7,(astigmatic = 2)(tear-production-rate = 2)(spectacle-prescription = 1) -> 1,3
+8,(age = 3)(spectacle-prescription = 1)(astigmatic = 1) -> 3,3

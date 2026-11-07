@@ -1,0 +1,10 @@
+(age=1)&(astigmatic=2)&(tear-production-rate=2)=>(contact-lenses=1[2]) 2
+(age=2)&(spectacle-prescription=2)&(astigmatic=2)=>(contact-lenses=3[2]) 2
+(age=3)&(spectacle-prescription=2)&(astigmatic=2)=>(contact-lenses=3[2]) 2
+(age=2)&(astigmatic=1)&(tear-production-rate=2)=>(contact-lenses=2[2]) 2
+(tear-production-rate=1)=>(contact-lenses=3[12]) 12
+(age=3)&(spectacle-prescription=1)&(astigmatic=2)&(tear-production-rate=2)=>(contact-lenses=1[1]) 1
+(age=1)&(astigmatic=1)&(tear-production-rate=2)=>(contact-lenses=2[2]) 2
+(age=3)&(spectacle-prescription=1)&(astigmatic=1)=>(contact-lenses=3[2]) 2
+(age=3)&(spectacle-prescription=2)&(astigmatic=1)&(tear-production-rate=2)=>(contact-lenses=2[1]) 1
+(age=2)&(spectacle-prescription=1)&(astigmatic=2)&(tear-production-rate=2)=>(contact-lenses=1[1]) 1

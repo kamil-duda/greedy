@@ -1,0 +1,10 @@
+index,rule,coverage,length
+0,(a = 01) -> (d = y),1,1
+1,(a = 1) -> (d = n),1,1
+2,(a = 1.0) -> (d = y),1,1
+coverage
+min,avg,max
+1,1.0,1
+length
+min,avg,max
+1,1.0,1

@@ -1,0 +1,301 @@
+0,(safety = high)(persons = more)(buying = med)(maint = low)(lug_boot = med)(doors = 5more) -> vgood,6
+1,(safety = high)(persons = 4)(lug_boot = small)(doors = 5more)(buying = vhigh)(maint = low) -> acc,6
+2,(persons = more)(safety = med)(lug_boot = big)(buying = high)(maint = med) -> acc,5
+3,(safety = high)(persons = more)(buying = high)(maint = med)(lug_boot = med) -> acc,5
+4,(safety = high)(persons = more)(buying = med)(maint = vhigh)(doors = 5more) -> acc,5
+5,(maint = low)(buying = med)(persons = more)(lug_boot = med)(doors = 2)(safety = high) -> good,6
+6,(buying = vhigh)(doors = 2)(lug_boot = med)(safety = med) -> unacc,4
+7,(safety = high)(persons = more)(lug_boot = med)(doors = 2)(buying = med)(maint = vhigh) -> acc,6
+8,(buying = low)(maint = med)(persons = 4)(safety = high)(doors = 3)(lug_boot = med) -> good,6
+9,(persons = more)(safety = med)(buying = med)(lug_boot = med)(maint = vhigh)(doors = 5more) -> acc,6
+10,(persons = more)(safety = med)(buying = med)(doors = 3)(lug_boot = small)(maint = low) -> acc,6
+11,(safety = high)(buying = low)(lug_boot = big)(persons = more)(maint = low) -> vgood,5
+12,(persons = more)(safety = med)(lug_boot = big)(buying = med)(maint = vhigh) -> acc,5
+13,(safety = high)(persons = more)(lug_boot = med)(buying = med)(maint = high) -> acc,5
+14,(persons = more)(safety = med)(buying = low)(doors = 5more)(lug_boot = small)(maint = low) -> acc,6
+15,(persons = more)(safety = med)(maint = med)(lug_boot = med)(buying = high)(doors = 4) -> acc,6
+16,(safety = high)(buying = low)(persons = more)(lug_boot = med)(maint = med)(doors = 3) -> vgood,6
+17,(buying = vhigh)(maint = vhigh) -> unacc,2
+18,(safety = high)(buying = med)(maint = low)(persons = 4)(doors = 5more)(lug_boot = med) -> vgood,6
+19,(maint = vhigh)(lug_boot = small)(doors = 2)(persons = more) -> unacc,4
+20,(persons = more)(safety = med)(lug_boot = big)(doors = 2)(buying = vhigh)(maint = low) -> acc,6
+21,(persons = 4)(safety = med)(buying = med)(doors = 5more)(lug_boot = med)(maint = high) -> acc,6
+22,(persons = 4)(safety = med)(lug_boot = big)(buying = med)(maint = vhigh) -> acc,5
+23,(safety = high)(persons = 4)(lug_boot = med)(buying = vhigh)(maint = low) -> acc,5
+24,(safety = high)(persons = 4)(buying = high)(maint = high) -> acc,4
+25,(safety = high)(persons = more)(buying = high)(maint = low)(lug_boot = med) -> acc,5
+26,(safety = high)(persons = 4)(doors = 2)(maint = vhigh)(buying = low) -> acc,5
+27,(safety = high)(persons = more)(buying = high)(maint = low)(doors = 3) -> acc,5
+28,(maint = low)(buying = med)(persons = 4)(safety = high)(doors = 2)(lug_boot = med) -> good,6
+29,(safety = high)(persons = more)(buying = high)(maint = low)(lug_boot = big) -> acc,5
+30,(persons = more)(safety = med)(maint = med)(doors = 5more)(lug_boot = small)(buying = low) -> acc,6
+31,(safety = high)(persons = 4)(lug_boot = small)(buying = med)(maint = high) -> acc,5
+32,(safety = high)(persons = more)(doors = 4)(lug_boot = small)(buying = vhigh)(maint = low) -> acc,6
+33,(buying = low)(safety = med)(maint = low)(persons = more)(lug_boot = med)(doors = 3) -> good,6
+34,(persons = more)(safety = med)(lug_boot = med)(maint = high)(buying = high)(doors = 4) -> acc,6
+35,(persons = more)(safety = med)(maint = med)(doors = 4)(lug_boot = small)(buying = low) -> acc,6
+36,(persons = more)(safety = med)(buying = med)(maint = med)(lug_boot = med) -> acc,5
+37,(persons = more)(safety = med)(buying = med)(lug_boot = med)(maint = vhigh)(doors = 3) -> acc,6
+38,(persons = 4)(safety = med)(lug_boot = big)(doors = 2)(buying = low)(maint = vhigh) -> acc,6
+39,(safety = high)(buying = med)(maint = med)(persons = 4)(doors = 5more)(lug_boot = med) -> vgood,6
+40,(persons = more)(safety = med)(lug_boot = big)(maint = high)(buying = low) -> acc,5
+41,(safety = high)(persons = more)(buying = med)(doors = 4)(lug_boot = small)(maint = med) -> acc,6
+42,(safety = high)(persons = more)(buying = high)(maint = high)(lug_boot = med) -> acc,5
+43,(safety = high)(lug_boot = big)(persons = more)(buying = med)(maint = med) -> vgood,5
+44,(safety = high)(persons = 4)(lug_boot = small)(doors = 2)(buying = low)(maint = vhigh) -> acc,6
+45,(persons = 4)(safety = med)(buying = med)(doors = 5more)(lug_boot = med)(maint = vhigh) -> acc,6
+46,(safety = high)(buying = low)(lug_boot = big)(persons = 4)(maint = high) -> vgood,5
+47,(safety = high)(persons = more)(lug_boot = med)(buying = med)(maint = vhigh) -> acc,5
+48,(persons = 4)(safety = med)(buying = med)(doors = 5more)(lug_boot = small)(maint = low) -> acc,6
+49,(safety = high)(buying = low)(persons = more)(lug_boot = med)(maint = high)(doors = 5more) -> vgood,6
+50,(persons = more)(safety = med)(maint = med)(lug_boot = med)(buying = high)(doors = 5more) -> acc,6
+51,(safety = high)(persons = more)(maint = med)(buying = vhigh)(doors = 3) -> acc,5
+52,(persons = more)(safety = med)(maint = med)(lug_boot = med)(buying = vhigh)(doors = 4) -> acc,6
+53,(safety = high)(lug_boot = big)(persons = more)(buying = med)(maint = low) -> vgood,5
+54,(buying = low)(maint = low)(persons = 4)(safety = high)(doors = 3)(lug_boot = med) -> good,6
+55,(safety = high)(persons = 4)(lug_boot = small)(doors = 5more)(buying = low)(maint = vhigh) -> acc,6
+56,(safety = high)(persons = more)(buying = high)(maint = high)(doors = 4) -> acc,5
+57,(safety = high)(persons = 4)(doors = 5more)(buying = vhigh)(maint = low) -> acc,5
+58,(safety = high)(persons = more)(lug_boot = med)(doors = 2)(maint = med)(buying = vhigh) -> acc,6
+59,(lug_boot = small)(safety = med)(maint = high)(buying = med) -> unacc,4
+60,(safety = high)(persons = 4)(doors = 2)(buying = vhigh)(maint = low) -> acc,5
+61,(safety = high)(persons = 4)(doors = 3)(maint = vhigh)(buying = low) -> acc,5
+62,(safety = high)(persons = 4)(buying = med)(maint = vhigh) -> acc,4
+63,(safety = high)(persons = more)(doors = 4)(lug_boot = small)(buying = low)(maint = vhigh) -> acc,6
+64,(safety = high)(persons = more)(buying = med)(maint = med)(lug_boot = med)(doors = 4) -> vgood,6
+65,(persons = 4)(safety = med)(lug_boot = big)(doors = 3)(buying = low)(maint = vhigh) -> acc,6
+66,(persons = more)(safety = med)(buying = med)(doors = 5more)(lug_boot = small)(maint = low) -> acc,6
+67,(safety = high)(persons = more)(doors = 5more)(buying = vhigh)(maint = low) -> acc,5
+68,(safety = high)(persons = more)(buying = high)(maint = high)(lug_boot = big) -> acc,5
+69,(persons = more)(safety = med)(buying = med)(lug_boot = med)(maint = vhigh)(doors = 4) -> acc,6
+70,(persons = more)(safety = med)(maint = med)(lug_boot = med)(buying = vhigh)(doors = 3) -> acc,6
+71,(persons = more)(safety = med)(lug_boot = med)(doors = 5more)(buying = low)(maint = vhigh) -> acc,6
+72,(persons = 2) -> unacc,1
+73,(safety = high)(persons = more)(buying = med)(doors = 3)(lug_boot = small)(maint = med) -> acc,6
+74,(persons = more)(safety = med)(lug_boot = med)(doors = 3)(buying = high)(maint = low) -> acc,6
+75,(persons = more)(safety = med)(lug_boot = med)(maint = high)(buying = low) -> acc,5
+76,(persons = 4)(safety = med)(lug_boot = big)(doors = 5more)(buying = low)(maint = vhigh) -> acc,6
+77,(persons = more)(safety = med)(lug_boot = big)(doors = 5more)(buying = vhigh)(maint = low) -> acc,6
+78,(buying = low)(safety = med)(maint = med)(persons = more)(lug_boot = med)(doors = 3) -> good,6
+79,(persons = more)(safety = med)(buying = low)(doors = 4)(lug_boot = small)(maint = low) -> acc,6
+80,(maint = low)(buying = med)(persons = more)(safety = high)(lug_boot = small)(doors = 3) -> good,6
+81,(safety = high)(persons = 4)(lug_boot = small)(doors = 4)(buying = vhigh)(maint = low) -> acc,6
+82,(lug_boot = small)(doors = 2)(buying = high)(safety = med) -> unacc,4
+83,(safety = high)(persons = more)(buying = med)(maint = vhigh)(doors = 4) -> acc,5
+84,(persons = 4)(safety = med)(doors = 4)(lug_boot = med)(buying = high)(maint = low) -> acc,6
+85,(safety = high)(buying = low)(lug_boot = big)(persons = more)(maint = high) -> vgood,5
+86,(safety = high)(persons = 4)(buying = med)(doors = 3)(lug_boot = med)(maint = med) -> acc,6
+87,(persons = more)(safety = med)(lug_boot = med)(maint = high)(buying = high)(doors = 5more) -> acc,6
+88,(safety = high)(persons = more)(lug_boot = med)(maint = vhigh)(buying = low) -> acc,5
+89,(safety = high)(persons = more)(buying = high)(maint = low)(doors = 4) -> acc,5
+90,(persons = 4)(safety = med)(buying = low)(doors = 3)(lug_boot = med)(maint = med) -> acc,6
+91,(safety = high)(persons = more)(maint = med)(buying = vhigh)(lug_boot = big) -> acc,5
+92,(buying = high)(doors = 3)(lug_boot = med)(persons = 4)(safety = med) -> unacc,5
+93,(safety = high)(lug_boot = big)(persons = 4)(buying = med)(maint = med) -> vgood,5
+94,(persons = 4)(safety = med)(doors = 5more)(lug_boot = med)(buying = high)(maint = low) -> acc,6
+95,(safety = high)(persons = 4)(lug_boot = small)(maint = med)(buying = vhigh) -> acc,5
+96,(maint = low)(buying = med)(persons = more)(safety = high)(lug_boot = small)(doors = 4) -> good,6
+97,(persons = 4)(safety = med)(buying = med)(lug_boot = med)(maint = low)(doors = 2) -> acc,6
+98,(safety = high)(persons = more)(lug_boot = med)(doors = 2)(maint = high)(buying = low) -> acc,6
+99,(maint = low)(safety = med)(buying = med)(persons = more)(lug_boot = med)(doors = 4) -> good,6
+100,(safety = high)(persons = 4)(buying = high)(maint = med) -> acc,4
+101,(safety = high)(buying = low)(persons = 4)(maint = med)(doors = 4)(lug_boot = med) -> vgood,6
+102,(buying = vhigh)(lug_boot = small)(doors = 2)(persons = more) -> unacc,4
+103,(buying = vhigh)(doors = 3)(lug_boot = med)(persons = 4)(safety = med) -> unacc,5
+104,(safety = high)(lug_boot = big)(persons = 4)(buying = med)(maint = low) -> vgood,5
+105,(buying = vhigh)(maint = high) -> unacc,2
+106,(persons = more)(safety = med)(buying = low)(doors = 3)(lug_boot = small)(maint = low) -> acc,6
+107,(buying = low)(safety = med)(maint = med)(persons = more)(lug_boot = med)(doors = 5more) -> good,6
+108,(persons = more)(safety = med)(lug_boot = big)(buying = high)(maint = high) -> acc,5
+109,(maint = low)(buying = med)(persons = 4)(safety = high)(doors = 3)(lug_boot = med) -> good,6
+110,(buying = low)(maint = low)(persons = more)(safety = high)(lug_boot = small)(doors = 4) -> good,6
+111,(safety = high)(persons = more)(buying = med)(maint = vhigh)(lug_boot = big) -> acc,5
+112,(buying = low)(safety = med)(maint = low)(persons = 4)(doors = 5more)(lug_boot = med) -> good,6
+113,(persons = 4)(safety = med)(doors = 5more)(lug_boot = med)(buying = vhigh)(maint = low) -> acc,6
+114,(persons = more)(safety = med)(lug_boot = big)(buying = med)(maint = high) -> acc,5
+115,(maint = vhigh)(buying = high) -> unacc,2
+116,(maint = low)(safety = med)(buying = med)(persons = 4)(doors = 4)(lug_boot = med) -> good,6
+117,(safety = high)(persons = 4)(lug_boot = small)(buying = med)(maint = vhigh) -> acc,5
+118,(safety = high)(persons = 4)(buying = high)(maint = low) -> acc,4
+119,(lug_boot = small)(doors = 2)(persons = more) -> unacc,3
+120,(maint = low)(safety = med)(buying = med)(persons = 4)(doors = 5more)(lug_boot = med) -> good,6
+121,(persons = 4)(safety = med)(maint = med)(doors = 5more)(lug_boot = med)(buying = vhigh) -> acc,6
+122,(persons = 4)(safety = med)(buying = med)(doors = 4)(lug_boot = med)(maint = vhigh) -> acc,6
+123,(safety = high)(buying = low)(persons = more)(lug_boot = med)(maint = low)(doors = 5more) -> vgood,6
+124,(safety = high)(persons = 4)(doors = 3)(lug_boot = med)(buying = low)(maint = vhigh) -> acc,6
+125,(safety = high)(persons = more)(lug_boot = med)(doors = 2)(buying = med)(maint = high) -> acc,6
+126,(safety = high)(persons = 4)(lug_boot = small)(doors = 3)(buying = low)(maint = vhigh) -> acc,6
+127,(safety = high)(persons = more)(lug_boot = med)(doors = 2)(buying = med)(maint = med) -> acc,6
+128,(persons = 4)(safety = med)(buying = med)(doors = 3)(maint = low)(lug_boot = small) -> acc,6
+129,(persons = 4)(safety = med)(lug_boot = big)(buying = med)(maint = high) -> acc,5
+130,(persons = 4)(safety = med)(lug_boot = big)(doors = 4)(buying = low)(maint = vhigh) -> acc,6
+131,(persons = more)(safety = med)(buying = med)(maint = med)(doors = 4) -> acc,5
+132,(safety = high)(persons = more)(doors = 4)(buying = vhigh)(maint = low) -> acc,5
+133,(persons = more)(safety = med)(lug_boot = big)(doors = 2)(buying = low)(maint = vhigh) -> acc,6
+134,(safety = high)(buying = low)(persons = 4)(maint = high)(doors = 5more)(lug_boot = med) -> vgood,6
+135,(doors = 2)(buying = high)(lug_boot = med)(safety = med) -> unacc,4
+136,(safety = high)(persons = more)(doors = 5more)(lug_boot = small)(buying = vhigh)(maint = low) -> acc,6
+137,(safety = high)(persons = more)(buying = high)(maint = med)(doors = 5more) -> acc,5
+138,(persons = 4)(safety = med)(lug_boot = big)(buying = med)(maint = med) -> acc,5
+139,(buying = low)(maint = low)(persons = more)(safety = high)(lug_boot = small)(doors = 5more) -> good,6
+140,(persons = 4)(safety = med)(buying = low)(doors = 3)(lug_boot = med)(maint = low) -> acc,6
+141,(safety = high)(persons = more)(buying = med)(maint = high)(doors = 5more) -> acc,5
+142,(buying = low)(maint = med)(persons = more)(safety = high)(lug_boot = small)(doors = 3) -> good,6
+143,(safety = high)(persons = more)(buying = high)(maint = med)(doors = 3) -> acc,5
+144,(safety = high)(buying = low)(persons = more)(lug_boot = med)(maint = med)(doors = 5more) -> vgood,6
+145,(safety = high)(persons = more)(buying = high)(maint = med)(lug_boot = big) -> acc,5
+146,(maint = low)(safety = med)(lug_boot = big)(buying = med)(persons = more) -> good,5
+147,(persons = more)(safety = med)(buying = med)(doors = 4)(lug_boot = small)(maint = low) -> acc,6
+148,(safety = high)(persons = more)(buying = high)(maint = high)(doors = 3) -> acc,5
+149,(safety = high)(persons = more)(buying = high)(maint = med)(doors = 4) -> acc,5
+150,(maint = low)(buying = med)(persons = 4)(safety = high)(lug_boot = small) -> good,5
+151,(persons = 4)(safety = med)(lug_boot = big)(buying = high)(maint = med) -> acc,5
+152,(safety = high)(buying = low)(persons = more)(lug_boot = med)(maint = low)(doors = 4) -> vgood,6
+153,(safety = high)(persons = more)(buying = high)(maint = high)(doors = 5more) -> acc,5
+154,(safety = high)(buying = low)(persons = 4)(maint = high)(doors = 4)(lug_boot = med) -> vgood,6
+155,(persons = more)(safety = med)(lug_boot = med)(doors = 5more)(buying = vhigh)(maint = low) -> acc,6
+156,(safety = high)(persons = 4)(doors = 5more)(maint = vhigh)(buying = low) -> acc,5
+157,(buying = low)(safety = med)(maint = low)(persons = more)(lug_boot = med)(doors = 5more) -> good,6
+158,(safety = high)(persons = more)(buying = med)(maint = med)(lug_boot = med)(doors = 5more) -> vgood,6
+159,(safety = high)(persons = more)(buying = med)(doors = 5more)(lug_boot = small)(maint = med) -> acc,6
+160,(safety = high)(persons = 4)(lug_boot = small)(doors = 4)(buying = low)(maint = vhigh) -> acc,6
+161,(safety = high)(persons = 4)(lug_boot = small)(buying = med)(maint = med) -> acc,5
+162,(safety = high)(persons = more)(buying = med)(maint = low)(lug_boot = med)(doors = 4) -> vgood,6
+163,(safety = high)(persons = 4)(doors = 3)(buying = vhigh)(maint = low) -> acc,5
+164,(safety = high)(persons = more)(maint = high)(doors = 3)(lug_boot = small)(buying = low) -> acc,6
+165,(safety = high)(persons = 4)(lug_boot = small)(doors = 3)(buying = vhigh)(maint = low) -> acc,6
+166,(buying = low)(maint = low)(persons = more)(safety = high)(lug_boot = small)(doors = 3) -> good,6
+167,(persons = more)(safety = med)(lug_boot = med)(doors = 4)(buying = vhigh)(maint = low) -> acc,6
+168,(buying = vhigh)(lug_boot = small)(safety = med) -> unacc,3
+169,(buying = low)(maint = med)(persons = more)(safety = high)(lug_boot = small)(doors = 4) -> good,6
+170,(persons = more)(safety = med)(lug_boot = med)(doors = 3)(buying = low)(maint = vhigh) -> acc,6
+171,(persons = more)(safety = med)(buying = med)(lug_boot = med)(maint = high)(doors = 3) -> acc,6
+172,(safety = high)(buying = low)(persons = 4)(maint = low)(doors = 4)(lug_boot = med) -> vgood,6
+173,(safety = high)(persons = more)(doors = 4)(maint = vhigh)(buying = low) -> acc,5
+174,(persons = more)(safety = med)(lug_boot = big)(doors = 3)(buying = low)(maint = vhigh) -> acc,6
+175,(safety = high)(persons = more)(doors = 3)(lug_boot = small)(buying = vhigh)(maint = low) -> acc,6
+176,(persons = 4)(safety = med)(buying = low)(lug_boot = small)(maint = low) -> acc,5
+177,(persons = 4)(safety = med)(lug_boot = big)(buying = high)(maint = low) -> acc,5
+178,(safety = high)(persons = 4)(doors = 4)(buying = vhigh)(maint = low) -> acc,5
+179,(persons = 4)(safety = med)(maint = med)(doors = 4)(lug_boot = med)(buying = vhigh) -> acc,6
+180,(buying = low)(safety = med)(maint = low)(persons = 4)(doors = 4)(lug_boot = med) -> good,6
+181,(persons = more)(safety = med)(lug_boot = med)(buying = low)(doors = 2)(maint = low) -> acc,6
+182,(safety = high)(buying = med)(maint = low)(persons = 4)(doors = 4)(lug_boot = med) -> vgood,6
+183,(persons = 4)(safety = med)(doors = 4)(lug_boot = med)(buying = vhigh)(maint = low) -> acc,6
+184,(safety = high)(persons = more)(buying = med)(maint = high)(doors = 4) -> acc,5
+185,(persons = 4)(safety = med)(buying = med)(maint = med) -> acc,4
+186,(persons = 4)(safety = med)(buying = low)(doors = 2)(lug_boot = med)(maint = low) -> acc,6
+187,(buying = low)(safety = med)(maint = med)(persons = 4)(doors = 5more)(lug_boot = med) -> good,6
+188,(buying = low)(maint = med)(persons = 4)(safety = high)(lug_boot = small) -> good,5
+189,(buying = low)(maint = low)(persons = more)(lug_boot = med)(doors = 2)(safety = high) -> good,6
+190,(safety = high)(buying = low)(lug_boot = big)(persons = 4)(maint = low) -> vgood,5
+191,(persons = 4)(safety = med)(buying = low)(doors = 2)(lug_boot = med)(maint = med) -> acc,6
+192,(maint = low)(buying = med)(persons = more)(safety = high)(lug_boot = small)(doors = 5more) -> good,6
+193,(safety = high)(buying = low)(lug_boot = big)(persons = 4)(maint = med) -> vgood,5
+194,(safety = low) -> unacc,1
+195,(persons = more)(safety = med)(maint = med)(lug_boot = med)(buying = vhigh)(doors = 5more) -> acc,6
+196,(persons = more)(safety = med)(maint = med)(lug_boot = med)(buying = high)(doors = 3) -> acc,6
+197,(safety = high)(buying = low)(persons = more)(lug_boot = med)(maint = high)(doors = 4) -> vgood,6
+198,(safety = high)(persons = more)(buying = med)(maint = high)(doors = 3) -> acc,5
+199,(buying = low)(maint = med)(persons = more)(lug_boot = med)(doors = 2)(safety = high) -> good,6
+200,(persons = more)(safety = med)(buying = med)(lug_boot = med)(doors = 2)(maint = low) -> acc,6
+201,(safety = high)(persons = more)(maint = med)(buying = vhigh)(doors = 4) -> acc,5
+202,(safety = high)(buying = low)(persons = more)(lug_boot = med)(maint = high)(doors = 3) -> vgood,6
+203,(persons = more)(safety = med)(lug_boot = med)(doors = 3)(buying = vhigh)(maint = low) -> acc,6
+204,(persons = 4)(safety = med)(lug_boot = big)(maint = high)(buying = low) -> acc,5
+205,(persons = more)(safety = med)(maint = med)(doors = 3)(lug_boot = small)(buying = low) -> acc,6
+206,(safety = high)(persons = more)(lug_boot = med)(doors = 2)(buying = low)(maint = vhigh) -> acc,6
+207,(persons = more)(safety = med)(buying = med)(lug_boot = med)(maint = high)(doors = 4) -> acc,6
+208,(persons = more)(safety = med)(buying = med)(lug_boot = med)(maint = high)(doors = 5more) -> acc,6
+209,(safety = high)(persons = more)(buying = med)(maint = low)(lug_boot = med)(doors = 3) -> vgood,6
+210,(buying = low)(safety = med)(maint = med)(persons = more)(lug_boot = med)(doors = 4) -> good,6
+211,(safety = high)(persons = more)(doors = 5more)(maint = vhigh)(buying = low) -> acc,5
+212,(buying = low)(safety = med)(maint = low)(persons = more)(lug_boot = med)(doors = 4) -> good,6
+213,(lug_boot = small)(buying = high)(safety = med) -> unacc,3
+214,(safety = high)(persons = 4)(lug_boot = med)(maint = vhigh)(buying = low) -> acc,5
+215,(persons = more)(safety = med)(buying = med)(maint = med)(doors = 5more) -> acc,5
+216,(persons = more)(safety = med)(lug_boot = med)(doors = 4)(buying = low)(maint = vhigh) -> acc,6
+217,(safety = high)(persons = more)(buying = med)(maint = high)(lug_boot = big) -> acc,5
+218,(safety = high)(persons = more)(lug_boot = med)(doors = 2)(buying = vhigh)(maint = low) -> acc,6
+219,(persons = more)(safety = med)(lug_boot = big)(maint = med)(buying = vhigh) -> acc,5
+220,(buying = low)(safety = med)(lug_boot = big)(maint = low)(persons = 4) -> good,5
+221,(safety = high)(persons = 4)(doors = 2)(lug_boot = med)(buying = vhigh)(maint = low) -> acc,6
+222,(persons = more)(safety = med)(lug_boot = big)(buying = high)(maint = low) -> acc,5
+223,(safety = high)(persons = more)(lug_boot = big)(buying = vhigh)(maint = low) -> acc,5
+224,(maint = low)(safety = med)(lug_boot = big)(buying = med)(persons = 4) -> good,5
+225,(buying = low)(safety = med)(maint = med)(persons = 4)(doors = 4)(lug_boot = med) -> good,6
+226,(persons = 4)(safety = med)(lug_boot = big)(doors = 3)(buying = vhigh)(maint = low) -> acc,6
+227,(persons = more)(safety = med)(buying = low)(maint = high)(doors = 5more) -> acc,5
+228,(buying = low)(maint = low)(persons = 4)(safety = high)(lug_boot = small) -> good,5
+229,(safety = high)(persons = more)(doors = 3)(lug_boot = small)(buying = low)(maint = vhigh) -> acc,6
+230,(safety = high)(persons = more)(buying = med)(maint = med)(lug_boot = med)(doors = 3) -> vgood,6
+231,(persons = more)(safety = med)(buying = low)(maint = high)(doors = 4) -> acc,5
+232,(persons = more)(safety = med)(buying = med)(maint = med)(doors = 3) -> acc,5
+233,(maint = vhigh)(doors = 3)(lug_boot = med)(persons = 4)(safety = med) -> unacc,5
+234,(persons = 4)(safety = med)(buying = low)(maint = high) -> acc,4
+235,(maint = low)(safety = med)(buying = med)(persons = more)(lug_boot = med)(doors = 5more) -> good,6
+236,(persons = more)(safety = med)(lug_boot = big)(doors = 4)(buying = vhigh)(maint = low) -> acc,6
+237,(persons = 4)(safety = med)(lug_boot = big)(doors = 5more)(buying = vhigh)(maint = low) -> acc,6
+238,(persons = more)(safety = med)(lug_boot = med)(doors = 4)(buying = high)(maint = low) -> acc,6
+239,(persons = 4)(safety = med)(lug_boot = big)(doors = 4)(buying = vhigh)(maint = low) -> acc,6
+240,(safety = high)(persons = more)(lug_boot = med)(maint = med)(buying = vhigh) -> acc,5
+241,(persons = 4)(safety = med)(doors = 4)(lug_boot = med)(buying = high)(maint = high) -> acc,6
+242,(persons = more)(safety = med)(lug_boot = med)(doors = 5more)(buying = high)(maint = low) -> acc,6
+243,(persons = 4)(safety = med)(buying = low)(lug_boot = med)(maint = vhigh)(doors = 5more) -> acc,6
+244,(buying = low)(safety = med)(lug_boot = big)(maint = med)(persons = 4) -> good,5
+245,(safety = high)(persons = 4)(doors = 2)(lug_boot = med)(buying = low)(maint = vhigh) -> acc,6
+246,(safety = high)(persons = more)(maint = high)(doors = 4)(lug_boot = small)(buying = low) -> acc,6
+247,(persons = 4)(safety = med)(maint = med)(doors = 4)(lug_boot = med)(buying = high) -> acc,6
+248,(safety = high)(persons = 4)(maint = high)(doors = 3)(lug_boot = med)(buying = low) -> acc,6
+249,(persons = 4)(safety = med)(buying = med)(lug_boot = med)(maint = low)(doors = 3) -> acc,6
+250,(buying = low)(maint = med)(persons = 4)(safety = high)(doors = 2)(lug_boot = med) -> good,6
+251,(safety = high)(buying = low)(persons = more)(lug_boot = med)(maint = low)(doors = 3) -> vgood,6
+252,(safety = high)(persons = more)(doors = 3)(maint = vhigh)(buying = low) -> acc,5
+253,(safety = high)(persons = 4)(maint = high)(doors = 2)(lug_boot = med)(buying = low) -> acc,6
+254,(safety = high)(persons = 4)(lug_boot = small)(maint = high)(buying = low) -> acc,5
+255,(safety = high)(persons = 4)(lug_boot = small)(doors = 2)(buying = vhigh)(maint = low) -> acc,6
+256,(safety = high)(persons = more)(maint = high)(doors = 5more)(lug_boot = small)(buying = low) -> acc,6
+257,(buying = low)(safety = med)(lug_boot = big)(maint = low)(persons = more) -> good,5
+258,(persons = 4)(safety = med)(lug_boot = big)(doors = 2)(buying = vhigh)(maint = low) -> acc,6
+259,(safety = high)(persons = 4)(buying = med)(maint = high) -> acc,4
+260,(persons = 4)(safety = med)(buying = low)(lug_boot = small)(maint = med) -> acc,5
+261,(buying = low)(maint = low)(persons = 4)(safety = high)(doors = 2)(lug_boot = med) -> good,6
+262,(safety = high)(persons = 4)(doors = 3)(lug_boot = med)(buying = vhigh)(maint = low) -> acc,6
+263,(buying = low)(maint = med)(persons = more)(safety = high)(lug_boot = small)(doors = 5more) -> good,6
+264,(persons = 4)(safety = med)(buying = med)(doors = 4)(lug_boot = small)(maint = low) -> acc,6
+265,(persons = more)(safety = med)(lug_boot = med)(maint = high)(buying = high)(doors = 3) -> acc,6
+266,(persons = more)(safety = med)(maint = med)(lug_boot = med)(doors = 2)(buying = low) -> acc,6
+267,(maint = vhigh)(doors = 2)(lug_boot = med)(safety = med) -> unacc,4
+268,(safety = high)(persons = 4)(maint = med)(buying = vhigh) -> acc,4
+269,(safety = high)(persons = more)(doors = 3)(buying = vhigh)(maint = low) -> acc,5
+270,(safety = high)(persons = more)(doors = 5more)(lug_boot = small)(buying = low)(maint = vhigh) -> acc,6
+271,(persons = more)(safety = med)(lug_boot = big)(doors = 3)(buying = vhigh)(maint = low) -> acc,6
+272,(safety = high)(persons = more)(maint = med)(buying = vhigh)(doors = 5more) -> acc,5
+273,(safety = high)(persons = 4)(buying = med)(doors = 2)(lug_boot = med)(maint = med) -> acc,6
+274,(lug_boot = small)(doors = 2)(safety = med)(maint = high)(buying = med) -> unacc,5
+275,(safety = high)(persons = more)(lug_boot = big)(maint = vhigh)(buying = low) -> acc,5
+276,(persons = more)(safety = med)(lug_boot = big)(doors = 4)(buying = low)(maint = vhigh) -> acc,6
+277,(persons = more)(safety = med)(lug_boot = big)(doors = 5more)(buying = low)(maint = vhigh) -> acc,6
+278,(persons = 4)(safety = med)(lug_boot = big)(maint = med)(buying = vhigh) -> acc,5
+279,(safety = high)(persons = more)(lug_boot = med)(buying = vhigh)(maint = low) -> acc,5
+280,(persons = more)(safety = med)(buying = low)(maint = high)(doors = 3) -> acc,5
+281,(doors = 2)(maint = high)(lug_boot = med)(safety = med)(buying = med) -> unacc,5
+282,(persons = 4)(safety = med)(buying = low)(lug_boot = med)(maint = vhigh)(doors = 4) -> acc,6
+283,(persons = 4)(safety = med)(maint = med)(doors = 5more)(lug_boot = med)(buying = high) -> acc,6
+284,(safety = high)(buying = low)(persons = more)(lug_boot = med)(maint = med)(doors = 4) -> vgood,6
+285,(safety = high)(buying = low)(lug_boot = big)(persons = more)(maint = med) -> vgood,5
+286,(safety = high)(buying = low)(persons = 4)(maint = med)(doors = 5more)(lug_boot = med) -> vgood,6
+287,(safety = high)(persons = 4)(doors = 4)(maint = vhigh)(buying = low) -> acc,5
+288,(safety = high)(buying = low)(persons = 4)(maint = low)(doors = 5more)(lug_boot = med) -> vgood,6
+289,(persons = 4)(safety = med)(lug_boot = big)(buying = high)(maint = high) -> acc,5
+290,(persons = 4)(safety = med)(doors = 5more)(lug_boot = med)(buying = high)(maint = high) -> acc,6
+291,(buying = low)(safety = med)(lug_boot = big)(maint = med)(persons = more) -> good,5
+292,(maint = vhigh)(lug_boot = small)(safety = med) -> unacc,3
+293,(safety = high)(persons = more)(buying = high)(maint = low)(doors = 5more) -> acc,5
+294,(safety = high)(persons = more)(buying = med)(maint = vhigh)(doors = 3) -> acc,5
+295,(persons = 4)(safety = med)(buying = med)(doors = 4)(lug_boot = med)(maint = high) -> acc,6
+296,(persons = 4)(safety = med)(buying = med)(doors = 2)(maint = low)(lug_boot = small) -> acc,6
+297,(safety = high)(buying = med)(maint = med)(persons = 4)(doors = 4)(lug_boot = med) -> vgood,6
+298,(maint = low)(safety = med)(buying = med)(persons = more)(lug_boot = med)(doors = 3) -> good,6
+299,(maint = high)(doors = 3)(lug_boot = med)(buying = med)(persons = 4)(safety = med) -> unacc,6
+300,(persons = more)(safety = med)(lug_boot = big)(buying = med)(maint = med) -> acc,5

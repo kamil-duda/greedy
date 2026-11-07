@@ -1,0 +1,9 @@
+0,(feathers = 1) -> 2,1
+1,(milk = 1) -> 1,1
+2,(fins = 1)(eggs = 1) -> 4,2
+3,(hair = 0)(tail = 1)(feathers = 0)(fins = 0)(backbone = 1)(aquatic = 0) -> 3,6
+4,(backbone = 0)(airborne = 0)(legs = 0) -> 7,3
+5,(backbone = 0)(airborne = 0)(predator = 1) -> 7,3
+6,(hair = 0)(tail = 1)(feathers = 0)(fins = 0)(backbone = 1)(legs = 0) -> 3,6
+7,(legs = 4)(hair = 0)(aquatic = 1)(toothed = 1) -> 5,4
+8,(legs = 6)(aquatic = 0) -> 6,2

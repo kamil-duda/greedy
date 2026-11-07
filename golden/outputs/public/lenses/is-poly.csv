@@ -1,0 +1,29 @@
+0,(tear-production-rate = 1) -> 1,1
+1,(contact-lenses = 2) -> 1,1
+2,(tear-production-rate = 2)(contact-lenses = 3)(spectacle-prescription = 2) -> 2,3
+3,(contact-lenses = 3)(spectacle-prescription = 1) -> 1,2
+4,(tear-production-rate = 2)(contact-lenses = 1) -> 2,2
+5,(astigmatic = 1)(tear-production-rate = 2)(age = 1) -> 2,3
+6,(age = 3)(spectacle-prescription = 2)(astigmatic = 2) -> 3,3
+7,(astigmatic = 2)(tear-production-rate = 2)(age = 1) -> 1,3
+8,(astigmatic = 1)(tear-production-rate = 2)(spectacle-prescription = 2) -> 2,3
+9,(astigmatic = 1)(tear-production-rate = 2)(age = 2) -> 2,3
+10,(tear-production-rate = 1) -> 3,1
+11,(astigmatic = 2)(tear-production-rate = 2)(spectacle-prescription = 1) -> 1,3
+12,(age = 3)(spectacle-prescription = 1)(astigmatic = 1) -> 3,3
+13,(spectacle-prescription = 2)(astigmatic = 2)(age = 2) -> 3,3
+14,(tear-production-rate = 2)(contact-lenses = 2)(spectacle-prescription = 1) -> 1,3
+15,(tear-production-rate = 2)(contact-lenses = 1)(spectacle-prescription = 2) -> 1,3
+16,(spectacle-prescription = 1)(astigmatic = 2) -> 3,2
+17,(contact-lenses = 3) -> 3,1
+18,(spectacle-prescription = 2)(astigmatic = 1) -> 3,2
+19,(astigmatic = 1)(contact-lenses = 3) -> 1,2
+20,(astigmatic = 1)(age = 2) -> 1,2
+21,(tear-production-rate = 1) -> 1,1
+22,(tear-production-rate = 2)(age = 3)(contact-lenses = 2) -> 2,3
+23,(tear-production-rate = 2)(contact-lenses = 3)(astigmatic = 2) -> 2,3
+24,(age = 1) -> 1,1
+25,(contact-lenses = 1) -> 1,1
+26,(contact-lenses = 1) -> 2,1
+27,(contact-lenses = 2) -> 2,1
+28,(contact-lenses = 3) -> 1,1

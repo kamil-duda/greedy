@@ -1,0 +1,211 @@
+index,rule,coverage,length
+0,(middle-middle-square = x) & (top-left-square = x) & (middle-right-square = b) & (top-right-square = o) & (top-middle-square = b) -> (Class = positive),7,5
+1,(middle-middle-square = o) & (top-middle-square = x) & (top-right-square = b) & (middle-left-square = o) & (middle-right-square = o) -> (Class = negative),9,5
+2,(top-right-square = x) & (bottom-right-square = x) & (middle-right-square = x) -> (Class = positive),78,3
+3,(middle-middle-square = x) & (top-left-square = x) & (bottom-right-square = b) -> (Class = positive),20,3
+4,(middle-middle-square = x) & (top-left-square = x) & (bottom-middle-square = b) & (bottom-left-square = o) & (top-middle-square = b) -> (Class = positive),7,5
+5,(middle-middle-square = x) & (bottom-right-square = x) & (bottom-middle-square = o) & (top-middle-square = b) -> (Class = positive),25,4
+6,(middle-middle-square = o) & (bottom-left-square = o) & (middle-left-square = x) & (middle-right-square = b) & (bottom-right-square = x) -> (Class = negative),7,5
+7,(middle-middle-square = o) & (bottom-left-square = b) & (middle-right-square = o) & (middle-left-square = o) -> (Class = negative),12,4
+8,(middle-middle-square = x) & (bottom-right-square = x) & (bottom-middle-square = o) & (bottom-left-square = b) -> (Class = positive),22,4
+9,(middle-middle-square = x) & (top-right-square = b) & (bottom-left-square = b) -> (Class = positive),30,3
+10,(middle-middle-square = o) & (top-right-square = b) & (bottom-middle-square = o) & (top-middle-square = o) -> (Class = negative),12,4
+11,(top-left-square = o) & (top-right-square = o) & (middle-right-square = x) & (bottom-right-square = x) & (bottom-left-square = o) & (bottom-middle-square = x) -> (Class = negative),6,6
+12,(top-left-square = o) & (bottom-left-square = o) & (middle-left-square = o) -> (Class = negative),36,3
+13,(top-left-square = x) & (bottom-left-square = x) & (middle-right-square = b) & (bottom-middle-square = x) -> (Class = positive),8,4
+14,(top-left-square = o) & (top-right-square = o) & (middle-right-square = x) & (bottom-right-square = x) & (top-middle-square = x) & (middle-left-square = o) & (middle-middle-square = x) -> (Class = negative),2,7
+15,(middle-middle-square = x) & (bottom-left-square = b) & (top-middle-square = x) & (top-left-square = o) -> (Class = positive),19,4
+16,(middle-middle-square = o) & (middle-left-square = x) & (middle-right-square = x) & (top-left-square = b) & (top-right-square = b) -> (Class = negative),2,5
+17,(middle-middle-square = x) & (bottom-left-square = b) & (middle-right-square = x) & (middle-left-square = x) -> (Class = positive),28,4
+18,(top-right-square = o) & (bottom-right-square = o) & (top-middle-square = x) & (top-left-square = x) & (middle-right-square = x) & (bottom-middle-square = o) & (middle-middle-square = x) -> (Class = negative),2,7
+19,(middle-middle-square = x) & (top-right-square = x) & (middle-left-square = b) & (top-left-square = o) & (middle-right-square = b) -> (Class = positive),7,5
+20,(top-left-square = x) & (bottom-left-square = x) & (middle-left-square = x) -> (Class = positive),78,3
+21,(top-left-square = x) & (top-right-square = x) & (middle-left-square = o) & (bottom-middle-square = o) & (bottom-left-square = b) -> (Class = positive),11,5
+22,(bottom-left-square = x) & (bottom-right-square = x) & (bottom-middle-square = x) -> (Class = positive),78,3
+23,(top-left-square = o) & (top-right-square = o) & (middle-left-square = x) & (bottom-left-square = x) & (top-middle-square = x) & (middle-right-square = o) & (middle-middle-square = x) -> (Class = negative),2,7
+24,(middle-middle-square = x) & (top-left-square = x) & (top-right-square = x) & (middle-right-square = o) & (bottom-left-square = x) -> (Class = positive),10,5
+25,(middle-middle-square = x) & (top-left-square = x) & (top-middle-square = o) & (top-right-square = o) & (bottom-left-square = o) -> (Class = positive),8,5
+26,(top-left-square = x) & (top-right-square = x) & (bottom-middle-square = b) & (bottom-right-square = o) -> (Class = positive),22,4
+27,(middle-middle-square = x) & (bottom-left-square = x) & (top-right-square = b) -> (Class = positive),20,3
+28,(middle-middle-square = x) & (bottom-right-square = x) & (top-middle-square = b) & (top-right-square = o) & (bottom-middle-square = b) -> (Class = positive),7,5
+29,(middle-middle-square = o) & (middle-left-square = x) & (middle-right-square = x) & (top-right-square = b) & (bottom-left-square = b) -> (Class = negative),4,5
+30,(middle-middle-square = o) & (top-middle-square = x) & (bottom-middle-square = x) & (top-left-square = b) & (top-right-square = b) -> (Class = negative),2,5
+31,(middle-middle-square = o) & (top-right-square = o) & (top-middle-square = x) & (bottom-middle-square = x) & (bottom-right-square = o) -> (Class = negative),10,5
+32,(middle-middle-square = x) & (bottom-right-square = b) & (top-middle-square = x) & (bottom-middle-square = x) -> (Class = positive),28,4
+33,(middle-middle-square = x) & (top-right-square = x) & (bottom-right-square = b) & (bottom-middle-square = o) & (top-middle-square = b) -> (Class = positive),7,5
+34,(middle-middle-square = o) & (top-left-square = o) & (middle-left-square = x) & (middle-right-square = b) & (top-right-square = x) -> (Class = negative),7,5
+35,(middle-middle-square = x) & (bottom-right-square = b) & (top-middle-square = x) & (top-right-square = o) -> (Class = positive),19,4
+36,(middle-middle-square = o) & (bottom-middle-square = x) & (bottom-right-square = b) & (middle-left-square = o) & (middle-right-square = o) -> (Class = negative),9,5
+37,(middle-middle-square = x) & (top-left-square = x) & (bottom-left-square = b) & (bottom-middle-square = o) & (middle-left-square = b) -> (Class = positive),7,5
+38,(middle-middle-square = o) & (middle-right-square = x) & (top-right-square = b) & (bottom-middle-square = o) & (top-middle-square = o) -> (Class = negative),9,5
+39,(middle-middle-square = x) & (bottom-left-square = x) & (middle-left-square = o) & (top-left-square = o) & (bottom-right-square = o) -> (Class = positive),8,5
+40,(middle-middle-square = x) & (bottom-left-square = x) & (middle-left-square = o) & (middle-right-square = o) & (bottom-right-square = x) -> (Class = positive),15,5
+41,(middle-middle-square = x) & (bottom-right-square = x) & (middle-right-square = o) & (top-right-square = o) & (bottom-left-square = o) -> (Class = positive),8,5
+42,(middle-middle-square = x) & (top-right-square = x) & (bottom-left-square = b) -> (Class = positive),20,3
+43,(middle-middle-square = x) & (bottom-left-square = b) & (bottom-middle-square = o) & (middle-right-square = x) -> (Class = positive),22,4
+44,(top-right-square = x) & (bottom-right-square = x) & (middle-middle-square = b) & (bottom-left-square = x) -> (Class = positive),8,4
+45,(middle-middle-square = o) & (top-right-square = o) & (top-middle-square = x) & (middle-right-square = x) & (top-left-square = x) & (middle-left-square = o) -> (Class = negative),4,6
+46,(middle-middle-square = o) & (middle-left-square = o) & (middle-right-square = o) -> (Class = negative),36,3
+47,(top-left-square = x) & (top-right-square = x) & (middle-right-square = o) & (bottom-right-square = o) & (bottom-left-square = x) & (middle-left-square = x) -> (Class = positive),6,6
+48,(middle-middle-square = x) & (bottom-right-square = b) & (middle-left-square = x) & (middle-right-square = x) -> (Class = positive),28,4
+49,(middle-middle-square = o) & (top-right-square = o) & (top-middle-square = x) & (bottom-middle-square = x) & (top-left-square = x) -> (Class = negative),12,5
+50,(middle-middle-square = x) & (bottom-left-square = x) & (middle-left-square = o) & (top-left-square = b) -> (Class = positive),22,4
+51,(middle-middle-square = x) & (bottom-right-square = x) & (middle-right-square = o) & (middle-left-square = b) -> (Class = positive),25,4
+52,(middle-middle-square = x) & (bottom-right-square = x) & (top-right-square = b) & (top-middle-square = o) & (bottom-middle-square = b) -> (Class = positive),7,5
+53,(middle-middle-square = o) & (top-middle-square = x) & (bottom-middle-square = x) & (top-left-square = b) & (bottom-right-square = b) -> (Class = negative),4,5
+54,(middle-middle-square = o) & (top-middle-square = o) & (top-left-square = x) & (top-right-square = x) & (middle-left-square = o) & (bottom-left-square = x) -> (Class = negative),5,6
+55,(top-right-square = o) & (bottom-left-square = o) & (top-middle-square = x) & (top-left-square = x) & (middle-left-square = x) & (bottom-right-square = o) -> (Class = negative),6,6
+56,(middle-middle-square = x) & (bottom-right-square = x) & (bottom-middle-square = o) & (top-middle-square = o) & (top-right-square = b) -> (Class = positive),9,5
+57,(middle-middle-square = o) & (top-middle-square = x) & (bottom-middle-square = x) & (top-right-square = b) & (bottom-left-square = b) -> (Class = negative),4,5
+58,(top-left-square = x) & (top-right-square = x) & (middle-right-square = o) & (bottom-middle-square = o) & (bottom-right-square = b) -> (Class = positive),11,5
+59,(middle-middle-square = o) & (top-right-square = o) & (bottom-left-square = o) -> (Class = negative),50,3
+60,(middle-middle-square = x) & (bottom-left-square = b) & (middle-left-square = o) & (top-middle-square = x) -> (Class = positive),22,4
+61,(top-right-square = o) & (bottom-right-square = o) & (bottom-middle-square = x) & (bottom-left-square = x) & (top-middle-square = o) & (middle-middle-square = x) -> (Class = negative),5,6
+62,(middle-middle-square = x) & (bottom-left-square = b) & (top-middle-square = x) & (bottom-middle-square = x) -> (Class = positive),28,4
+63,(top-left-square = o) & (bottom-right-square = o) & (middle-right-square = x) & (top-right-square = x) & (bottom-middle-square = x) & (top-middle-square = b) -> (Class = negative),4,6
+64,(middle-middle-square = o) & (middle-left-square = x) & (top-left-square = b) & (bottom-middle-square = o) & (top-middle-square = o) -> (Class = negative),9,5
+65,(middle-middle-square = x) & (bottom-right-square = x) & (bottom-middle-square = o) & (bottom-left-square = o) & (top-right-square = o) -> (Class = positive),8,5
+66,(top-left-square = x) & (top-right-square = x) & (middle-right-square = b) & (bottom-right-square = o) & (middle-middle-square = o) -> (Class = positive),9,5
+67,(middle-middle-square = o) & (bottom-left-square = o) & (middle-left-square = x) & (middle-right-square = x) & (bottom-right-square = o) -> (Class = negative),10,5
+68,(middle-middle-square = x) & (bottom-right-square = x) & (top-left-square = b) -> (Class = positive),20,3
+69,(top-left-square = x) & (top-right-square = x) & (middle-middle-square = b) & (bottom-left-square = x) -> (Class = positive),8,4
+70,(top-left-square = x) & (bottom-left-square = x) & (top-middle-square = b) & (top-right-square = o) & (middle-middle-square = o) -> (Class = positive),9,5
+71,(middle-middle-square = o) & (bottom-right-square = o) & (middle-right-square = x) & (bottom-middle-square = x) & (top-right-square = x) & (top-middle-square = o) -> (Class = negative),4,6
+72,(middle-middle-square = x) & (bottom-left-square = x) & (top-left-square = b) & (top-middle-square = o) & (bottom-middle-square = b) -> (Class = positive),7,5
+73,(middle-middle-square = x) & (top-right-square = x) & (top-middle-square = o) & (bottom-middle-square = o) & (bottom-right-square = x) -> (Class = positive),15,5
+74,(top-left-square = o) & (bottom-right-square = o) & (top-middle-square = x) & (top-right-square = x) & (middle-right-square = x) & (bottom-left-square = o) -> (Class = negative),6,6
+75,(middle-middle-square = x) & (top-right-square = x) & (top-middle-square = o) & (bottom-middle-square = b) -> (Class = positive),25,4
+76,(middle-middle-square = o) & (top-middle-square = o) & (bottom-middle-square = o) -> (Class = negative),36,3
+77,(top-right-square = x) & (bottom-right-square = x) & (top-middle-square = o) & (top-left-square = o) & (bottom-left-square = x) & (bottom-middle-square = x) -> (Class = positive),6,6
+78,(top-left-square = x) & (bottom-left-square = x) & (middle-middle-square = b) & (top-middle-square = o) -> (Class = positive),19,4
+79,(top-left-square = x) & (top-right-square = x) & (bottom-middle-square = b) & (middle-right-square = x) -> (Class = positive),8,4
+80,(middle-middle-square = x) & (bottom-left-square = x) & (bottom-middle-square = o) & (top-middle-square = o) & (top-left-square = b) -> (Class = positive),9,5
+81,(middle-middle-square = o) & (top-right-square = o) & (top-middle-square = x) & (middle-right-square = x) & (bottom-middle-square = x) & (bottom-right-square = o) -> (Class = negative),5,6
+82,(middle-middle-square = x) & (top-left-square = x) & (top-middle-square = o) & (bottom-middle-square = b) -> (Class = positive),25,4
+83,(middle-middle-square = x) & (top-right-square = x) & (top-middle-square = o) & (top-left-square = b) -> (Class = positive),22,4
+84,(middle-middle-square = x) & (top-right-square = b) & (middle-left-square = x) & (top-left-square = o) -> (Class = positive),19,4
+85,(middle-middle-square = x) & (top-right-square = b) & (top-middle-square = o) & (middle-left-square = x) -> (Class = positive),22,4
+86,(middle-middle-square = x) & (top-left-square = b) & (middle-left-square = o) & (bottom-middle-square = x) -> (Class = positive),22,4
+87,(middle-middle-square = x) & (top-middle-square = x) & (bottom-middle-square = x) -> (Class = positive),78,3
+88,(middle-middle-square = o) & (top-right-square = o) & (middle-right-square = x) & (middle-left-square = b) & (top-left-square = x) -> (Class = negative),7,5
+89,(middle-middle-square = x) & (top-left-square = b) & (bottom-middle-square = x) & (top-middle-square = x) -> (Class = positive),28,4
+90,(top-right-square = x) & (bottom-right-square = x) & (top-middle-square = b) & (top-left-square = o) & (middle-middle-square = o) -> (Class = positive),9,5
+91,(middle-middle-square = x) & (top-left-square = x) & (middle-left-square = o) & (middle-right-square = o) & (top-right-square = x) -> (Class = positive),15,5
+92,(middle-middle-square = x) & (top-left-square = b) & (top-middle-square = o) & (middle-right-square = x) -> (Class = positive),22,4
+93,(middle-middle-square = x) & (top-right-square = x) & (middle-right-square = o) & (bottom-right-square = o) & (top-left-square = o) -> (Class = positive),8,5
+94,(middle-middle-square = x) & (top-left-square = b) & (bottom-right-square = b) -> (Class = positive),30,3
+95,(middle-middle-square = x) & (bottom-left-square = x) & (bottom-middle-square = o) & (top-middle-square = b) -> (Class = positive),25,4
+96,(middle-middle-square = o) & (top-left-square = o) & (top-middle-square = x) & (middle-left-square = x) & (middle-right-square = x) & (top-right-square = o) -> (Class = negative),5,6
+97,(middle-middle-square = x) & (top-right-square = b) & (middle-left-square = x) & (middle-right-square = x) -> (Class = positive),28,4
+98,(bottom-left-square = o) & (bottom-right-square = o) & (middle-right-square = x) & (top-right-square = x) & (middle-left-square = o) & (middle-middle-square = x) -> (Class = negative),5,6
+99,(middle-middle-square = o) & (top-left-square = o) & (top-middle-square = x) & (middle-left-square = x) & (top-right-square = x) & (middle-right-square = o) -> (Class = negative),4,6
+100,(top-right-square = x) & (bottom-right-square = x) & (middle-middle-square = b) & (top-middle-square = o) -> (Class = positive),19,4
+101,(middle-middle-square = o) & (top-left-square = o) & (top-middle-square = x) & (middle-left-square = x) & (bottom-middle-square = b) -> (Class = negative),7,5
+102,(top-right-square = o) & (bottom-left-square = o) & (top-middle-square = x) & (top-left-square = x) & (middle-right-square = x) & (middle-left-square = b) -> (Class = negative),4,6
+103,(middle-middle-square = x) & (top-left-square = x) & (top-middle-square = o) & (bottom-middle-square = o) & (bottom-left-square = x) -> (Class = positive),15,5
+104,(middle-middle-square = x) & (top-left-square = x) & (middle-left-square = o) & (bottom-left-square = b) -> (Class = positive),22,4
+105,(middle-middle-square = o) & (bottom-right-square = o) & (bottom-middle-square = x) & (top-middle-square = x) & (bottom-left-square = x) -> (Class = negative),12,5
+106,(middle-middle-square = x) & (bottom-left-square = x) & (middle-right-square = b) & (bottom-right-square = o) & (middle-left-square = b) -> (Class = positive),7,5
+107,(middle-middle-square = o) & (middle-left-square = x) & (middle-right-square = x) & (top-left-square = b) & (bottom-right-square = b) -> (Class = negative),4,5
+108,(middle-middle-square = x) & (top-left-square = x) & (middle-right-square = b) & (top-right-square = o) & (middle-left-square = b) -> (Class = positive),7,5
+109,(top-right-square = x) & (bottom-right-square = x) & (middle-left-square = b) & (bottom-middle-square = x) -> (Class = positive),8,4
+110,(top-left-square = x) & (top-right-square = x) & (middle-left-square = o) & (bottom-left-square = o) & (bottom-right-square = x) & (middle-right-square = x) -> (Class = positive),6,6
+111,(middle-middle-square = x) & (bottom-left-square = x) & (bottom-middle-square = o) & (bottom-right-square = o) & (top-left-square = o) -> (Class = positive),8,5
+112,(middle-middle-square = x) & (top-left-square = x) & (top-middle-square = o) & (bottom-left-square = x) & (top-right-square = x) -> (Class = positive),10,5
+113,(top-left-square = x) & (top-right-square = x) & (middle-middle-square = b) & (middle-right-square = o) -> (Class = positive),19,4
+114,(top-right-square = x) & (bottom-right-square = x) & (top-middle-square = o) & (middle-left-square = o) & (top-left-square = b) -> (Class = positive),11,5
+115,(middle-middle-square = o) & (bottom-right-square = b) & (middle-left-square = o) & (middle-right-square = o) -> (Class = negative),12,4
+116,(middle-middle-square = x) & (top-left-square = x) & (bottom-right-square = x) -> (Class = positive),90,3
+117,(top-left-square = x) & (bottom-left-square = x) & (middle-right-square = b) & (top-right-square = o) -> (Class = positive),22,4
+118,(middle-middle-square = x) & (bottom-left-square = x) & (top-middle-square = b) & (top-left-square = o) & (middle-left-square = b) -> (Class = positive),7,5
+119,(middle-middle-square = o) & (top-left-square = o) & (top-middle-square = x) & (middle-left-square = x) & (bottom-right-square = b) -> (Class = negative),1,5
+120,(middle-middle-square = x) & (bottom-left-square = x) & (bottom-middle-square = o) & (bottom-right-square = b) -> (Class = positive),22,4
+121,(middle-middle-square = x) & (top-right-square = b) & (middle-right-square = o) & (bottom-middle-square = x) -> (Class = positive),22,4
+122,(middle-middle-square = x) & (top-left-square = x) & (middle-left-square = o) & (bottom-left-square = o) & (top-right-square = o) -> (Class = positive),8,5
+123,(middle-middle-square = o) & (top-left-square = b) & (middle-right-square = o) & (middle-left-square = o) -> (Class = negative),12,4
+124,(middle-middle-square = o) & (top-left-square = o) & (middle-left-square = x) & (middle-right-square = x) & (top-right-square = o) -> (Class = negative),10,5
+125,(middle-middle-square = o) & (bottom-left-square = o) & (bottom-middle-square = x) & (top-middle-square = x) & (bottom-right-square = x) -> (Class = negative),12,5
+126,(top-right-square = o) & (bottom-right-square = o) & (middle-right-square = o) -> (Class = negative),36,3
+127,(middle-middle-square = x) & (top-left-square = x) & (top-right-square = b) & (middle-right-square = o) & (middle-left-square = b) -> (Class = positive),7,5
+128,(middle-middle-square = x) & (top-right-square = x) & (top-middle-square = o) & (top-left-square = o) & (bottom-right-square = o) -> (Class = positive),8,5
+129,(middle-middle-square = x) & (top-left-square = b) & (middle-right-square = x) & (middle-left-square = x) -> (Class = positive),28,4
+130,(bottom-left-square = o) & (bottom-right-square = o) & (middle-left-square = x) & (top-left-square = x) & (middle-right-square = o) & (middle-middle-square = x) -> (Class = negative),5,6
+131,(top-left-square = x) & (top-right-square = x) & (top-middle-square = x) -> (Class = positive),78,3
+132,(middle-middle-square = x) & (top-left-square = b) & (middle-right-square = x) & (top-right-square = o) -> (Class = positive),19,4
+133,(middle-middle-square = o) & (bottom-left-square = o) & (bottom-middle-square = x) & (top-middle-square = b) & (top-left-square = x) -> (Class = negative),7,5
+134,(middle-middle-square = x) & (top-right-square = x) & (middle-right-square = o) & (middle-left-square = b) -> (Class = positive),25,4
+135,(top-left-square = x) & (top-right-square = x) & (bottom-middle-square = b) & (bottom-left-square = o) -> (Class = positive),22,4
+136,(middle-middle-square = o) & (bottom-middle-square = x) & (bottom-left-square = b) & (middle-right-square = o) & (middle-left-square = o) -> (Class = negative),9,5
+137,(middle-middle-square = o) & (bottom-left-square = b) & (top-middle-square = o) & (bottom-middle-square = o) -> (Class = negative),12,4
+138,(top-left-square = o) & (bottom-left-square = o) & (top-middle-square = x) & (top-right-square = x) & (middle-left-square = x) & (bottom-middle-square = o) & (middle-middle-square = x) -> (Class = negative),2,7
+139,(middle-middle-square = x) & (bottom-left-square = x) & (middle-left-square = o) & (middle-right-square = o) & (top-left-square = o) -> (Class = positive),9,5
+140,(middle-middle-square = o) & (top-left-square = b) & (bottom-middle-square = o) & (top-middle-square = o) -> (Class = negative),12,4
+141,(middle-middle-square = o) & (top-left-square = o) & (top-middle-square = x) & (middle-left-square = x) & (middle-right-square = b) -> (Class = negative),7,5
+142,(top-left-square = o) & (top-right-square = o) & (middle-right-square = x) & (bottom-right-square = x) & (bottom-middle-square = b) & (top-middle-square = x) -> (Class = negative),2,6
+143,(middle-middle-square = o) & (top-left-square = o) & (top-middle-square = x) & (bottom-middle-square = b) & (bottom-left-square = x) -> (Class = negative),7,5
+144,(bottom-left-square = o) & (bottom-right-square = o) & (bottom-middle-square = o) -> (Class = negative),36,3
+145,(middle-middle-square = o) & (top-left-square = o) & (bottom-right-square = o) -> (Class = negative),50,3
+146,(middle-middle-square = o) & (top-right-square = o) & (top-middle-square = x) & (bottom-middle-square = b) & (bottom-right-square = x) -> (Class = negative),7,5
+147,(middle-middle-square = x) & (top-left-square = x) & (top-middle-square = o) & (top-right-square = b) -> (Class = positive),22,4
+148,(middle-middle-square = o) & (top-left-square = o) & (middle-left-square = x) & (middle-right-square = x) & (bottom-left-square = x) -> (Class = negative),12,5
+149,(middle-middle-square = o) & (bottom-right-square = b) & (top-middle-square = o) & (bottom-middle-square = o) -> (Class = negative),12,4
+150,(middle-middle-square = o) & (bottom-left-square = o) & (middle-left-square = x) & (middle-right-square = x) & (top-left-square = x) -> (Class = negative),12,5
+151,(middle-middle-square = x) & (top-right-square = x) & (middle-right-square = o) & (bottom-right-square = b) -> (Class = positive),22,4
+152,(middle-middle-square = o) & (top-right-square = b) & (middle-left-square = o) & (middle-right-square = o) -> (Class = negative),12,4
+153,(middle-middle-square = x) & (top-right-square = x) & (top-left-square = b) & (middle-left-square = o) & (top-middle-square = b) -> (Class = positive),7,5
+154,(middle-middle-square = x) & (top-right-square = x) & (middle-left-square = b) & (top-left-square = o) & (top-middle-square = b) -> (Class = positive),7,5
+155,(middle-middle-square = o) & (bottom-left-square = o) & (middle-left-square = x) & (bottom-middle-square = x) & (middle-right-square = x) & (bottom-right-square = o) -> (Class = negative),5,6
+156,(middle-middle-square = o) & (bottom-right-square = o) & (middle-right-square = x) & (middle-left-square = b) & (bottom-left-square = x) -> (Class = negative),7,5
+157,(top-left-square = x) & (bottom-left-square = x) & (middle-middle-square = b) & (bottom-right-square = x) -> (Class = positive),8,4
+158,(middle-middle-square = o) & (top-left-square = o) & (top-middle-square = x) & (middle-left-square = x) & (bottom-middle-square = x) & (bottom-left-square = o) -> (Class = negative),5,6
+159,(middle-middle-square = x) & (bottom-left-square = x) & (top-left-square = b) & (top-middle-square = o) & (middle-left-square = b) -> (Class = positive),7,5
+160,(middle-middle-square = x) & (top-left-square = x) & (top-middle-square = o) & (bottom-middle-square = o) & (top-right-square = o) -> (Class = positive),9,5
+161,(middle-middle-square = x) & (bottom-left-square = x) & (bottom-right-square = b) & (middle-right-square = o) & (middle-left-square = b) -> (Class = positive),7,5
+162,(middle-middle-square = x) & (top-left-square = x) & (bottom-middle-square = b) & (bottom-left-square = o) & (middle-left-square = b) -> (Class = positive),7,5
+163,(top-left-square = o) & (top-right-square = o) & (top-middle-square = o) -> (Class = negative),36,3
+164,(middle-middle-square = x) & (top-left-square = x) & (bottom-left-square = b) & (bottom-middle-square = o) & (top-middle-square = b) -> (Class = positive),7,5
+165,(middle-middle-square = o) & (middle-left-square = x) & (bottom-left-square = b) & (top-middle-square = o) & (bottom-middle-square = o) -> (Class = negative),9,5
+166,(top-left-square = x) & (top-right-square = x) & (middle-middle-square = b) & (bottom-right-square = x) -> (Class = positive),8,4
+167,(top-left-square = o) & (bottom-right-square = o) & (top-middle-square = x) & (top-right-square = x) & (middle-left-square = x) & (middle-right-square = b) -> (Class = negative),4,6
+168,(top-left-square = x) & (bottom-left-square = x) & (top-middle-square = o) & (middle-right-square = o) & (top-right-square = b) -> (Class = positive),11,5
+169,(top-left-square = o) & (bottom-right-square = o) & (middle-left-square = x) & (bottom-left-square = x) & (bottom-middle-square = x) & (top-right-square = o) -> (Class = negative),6,6
+170,(middle-middle-square = o) & (top-left-square = o) & (top-middle-square = x) & (bottom-middle-square = x) & (bottom-left-square = o) -> (Class = negative),10,5
+171,(top-left-square = o) & (top-right-square = o) & (middle-right-square = x) & (bottom-right-square = x) & (middle-middle-square = b) & (bottom-left-square = o) -> (Class = negative),2,6
+172,(middle-middle-square = x) & (top-right-square = x) & (bottom-left-square = x) -> (Class = positive),90,3
+173,(middle-middle-square = x) & (bottom-right-square = x) & (middle-right-square = o) & (middle-left-square = o) & (top-right-square = o) -> (Class = positive),9,5
+174,(top-left-square = o) & (bottom-right-square = o) & (middle-right-square = x) & (bottom-middle-square = x) & (bottom-left-square = x) & (middle-left-square = b) -> (Class = negative),4,6
+175,(top-left-square = x) & (top-right-square = x) & (bottom-middle-square = b) & (middle-left-square = x) -> (Class = positive),8,4
+176,(top-left-square = x) & (top-right-square = x) & (middle-middle-square = b) & (middle-left-square = o) -> (Class = positive),19,4
+177,(top-left-square = x) & (bottom-left-square = x) & (top-middle-square = o) & (top-right-square = o) & (bottom-right-square = x) & (bottom-middle-square = x) -> (Class = positive),6,6
+178,(top-left-square = o) & (bottom-right-square = o) & (top-middle-square = x) & (middle-left-square = x) & (bottom-left-square = x) & (bottom-middle-square = x) -> (Class = negative),3,6
+179,(top-left-square = o) & (bottom-right-square = o) & (top-middle-square = x) & (middle-left-square = x) & (bottom-left-square = x) & (bottom-middle-square = b) -> (Class = negative),4,6
+180,(middle-middle-square = o) & (top-left-square = o) & (top-middle-square = x) & (bottom-middle-square = x) & (top-right-square = x) -> (Class = negative),12,5
+181,(top-right-square = x) & (bottom-right-square = x) & (middle-left-square = b) & (top-left-square = o) -> (Class = positive),22,4
+182,(middle-middle-square = x) & (bottom-right-square = x) & (middle-left-square = b) & (bottom-left-square = o) & (middle-right-square = b) -> (Class = positive),7,5
+183,(middle-middle-square = o) & (top-middle-square = x) & (top-left-square = b) & (middle-right-square = o) & (middle-left-square = o) -> (Class = negative),9,5
+184,(top-left-square = o) & (bottom-left-square = o) & (bottom-middle-square = x) & (bottom-right-square = x) & (top-middle-square = o) & (middle-middle-square = x) -> (Class = negative),5,6
+185,(middle-middle-square = x) & (top-right-square = x) & (top-middle-square = o) & (bottom-middle-square = o) & (top-left-square = o) -> (Class = positive),9,5
+186,(middle-middle-square = x) & (top-left-square = x) & (middle-left-square = o) & (middle-right-square = o) & (top-right-square = b) -> (Class = positive),9,5
+187,(middle-middle-square = x) & (top-right-square = x) & (top-left-square = b) & (middle-left-square = o) & (middle-right-square = b) -> (Class = positive),7,5
+188,(top-left-square = x) & (top-right-square = x) & (middle-left-square = b) & (bottom-left-square = o) & (middle-middle-square = o) -> (Class = positive),9,5
+189,(middle-middle-square = x) & (bottom-left-square = x) & (middle-left-square = o) & (middle-right-square = b) -> (Class = positive),25,4
+190,(middle-middle-square = x) & (bottom-right-square = x) & (middle-right-square = o) & (top-right-square = b) -> (Class = positive),22,4
+191,(middle-middle-square = x) & (top-left-square = x) & (middle-left-square = o) & (middle-right-square = b) -> (Class = positive),25,4
+192,(middle-middle-square = o) & (bottom-left-square = o) & (middle-left-square = x) & (bottom-middle-square = x) & (top-left-square = x) & (top-middle-square = o) -> (Class = negative),4,6
+193,(middle-middle-square = x) & (bottom-right-square = x) & (bottom-left-square = b) & (middle-left-square = o) & (middle-right-square = b) -> (Class = positive),7,5
+194,(middle-middle-square = o) & (bottom-right-square = o) & (middle-right-square = x) & (middle-left-square = x) & (top-right-square = x) -> (Class = negative),12,5
+195,(middle-middle-square = x) & (top-right-square = x) & (middle-right-square = o) & (middle-left-square = o) & (top-left-square = b) -> (Class = positive),9,5
+196,(middle-middle-square = x) & (top-left-square = x) & (top-right-square = b) & (middle-right-square = o) & (top-middle-square = b) -> (Class = positive),7,5
+197,(top-right-square = o) & (bottom-left-square = o) & (middle-left-square = x) & (top-left-square = x) & (bottom-middle-square = x) & (top-middle-square = b) -> (Class = negative),4,6
+198,(middle-middle-square = o) & (middle-right-square = x) & (bottom-right-square = b) & (top-middle-square = o) & (bottom-middle-square = o) -> (Class = negative),9,5
+199,(middle-middle-square = x) & (bottom-left-square = x) & (top-middle-square = b) & (top-left-square = o) & (bottom-middle-square = b) -> (Class = positive),7,5
+200,(middle-middle-square = x) & (top-right-square = x) & (bottom-middle-square = b) & (bottom-right-square = o) & (top-middle-square = b) -> (Class = positive),7,5
+201,(middle-middle-square = x) & (top-right-square = b) & (bottom-middle-square = x) & (top-middle-square = x) -> (Class = positive),28,4
+202,(middle-middle-square = o) & (bottom-right-square = o) & (bottom-middle-square = x) & (top-middle-square = b) & (top-right-square = x) -> (Class = negative),7,5
+203,(middle-middle-square = o) & (top-right-square = o) & (middle-right-square = x) & (middle-left-square = x) & (bottom-right-square = x) -> (Class = negative),12,5
+coverage
+min,avg,max
+1,15.044118,90
+length
+min,avg,max
+3,4.6960783,7

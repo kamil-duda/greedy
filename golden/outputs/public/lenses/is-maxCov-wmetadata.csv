@@ -1,0 +1,42 @@
+index,rule,coverage,length
+0,(spectacle-prescription = 1) & (age = 1) & (contact-lenses = 2) -> (astigmatic = 1),1,3
+1,(spectacle-prescription = 1) & (age = 2) & (contact-lenses = 2) -> (astigmatic = 1),1,3
+2,(contact-lenses = 3) & (spectacle-prescription = 1) -> (astigmatic = 1),4,2
+3,(tear-production-rate = 2) & (spectacle-prescription = 2) & (contact-lenses = 3) -> (astigmatic = 2),2,3
+4,(tear-production-rate = 2) & (contact-lenses = 1) -> (astigmatic = 2),4,2
+5,(spectacle-prescription = 2) & (contact-lenses = 2) -> (astigmatic = 1),3,2
+6,(contact-lenses = 3) & (tear-production-rate = 1) -> (astigmatic = 1),6,2
+7,(astigmatic = 1) & (tear-production-rate = 2) & (age = 1) -> (contact-lenses = 2),2,3
+8,(spectacle-prescription = 1) & (astigmatic = 1) & (age = 3) -> (contact-lenses = 3),2,3
+9,(astigmatic = 2) & (tear-production-rate = 2) & (age = 1) -> (contact-lenses = 1),2,3
+10,(astigmatic = 1) & (tear-production-rate = 2) & (spectacle-prescription = 2) -> (contact-lenses = 2),3,3
+11,(astigmatic = 1) & (tear-production-rate = 2) & (age = 2) -> (contact-lenses = 2),2,3
+12,(tear-production-rate = 1) -> (contact-lenses = 3),12,1
+13,(astigmatic = 2) & (tear-production-rate = 2) & (spectacle-prescription = 1) -> (contact-lenses = 1),3,3
+14,(spectacle-prescription = 2) & (astigmatic = 2) & (age = 2) -> (contact-lenses = 3),2,3
+15,(spectacle-prescription = 2) & (astigmatic = 2) & (age = 3) -> (contact-lenses = 3),2,3
+16,(spectacle-prescription = 1) & (astigmatic = 2) -> (age = 3),2,2
+17,(tear-production-rate = 2) & (spectacle-prescription = 2) & (astigmatic = 2) & (contact-lenses = 1) -> (age = 1),1,4
+18,(tear-production-rate = 2) & (spectacle-prescription = 1) & (astigmatic = 1) & (contact-lenses = 2) -> (age = 1),1,4
+19,(contact-lenses = 3) -> (age = 3),6,1
+20,(spectacle-prescription = 2) & (astigmatic = 1) -> (age = 3),2,2
+21,(tear-production-rate = 2) & (age = 3) & (astigmatic = 1) & (contact-lenses = 2) -> (spectacle-prescription = 2),1,4
+22,(astigmatic = 1) & (age = 2) -> (spectacle-prescription = 1),2,2
+23,(tear-production-rate = 2) & (age = 3) & (astigmatic = 2) & (contact-lenses = 3) -> (spectacle-prescription = 2),1,4
+24,(astigmatic = 1) & (age = 1) -> (spectacle-prescription = 1),2,2
+25,(contact-lenses = 3) & (astigmatic = 1) -> (spectacle-prescription = 1),4,2
+26,(tear-production-rate = 2) & (astigmatic = 2) & (contact-lenses = 3) -> (spectacle-prescription = 2),2,3
+27,(astigmatic = 2) & (contact-lenses = 1) -> (spectacle-prescription = 1),3,2
+28,(contact-lenses = 3) & (tear-production-rate = 1) -> (spectacle-prescription = 1),6,2
+29,(spectacle-prescription = 1) & (astigmatic = 2) & (contact-lenses = 1) -> (tear-production-rate = 2),3,3
+30,(spectacle-prescription = 1) & (age = 2) & (astigmatic = 1) & (contact-lenses = 2) -> (tear-production-rate = 2),1,4
+31,(astigmatic = 1) & (contact-lenses = 2) -> (tear-production-rate = 2),5,2
+32,(age = 1) & (spectacle-prescription = 2) & (astigmatic = 2) & (contact-lenses = 1) -> (tear-production-rate = 2),1,4
+33,(contact-lenses = 3) -> (tear-production-rate = 1),12,1
+34,(spectacle-prescription = 1) & (age = 1) & (astigmatic = 1) & (contact-lenses = 2) -> (tear-production-rate = 2),1,4
+coverage
+min,avg,max
+1,3.057143,12
+length
+min,avg,max
+1,2.6857142,4
