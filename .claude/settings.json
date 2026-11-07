@@ -1,11 +1,7 @@
 {
   "permissions": {
     "deny": [
-      "Bash(git add *)",
-      "Bash(git commit *)",
       "Bash(git push *)",
-      "Bash(git -C * add *)",
-      "Bash(git -C * commit *)",
       "Bash(git -C * push *)",
       "Bash(git pull *)",
       "Bash(git fetch *)",
@@ -41,7 +37,13 @@
       "Bash(gh pr close *)",
       "Bash(gh pr edit *)",
       "Bash(gh release *)",
-      "Bash(gh repo *)"
+      "Bash(gh repo *)",
+      "Bash(grep *)",
+      "Bash(egrep *)",
+      "Bash(fgrep *)",
+      "Bash(zgrep *)",
+      "Bash(git grep *)",
+      "Bash(git -C * grep *)"
     ]
   }
 }
