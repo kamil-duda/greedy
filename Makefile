@@ -54,6 +54,7 @@ legacy-golden: legacy-mongo ## Regenerate golden/outputs: legacy-default run, a 
 	$(LEGACY_MVN) test -Dtest=GoldenGenerator -DfailIfNoTests=false -Dgolden.out=target/golden-run-b \
 		-Dlegacy.spark.master='local[1]' -Dlegacy.spark.shufflePartitions=1
 	$(LEGACY_MVN) test -Dtest=GoldenCompare -DfailIfNoTests=false -Dgolden.a=golden/outputs -Dgolden.b=target/golden-run-b
+	python3 -I golden/scripts/find_mcd_ties.py --inputs golden/inputs --out golden/outputs/mcd-ties.json
 
 legacy-coverage: legacy-test ## Tests + JaCoCo report (target/site/jacoco/index.html) and a per-package summary
 	@awk -F, 'NR > 1 { bm[$$2] += $$6; bc[$$2] += $$7; lm[$$2] += $$8; lc[$$2] += $$9 } \
