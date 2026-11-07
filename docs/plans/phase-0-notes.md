@@ -1,6 +1,6 @@
 # Phase 0 notes
 
-Findings log for [Phase 0](phase-0.md). Newest facts first within each section.
+Findings log for [Phase 0](phase-0.md). Newest facts first within each section. Every ruling made while executing the plan, with its evidence: [phase-0-ledger.md](phase-0-ledger.md).
 
 ## Summary for the owner's review
 
@@ -90,7 +90,7 @@ Correct dump command, using the surefire JVM's PID from `ps`: `docker exec greed
 | A1–A3 | MongoDB only | 133 s, 128 s, 127 s | 9 s, 8 s, 9 s | `MostCommonDecisionTest` 23–28 s |
 | B1–B2 | legacy app running in the same network namespace (as in the slow run) | 110 s, 109 s | 7 s, 7 s | `MostCommonDecisionTest` 22–23 s |
 
-Per-class times varied by at most a few seconds across runs (data: `.superpowers/sdd/phase-0/t3-times.tsv`, local only). Ruled out as sufficient causes: the legacy app's idle Spark session sharing the network namespace (B runs), memory pressure (other containers: `elasticsearch` capped at 780 MiB of the 8 GB Docker VM).
+Per-class times varied by at most a few seconds across runs (data: `docs/plans/phase-0-data/t3-times.tsv`). Ruled out as sufficient causes: the legacy app's idle Spark session sharing the network namespace (B runs), memory pressure (other containers: `elasticsearch` capped at 780 MiB of the 8 GB Docker VM).
 
 Remaining hypotheses, untested because the symptom cannot be triggered: (1) Spark delay scheduling: "0 running tasks while tasks are pending" is what `spark.locality.wait` (3 s per locality level) looks like when cached blocks report a host that does not match the local executor; (2) transient contention on the Docker VM host. Changing `spark.locality.wait` without the symptom would be a guess, so the default stays.
 
