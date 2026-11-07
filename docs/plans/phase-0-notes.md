@@ -135,7 +135,7 @@ Legacy behavior that differed from what the plan expected, or a suspicion confir
 - **Excel-style input keeps the BOM in the first column name** (`edge/bom-crlf`), so rules read `﻿a=1`.
 - **Doubled quotes are not unescaped** (`edge/quoted-values`): `"say ""hi"""` becomes the value `"say ""hi"""`.
 - **Duplicate column names are silently renamed** by Spark to `a0`, `a1` (`edge/duplicate-names`); rules then name columns that are not in the file.
-- **A failed GridFS validation is only logged** (`StorageIT.failedValidationIsOnlyLogged`): `storeFile` still returns the file, so a corrupt upload would be explored anyway.
+- **A failed GridFS validation is only logged** (`StorageValidationTest.failedValidationIsOnlyLogged`): `storeFile` still returns the file, so a corrupt upload would be explored anyway.
 - **The two-run nondeterminism check misses most tie-dependent cases**: 42 input-modes flagged, 110 have MCD ties (see Golden corpus run).
 
 - **Uploads over 4 MiB fail after their temporary copy is deleted (confirmed).** Spark 2.1 splits a file into chunks of max(4 MiB, (size + 4 MiB) / default parallelism); the app's parallelism is 4, so every file over 4 MiB has several partitions. `SparkMongo` caches the data, calls `show()` (which reads only the first partition) and deletes `tmp-storage/<name>`; the next action (`count()`) fails with `SparkException` caused by `FileNotFoundException`. `SparkMongoIT.largeFileIsReadAfterItsTemporaryCopyIsDeleted` (4 MiB + 1 KiB fails) and `fileOfAtMostFourMebibytesIsReadCompletely` (4 MiB − 1 KiB works) pin the limit. Every real upload over 4 MiB fails in the exploration step. Fixed by design in the rewrite (no temp files).
@@ -159,7 +159,7 @@ Legacy behavior that differed from what the plan expected, or a suspicion confir
 | `service.exploration` | 100% | 100% (0.0%) |
 | `service.storage` | 100% | 50.0% (25.0%) |
 
-Tests added in Task 11: `HeuristicChoiceTest.emptyCellsInAConsistentTableAreOrdinaryValues` (null-safe `==` in every heuristic's choose and stop logic; maxCov differs from the others), `StorageIT.deleteByFilenameRemovesEveryFileWithThatNameWhateverItsType`, `deleteByTypeRemovesFilesWithThatTypeMetadata`, `failedValidationIsOnlyLogged`.
+Tests added in Task 11: `HeuristicChoiceTest.emptyCellsInAConsistentTableAreOrdinaryValues` (null-safe `==` in every heuristic's choose and stop logic; maxCov differs from the others), `StorageIT.deleteByFilenameRemovesEveryFileWithThatNameWhateverItsType`, `deleteByTypeRemovesFilesWithThatTypeMetadata`, and `StorageValidationTest.failedValidationIsOnlyLogged` (moved out of `StorageIT` because it needs no MongoDB).
 
 Remaining misses, all accepted as unreachable or compiler-generated (checked against the bytecode with `javap`):
 

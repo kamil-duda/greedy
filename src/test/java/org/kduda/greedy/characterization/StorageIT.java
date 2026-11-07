@@ -1,8 +1,6 @@
 package org.kduda.greedy.characterization;
 
-import com.mongodb.MongoException;
 import com.mongodb.gridfs.GridFSDBFile;
-import com.mongodb.gridfs.GridFSFile;
 import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Test;
@@ -14,25 +12,17 @@ import org.kduda.greedy.repository.rules.RulesRepository;
 import org.kduda.greedy.service.storage.MongoGridFsStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.mongodb.gridfs.GridFsOperations;
 import org.springframework.mock.web.MockMultipartFile;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Pins how the legacy repositories use GridFS on a real MongoDB 4.4: content type, metadata, listing and deletion.
@@ -111,20 +101,6 @@ public class StorageIT extends SpringIntegrationTest {
 		storage.deleteByType(type);
 
 		assertThat(storage.findFilesByType(type)).isEmpty();
-	}
-
-	/** A file that fails GridFS validation (MD5 mismatch) is only logged; it stays stored and is returned. */
-	@Test
-	public void failedValidationIsOnlyLogged() {
-		GridFsOperations operations = mock(GridFsOperations.class);
-		GridFSFile file = mock(GridFSFile.class);
-		doThrow(new MongoException("md5 mismatch")).when(file).validate();
-		when(operations.store(any(InputStream.class), anyString(), anyString(), any(Object.class))).thenReturn(file);
-
-		Optional<GridFSFile> stored = new MongoGridFsStorageService(operations)
-			.storeFile(new ByteArrayInputStream("a".getBytes()), "f.csv", "text/csv", Collections.emptyMap());
-
-		assertThat(stored.get()).isSameAs(file);
 	}
 
 	private String store(String name, String type) {
