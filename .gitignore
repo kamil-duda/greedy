@@ -121,3 +121,6 @@ hs_err_pid*
 # dev tmp-storage
 tmp-storage/*
 !tmp-storage/readme.txt
+
+# local session hand-over notes (not shared)
+resume-claude-session.md
