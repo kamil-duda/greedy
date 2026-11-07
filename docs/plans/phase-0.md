@@ -18,7 +18,7 @@
 - Characterization tests pin **current** behavior, bugs included. A test that pins a bug names the registry item in a comment (e.g. `// registry #10`). If a test written from this plan fails against the legacy code, the legacy code is right by definition: record the actual behavior in the test, note the surprise in `docs/plans/phase-0-notes.md`, and flag it in the hand-over.
 - Algorithm and formatter characterization tests do not start a Spring context; they use `GreedySparkInstance.sparkSession()`.
 - Golden comparison is order-insensitive, as defined by `GoldenFiles.normalize` (Task 6).
-- Git: the agent may `git add`, `git mv`, `git rm`; it never commits, pushes or pulls. Every task ends with its files staged, a suggested commit message, and a stop until the owner has committed.
+- Git (as executed): the agent staged with `git add` and never committed, pushed or pulled; the owner committed. Since 2026-11-07 the rules in `AGENTS.md` apply instead: agents commit on `master-ai` with Conventional Commits, and the owner pushes.
 - When a task completes, tick its box(es) in the Phase 0 checklist of `PLAN.md`.
 
 ## Review Focus
@@ -459,4 +459,4 @@ If a chosen case is an error case in `manifest.json`, assert the HTTP flow fails
 - [ ] **Step 2: Propose registry entries** — for every legacy behavior found in Phase 0 that the new implementation should not reproduce and that is not yet in the registry, add a row to `PLAN.md`'s registry marked **(proposed, pending owner approval)**, and list them under `## Proposed registry entries` in the notes.
 - [ ] **Step 3: Update `AGENTS.md`** — the `golden/` corpus (what it is, `make legacy-golden`, order-insensitive comparison) and the `legacy-*` targets including `legacy-coverage` and `legacy-golden`.
 - [ ] **Step 4: Verify** — `make legacy-test` and `make legacy-coverage` → `BUILD SUCCESS`; all Phase 0 boxes ticked except "Owner review".
-- [ ] **Step 5: Stage and hand over** — `git add docs PLAN.md AGENTS.md`; message `Phase 0 review package`. The owner reviews, approves or rejects each proposed registry entry, commits, and tags `legacy-baseline` (`git tag legacy-baseline`), then ticks "Owner review".
+- [ ] **Step 5: Stage and hand over** — `git add docs PLAN.md AGENTS.md`; message `Phase 0 review package`. The owner reviews, approves or rejects each proposed registry entry, then ticks "Owner review". (2026-11-07: reviewed, all six entries approved; the owner decided against a baseline tag.)
