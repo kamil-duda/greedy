@@ -116,7 +116,7 @@ Run B is 7× faster: on these small tables the 200 shuffle partitions per stage 
 |---|---|---|---|
 | `org.apache.spark.sql.AnalysisException` | `dotted-names` | 10 | Spark reads `a.b` as a nested field (registry #11) |
 | `java.util.NoSuchElementException` | `empty-cells` | 10 | MCD drops the null-condition group, the heuristic runs out of columns (registry #10) |
-| `java.lang.UnsupportedOperationException` | `empty-file` | 10 | the 0-byte file has no header row |
+| `java.lang.UnsupportedOperationException` | `empty-file` | 10 | the 0-byte file has no header row; pipeline only: the legacy app already refuses a 0-byte upload (`StorageIT.emptyUploadIsRejected`) |
 
 **Format errors** (one format fails, the others are written): only csvm, always `java.lang.UnsupportedOperationException` (`empty.min`, registry #7), whenever a run produces no rules at all: 340 case-formats in 68 input-modes. Edge 45 (`header-only`, `identical-rows`, `single-condition`, `single-row` in both modes; `single-decision` in `dt`), fixtures 5 (`paper-sample` in `dt`), random 290 (58 input-modes of 31 tables, small tables whose decision attributes are left with a single value after MCD). In `is` mode, csvm fails only when every attribute has no rules (`single-decision` in `is` succeeds).
 
@@ -180,7 +180,7 @@ Added to `PLAN.md`'s registry as #13–#18, marked **(proposed, pending owner ap
 |---|---|---|
 | 13 | Drop a UTF-8 BOM at the start of an uploaded CSV | golden `edge/bom-crlf`: first column name `﻿a` in all formats |
 | 14 | RFC 4180 quoting: `""` inside a quoted field is one `"` | golden `edge/quoted-values`: `"say ""hi"""` kept literally |
-| 15 | Reject empty and header-only files at upload | golden `edge/empty-file` (500, `UnsupportedOperationException`), `edge/header-only` (empty rule files, csvm crash) |
+| 15 | Reject empty and header-only files at upload | `StorageIT.emptyUploadIsRejected` (0-byte upload: `StorageException`, HTTP 500, no run); golden `edge/header-only` (empty rule files, csvm crash) |
 | 16 | Read files of any size completely | `SparkMongoIT.largeFileIsReadAfterItsTemporaryCopyIsDeleted` |
 | 17 | Upload name is display text, never a path | `SparkMongoIT.uploadNameIsUsedAsTemporaryFilePath` |
 | 18 | Correct `Content-Type` on rule downloads | `EndToEndGoldenIT` (`application/json` today) |

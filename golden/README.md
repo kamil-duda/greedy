@@ -32,7 +32,7 @@ Public datasets keep their values unchanged; only id columns are dropped (lenses
 
 | File | Content | What it pins |
 |---|---|---|
-| `empty-file` | 0 bytes | no header at all |
+| `empty-file` | 0 bytes | no header at all; pipeline only, since the legacy app refuses a 0-byte upload before any run |
 | `header-only` | `a,b,d` | no rows |
 | `single-row` | `a,d` / `1,y` | degenerate table |
 | `single-decision` | `a,b,d` / `1,2,y` / `2,3,y` | at most one decision value: no rules |
@@ -50,13 +50,14 @@ Public datasets keep their values unchanged; only id columns are dropped (lenses
 
 ## Public datasets: attribution
 
-All from the [UCI Machine Learning Repository](https://archive.ics.uci.edu), licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Downloaded 2026-10-27.
+All from the [UCI Machine Learning Repository](https://archive.ics.uci.edu), licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The `public/` sets were downloaded 2026-10-27; `fixtures/tic-tac-toe` is the legacy test fixture (in the repo since 2017-01-12), copied unchanged, so it has no archive hash; its column names come from that fixture.
 
 | Input | Citation | Archive | SHA-256 of archive | Rows |
 |---|---|---|---|---|
 | `public/lenses` | Cendrowska, J. (1987). Lenses [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5K88Z | https://archive.ics.uci.edu/static/public/58/lenses.zip | `782e06afbf115ee0802c17a87c6840619450a97d8c66d59f8eb9577989cd7d7b` | 24 |
 | `public/zoo` | Forsyth, R. (1990). Zoo [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5R59V | https://archive.ics.uci.edu/static/public/111/zoo.zip | `d49013253628277182bb172f5ab1bf3befad090b54bbb7e52733c9c9534e240a` | 101 |
 | `public/car` | Bohanec, M. (1988). Car Evaluation [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5JP48 | https://archive.ics.uci.edu/static/public/19/car+evaluation.zip | `1559d51dcf327f4f8c71b711ceed7fd95a382fc8d8e1998667f4f23b82860403` | 1728 |
+| `fixtures/tic-tac-toe` | Aha, D. (1991). Tic-Tac-Toe Endgame [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5688J | https://archive.ics.uci.edu/static/public/101/tic+tac+toe+endgame.zip | – (copied from `src/test/resources/files/tic-tac-toe.csv`) | 958 |
 | `public/monks-1`, `-2`, `-3` (training sets) | Wnek, J. (1993). MONK's Problems [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5R30R | https://archive.ics.uci.edu/static/public/70/monk+s+problems.zip | `7501acef87251b1d427726d7c381a2488c166fbbf70ac4096e09f05951c30a29` | 124, 169, 122 |
 
 Larger UCI sets (mushroom, nursery) are left out: the legacy code is too slow on them. The new implementation covers them with differential tests instead.

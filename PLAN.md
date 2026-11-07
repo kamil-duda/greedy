@@ -155,7 +155,7 @@ Builders must reproduce this exactly unless the registry says otherwise. Referen
 The old code builds only on JDK 8 and uses MongoDB Java driver 3.2.2, so legacy work runs in Docker. Verified on 2026-10-27 with **no source changes**: build in `maven:3.8.8-eclipse-temurin-8` (`./mvnw` is unusable because `.mvn/wrapper/maven-wrapper.jar` was never committed), run on `eclipse-temurin:8-jre` against `mongo:4.4`. Uploading `paper-sample.csv` and running M / information system / RSES through the UI produced exactly `paper-sample-rules.rul`.
 
 ```bash
-docker run -d --name greedy-legacy-mongo -p 27017:27017 -p 8080:8080 mongo:4.4
+docker run -d --name greedy-legacy-mongo -p 127.0.0.1:27017:27017 -p 127.0.0.1:8080:8080 mongo:4.4
 docker run --rm --network container:greedy-legacy-mongo -v "$PWD":/src -v greedy-legacy-m2:/root/.m2 -w /src \
   maven:3.8.8-eclipse-temurin-8 mvn -B -DskipTests package          # or `mvn -B verify` for unit + integration tests
 docker run -d --name greedy-legacy-app --network container:greedy-legacy-mongo -v "$PWD":/src -w /src \
@@ -214,7 +214,7 @@ Every intended difference from legacy output. Each is delivered as a separate, s
 | 12 | Heuristic scores compared with exact math (**owner**); legacy `Float` rounding in RM/poly and `log10`-ratio rounding in log are not reproduced, so near-equal scores may pick a different attribute than legacy. | 3 |
 | 13 | **(proposed, pending owner approval)** A UTF-8 BOM at the start of an uploaded CSV is dropped (legacy: it stays in the first column name, so rules read `﻿a=1`; golden `edge/bom-crlf`). | 4 |
 | 14 | **(proposed, pending owner approval)** CSV parsing follows RFC 4180: `""` inside a quoted field is one `"` (legacy: Spark 2.1's escape character is `\`, so `"say ""hi"""` stays literally, quotes included; golden `edge/quoted-values`). | 4 |
-| 15 | **(proposed, pending owner approval)** Empty and header-only files are rejected at upload with a clear message (legacy: a 0-byte file fails the run with HTTP 500, `UnsupportedOperationException`; a header-only file yields empty rule files and a csvm crash; golden `edge/empty-file`, `edge/header-only`). | 4 |
+| 15 | **(proposed, pending owner approval)** Empty and header-only files are rejected at upload with a clear message (legacy: a 0-byte upload is refused with an unhandled `StorageException`, "Failed to store empty file", shown as HTTP 500; a header-only file is accepted and yields empty rule files and a csvm crash; golden `edge/empty-file` (pipeline only), `edge/header-only`). | 4 |
 | 16 | **(proposed, pending owner approval)** Files of any size within the upload limit are read completely (legacy: a file Spark splits into several partitions fails after `SparkMongo` deletes its temporary copy, confirmed at ~20 MB: `SparkException` caused by `FileNotFoundException`). | 4 |
 | 17 | **(proposed, pending owner approval)** The upload name is display text only (legacy: it is used as a temporary file path, so a name with a directory part makes the run fail with `Path does not exist`). | 4 |
 | 18 | **(proposed, pending owner approval)** Rule downloads carry their format's content type (`text/csv` for csv and csvm, `text/plain` for `.rul`; legacy: `application/json`, pinned by `EndToEndGoldenIT`). | 4 |

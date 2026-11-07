@@ -31,7 +31,8 @@ import static org.mockito.Mockito.when;
 
 /**
  * The golden generator uses LegacyPipeline instead of the service (no MongoDB). This proves the two produce the
- * same rules files, so golden outputs are what the legacy app would have stored.
+ * same rules files, so golden outputs are what the legacy app would have stored for any file its upload accepts
+ * (it refuses 0-byte files, so {@code edge/empty-file} is pipeline only).
  */
 public class LegacyPipelineMatchesServiceTest {
 
