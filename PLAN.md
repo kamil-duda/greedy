@@ -209,7 +209,7 @@ Every intended difference from legacy output. Each is delivered as a separate, s
 | 7 | CSV-with-metadata no longer crashes on an empty rule set. | 7 |
 | 8 | RSES `.rul` gets the full header (`RULE_SET`, `ATTRIBUTES`, `DECISION_VALUES`, `RULES`), quoted names/values with spaces, one rule set per decision attribute (zip in `is` mode), RSES-compatible encoding. Legacy rule-lines-only format kept as an option. | 7 |
 | 9 | Missing values `MISSING`, `NULL`, `?` handled as missing, per the RSES 2.2 guide. Exact semantics decided in Phase 7. | 7 |
-| 10 | Inconsistent rows containing empty cells no longer crash the run (legacy: the MCD join drops null groups, then the heuristic loop throws `NoSuchElementException`). | 3 |
+| 10 | Inconsistent rows containing empty cells no longer crash the run (legacy: the MCD join never matches null conditions, so those inconsistent rows are left untouched, then the heuristic loop throws `NoSuchElementException`). | 3 |
 | 11 | Column names containing `.` work (legacy: Spark reads them as nested fields and fails); duplicate column names are rejected at upload with a clear message. | 4 |
 | 12 | Heuristic scores compared with exact math (**owner**); legacy `Float` rounding in RM/poly and `log10`-ratio rounding in log are not reproduced, so near-equal scores may pick a different attribute than legacy. | 3 |
 | 13 | A UTF-8 BOM at the start of an uploaded CSV is dropped (legacy: it stays in the first column name, so rules read `﻿a=1`; golden `edge/bom-crlf`). | 4 |

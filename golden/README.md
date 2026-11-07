@@ -71,7 +71,7 @@ Larger UCI sets (mushroom, nursery) are left out: the legacy code is too slow on
 - `outputs/nondeterministic.json`: cases whose output differed between the two runs.
 - `outputs/mcd-ties.json`: every input and mode whose output depends on a most-common-decision tie, with the tied group and decisions, computed from the inputs by `scripts/find_mcd_ties.py` (it models the legacy semantics; see its docstring). A superset of the cases in `nondeterministic.json`, which `GoldenCorpusTest` checks.
 
-Outputs are compared order-insensitively, because legacy output order is arbitrary: `.rul` as a sorted list of lines; `.csv` with the leading index taken off each line, sorted, plus the set of indices, which must run 0..n−1 across all rules (legacy numbering does, in every golden file); `-wmetadata.csv` the same for rule lines, with the header and the six statistics lines compared verbatim. The reference implementation is `GoldenFiles.normalize` (`src/test/java/org/kduda/greedy/golden/GoldenFiles.java`).
+Outputs are compared order-insensitively, because legacy output order is arbitrary: blank lines are ignored; `.rul` as a sorted list of lines (a multiset: repeated lines count); `.csv` with the leading index taken off each line, sorted, plus the set of indices, which must run 0..n−1 across all rules (legacy numbering does, in every golden file); `-wmetadata.csv` the same for rule lines, with the header and the six statistics lines compared verbatim. The reference implementation is `GoldenFiles.normalize` (`src/test/java/org/kduda/greedy/golden/GoldenFiles.java`).
 
 ## Current outputs
 

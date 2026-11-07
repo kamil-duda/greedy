@@ -94,7 +94,7 @@ Per-class times varied by at most a few seconds across runs (data: `docs/plans/p
 
 Remaining hypotheses, untested because the symptom cannot be triggered: (1) Spark delay scheduling: "0 running tasks while tasks are pending" is what `spark.locality.wait` (3 s per locality level) looks like when cached blocks report a host that does not match the local executor; (2) transient contention on the Docker VM host. Changing `spark.locality.wait` without the symptom would be a guess, so the default stays.
 
-If it recurs: while the slow class is running, take two thread dumps 30 s apart with `docker exec greedy-legacy-mvn sh -c 'jstack $(pgrep -f surefirebooter | head -1)'` and look at `TaskSchedulerImpl`/`TaskSetManager` and GC threads; then rerun with `make legacy-test ARGS='-Dlegacy.spark.localityWait=0'`. The golden generator (Task 9) logs per-case durations, so a stall during golden generation is visible.
+If it recurs: while the slow class is running, take two thread dumps 30 s apart with `docker exec greedy-legacy-mvn jstack <pid>`, using the PID of the `java` line from `docker exec greedy-legacy-mvn ps -eo pid,args | rg surefirebooter` (not the `/bin/sh -c` wrapper), and look at `TaskSchedulerImpl`/`TaskSetManager` and GC threads; then rerun with `make legacy-test ARGS='-Dlegacy.spark.localityWait=0'`. The golden generator (Task 9) logs per-case durations, so a stall during golden generation is visible.
 
 ## Golden corpus run
 
@@ -115,7 +115,7 @@ Run B is 7× faster: on these small tables the 200 shuffle partitions per stage 
 | Exception | Input | Cases | Cause |
 |---|---|---|---|
 | `org.apache.spark.sql.AnalysisException` | `dotted-names` | 10 | Spark reads `a.b` as a nested field (registry #11) |
-| `java.util.NoSuchElementException` | `empty-cells` | 10 | MCD drops the null-condition group, the heuristic runs out of columns (registry #10) |
+| `java.util.NoSuchElementException` | `empty-cells` | 10 | the MCD join never matches null conditions, so the inconsistent null-condition rows are left untouched and the heuristic runs out of columns (registry #10) |
 | `java.lang.UnsupportedOperationException` | `empty-file` | 10 | the 0-byte file has no header row; pipeline only: the legacy app already refuses a 0-byte upload (`StorageIT.emptyUploadIsRejected`) |
 
 **Format errors** (one format fails, the others are written): only csvm, always `java.lang.UnsupportedOperationException` (`empty.min`, registry #7), whenever a run produces no rules at all: 340 case-formats in 68 input-modes. Edge 45 (`header-only`, `identical-rows`, `single-condition`, `single-row` in both modes; `single-decision` in `dt`), fixtures 5 (`paper-sample` in `dt`), random 290 (58 input-modes of 31 tables, small tables whose decision attributes are left with a single value after MCD). In `is` mode, csvm fails only when every attribute has no rules (`single-decision` in `is` succeeds).
