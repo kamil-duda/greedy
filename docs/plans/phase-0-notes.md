@@ -4,7 +4,7 @@ Findings log for [Phase 0](phase-0.md). Newest facts first within each section. 
 
 ## Summary for the owner's review
 
-Phase 0 (all tasks done 2026-11-07) pins what the 2017 code does, bugs included, before any logic changes. Open for you: accept the coverage gaps, approve or reject registry #13–#18, then commit and tag `legacy-baseline`.
+Phase 0 (all tasks done 2026-11-07) pins what the 2017 code does, bugs included, before any logic changes. The owner accepted the coverage gaps and approved registry #13–#18 on 2026-11-07; the owner tags `legacy-baseline`.
 
 **What is pinned.** `make legacy-test` (about 5.5 min, all in Docker) runs 119 tests: the original 53 unit + 4 integration tests (1 skipped, as before) and 62 new ones.
 
@@ -144,7 +144,7 @@ Legacy behavior that differed from what the plan expected, or a suspicion confir
 
 ## Coverage gaps
 
-**For the owner to accept.** Measured 2026-11-07 with `make legacy-coverage` (fresh `jacoco.exec`, 102 unit + 17 integration tests, 1 skipped). `algorithm*` and `service*`: lines 571/572 (99.8%), branches 160/198 (80.8%). Every package there is at 100% lines except `algorithm.rm` (97.9%). The build now enforces ≥ 95% lines per package for `org.kduda.greedy.algorithm*` and `org.kduda.greedy.service*` (JaCoCo `check` in `verify`); a run with only `SparkTestConfigTest`'s data fails it on exactly those 10 packages.
+**Accepted by the owner on 2026-11-07.** Measured 2026-11-07 with `make legacy-coverage` (fresh `jacoco.exec`, 102 unit + 17 integration tests, 1 skipped). `algorithm*` and `service*`: lines 571/572 (99.8%), branches 160/198 (80.8%). Every package there is at 100% lines except `algorithm.rm` (97.9%). The build now enforces ≥ 95% lines per package for `org.kduda.greedy.algorithm*` and `org.kduda.greedy.service*` (JaCoCo `check` in `verify`); a run with only `SparkTestConfigTest`'s data fails it on exactly those 10 packages.
 
 | Package | Lines | Branches (baseline 2026-10-27) |
 |---|---|---|

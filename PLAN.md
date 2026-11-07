@@ -292,7 +292,7 @@ Detailed task plan: [docs/plans/phase-0.md](docs/plans/phase-0.md).
 - [x] Golden output generator (`make legacy-golden`) for 5 heuristics × 2 modes × 3 formats
 - [x] Double-run nondeterminism check; flagged cases recorded
 - [x] HTTP + MongoDB end-to-end golden cases
-- [ ] Coverage target met or gaps accepted by owner
+- [x] Coverage target met or gaps accepted by owner
 - [ ] Owner review (incl. any new registry entries); owner tags `legacy-baseline`
 
 ### Phase 1: Spike (throwaway)
