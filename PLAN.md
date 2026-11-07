@@ -215,7 +215,7 @@ Every intended difference from legacy output. Each is delivered as a separate, s
 | 13 | A UTF-8 BOM at the start of an uploaded CSV is dropped (legacy: it stays in the first column name, so rules read `﻿a=1`; golden `edge/bom-crlf`). | 4 |
 | 14 | CSV parsing follows RFC 4180: `""` inside a quoted field is one `"` (legacy: Spark 2.1's escape character is `\`, so `"say ""hi"""` stays literally, quotes included; golden `edge/quoted-values`). | 4 |
 | 15 | Empty and header-only files are rejected at upload with a clear message (legacy: a 0-byte upload is refused with an unhandled `StorageException`, "Failed to store empty file", shown as HTTP 500; a header-only file is accepted and yields empty rule files and a csvm crash; golden `edge/empty-file` (pipeline only), `edge/header-only`). | 4 |
-| 16 | Files of any size within the upload limit are read completely (legacy: a file Spark splits into several partitions fails after `SparkMongo` deletes its temporary copy, confirmed at ~20 MB: `SparkException` caused by `FileNotFoundException`). | 4 |
+| 16 | Files of any size within the upload limit are read completely (legacy: every file over 4 MiB fails: Spark splits it into several partitions, and `SparkMongo` deletes its temporary copy after reading only the first; `SparkException` caused by `FileNotFoundException`, pinned at 4 MiB ± 1 KiB by `SparkMongoIT`). | 4 |
 | 17 | The upload name is display text only (legacy: it is used as a temporary file path, so a name with a directory part makes the run fail with `Path does not exist`). | 4 |
 | 18 | Rule downloads carry their format's content type (`text/csv` for csv and csvm, `text/plain` for `.rul`; legacy: `application/json`, pinned by `EndToEndGoldenIT`). | 4 |
 

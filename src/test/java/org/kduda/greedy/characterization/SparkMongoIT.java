@@ -32,6 +32,8 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 @SpringBootTest
 public class SparkMongoIT extends SpringIntegrationTest {
 
+	private static final int FOUR_MEBIBYTES = 4 * 1024 * 1024;
+
 	@Autowired private FileStorageService storage;
 	@Autowired private SparkMongoService sparkMongo;
 
@@ -52,20 +54,39 @@ public class SparkMongoIT extends SpringIntegrationTest {
 		assertThat(thrown).isInstanceOf(AnalysisException.class).hasMessageContaining("Path does not exist");
 	}
 
+	/**
+	 * Spark 2.1 splits a file into chunks of max(4 MiB, (size + 4 MiB) / default parallelism) bytes; with the app's
+	 * parallelism of 4 that is 4 MiB for files up to 12 MiB. A file over 4 MiB therefore has several partitions,
+	 * show() reads only the first, and the temporary copy is gone when the rest is needed (registry #16).
+	 */
 	@Test
 	public void largeFileIsReadAfterItsTemporaryCopyIsDeleted() {
-		// ~20 MB: Spark splits it into several partitions, show() reads only the first, then the copy is deleted
-		StringBuilder csv = new StringBuilder("a,b,d\n");
-		for (int i = 0; i < 450000; i++) {
-			csv.append(String.format("%020d,%020d,%s%n", i, i * 7L, i % 2 == 0 ? "y" : "n"));
-		}
-		String id = store("spark-mongo-it-" + UUID.randomUUID() + ".csv", csv.toString());
+		String id = store("spark-mongo-it-" + UUID.randomUUID() + ".csv", csvOfSize(FOUR_MEBIBYTES + 1024));
 		Dataset<Row> data = sparkMongo.readCsvById(id);
 
 		Throwable thrown = catchThrowable(() -> data.count());
 
 		assertThat(thrown).isInstanceOf(SparkException.class);
 		assertThat(rootCause(thrown)).isInstanceOf(FileNotFoundException.class);
+	}
+
+	@Test
+	public void fileOfAtMostFourMebibytesIsReadCompletely() {
+		String csv = csvOfSize(FOUR_MEBIBYTES - 1024);
+		String id = store("spark-mongo-it-" + UUID.randomUUID() + ".csv", csv);
+
+		Dataset<Row> data = sparkMongo.readCsvById(id);
+
+		assertThat(data.count()).isEqualTo(csv.split("\n").length - 1);
+	}
+
+	/** A three-column CSV of at most {@code bytes} bytes and more than {@code bytes - 44}, all ASCII. */
+	private static String csvOfSize(int bytes) {
+		StringBuilder csv = new StringBuilder("a,b,d\n");
+		for (long i = 0; csv.length() + 44 <= bytes; i++) {
+			csv.append(String.format("%020d,%020d,%s\n", i, i * 7, i % 2 == 0 ? "y" : "n"));
+		}
+		return csv.toString();
 	}
 
 	private String store(String name, String content) {
