@@ -212,14 +212,14 @@ Every intended difference from legacy output. Each is delivered as a separate, s
 | 10 | Inconsistent rows containing empty cells no longer crash the run (legacy: the MCD join drops null groups, then the heuristic loop throws `NoSuchElementException`). | 3 |
 | 11 | Column names containing `.` work (legacy: Spark reads them as nested fields and fails); duplicate column names are rejected at upload with a clear message. | 4 |
 | 12 | Heuristic scores compared with exact math (**owner**); legacy `Float` rounding in RM/poly and `log10`-ratio rounding in log are not reproduced, so near-equal scores may pick a different attribute than legacy. | 3 |
-| 13 | **(proposed, pending owner approval)** A UTF-8 BOM at the start of an uploaded CSV is dropped (legacy: it stays in the first column name, so rules read `﻿a=1`; golden `edge/bom-crlf`). | 4 |
-| 14 | **(proposed, pending owner approval)** CSV parsing follows RFC 4180: `""` inside a quoted field is one `"` (legacy: Spark 2.1's escape character is `\`, so `"say ""hi"""` stays literally, quotes included; golden `edge/quoted-values`). | 4 |
-| 15 | **(proposed, pending owner approval)** Empty and header-only files are rejected at upload with a clear message (legacy: a 0-byte upload is refused with an unhandled `StorageException`, "Failed to store empty file", shown as HTTP 500; a header-only file is accepted and yields empty rule files and a csvm crash; golden `edge/empty-file` (pipeline only), `edge/header-only`). | 4 |
-| 16 | **(proposed, pending owner approval)** Files of any size within the upload limit are read completely (legacy: a file Spark splits into several partitions fails after `SparkMongo` deletes its temporary copy, confirmed at ~20 MB: `SparkException` caused by `FileNotFoundException`). | 4 |
-| 17 | **(proposed, pending owner approval)** The upload name is display text only (legacy: it is used as a temporary file path, so a name with a directory part makes the run fail with `Path does not exist`). | 4 |
-| 18 | **(proposed, pending owner approval)** Rule downloads carry their format's content type (`text/csv` for csv and csvm, `text/plain` for `.rul`; legacy: `application/json`, pinned by `EndToEndGoldenIT`). | 4 |
+| 13 | A UTF-8 BOM at the start of an uploaded CSV is dropped (legacy: it stays in the first column name, so rules read `﻿a=1`; golden `edge/bom-crlf`). | 4 |
+| 14 | CSV parsing follows RFC 4180: `""` inside a quoted field is one `"` (legacy: Spark 2.1's escape character is `\`, so `"say ""hi"""` stays literally, quotes included; golden `edge/quoted-values`). | 4 |
+| 15 | Empty and header-only files are rejected at upload with a clear message (legacy: a 0-byte upload is refused with an unhandled `StorageException`, "Failed to store empty file", shown as HTTP 500; a header-only file is accepted and yields empty rule files and a csvm crash; golden `edge/empty-file` (pipeline only), `edge/header-only`). | 4 |
+| 16 | Files of any size within the upload limit are read completely (legacy: a file Spark splits into several partitions fails after `SparkMongo` deletes its temporary copy, confirmed at ~20 MB: `SparkException` caused by `FileNotFoundException`). | 4 |
+| 17 | The upload name is display text only (legacy: it is used as a temporary file path, so a name with a directory part makes the run fail with `Path does not exist`). | 4 |
+| 18 | Rule downloads carry their format's content type (`text/csv` for csv and csvm, `text/plain` for `.rul`; legacy: `application/json`, pinned by `EndToEndGoldenIT`). | 4 |
 
-New registry entries found during Phase 0 are proposed by the builder and approved by the owner at the Phase 0 review **(proposed)**.
+New registry entries found during Phase 0 are proposed by the builder and approved by the owner at the Phase 0 review; #13–#18 were approved on 2026-11-07.
 
 ### Decisions from the plan review **(proposed)**
 - Empty CSV cells, until #9 lands: an ordinary value, as legacy treats them everywhere except MCD. Stored as an empty string; legacy-compatible formats print it as `null`, as legacy does; grouping and joins are null-safe.

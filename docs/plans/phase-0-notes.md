@@ -22,7 +22,7 @@ Phase 0 (all tasks done 2026-11-07) pins what the 2017 code does, bugs included,
 
 **Slowdowns, both test-infrastructure, no source change.** The 2026-10-27 "Spark stall" was stdout backpressure from DEBUG logging in tests without Spring (fixed by `logback-test.xml`). The golden run's growing slowness was Spark's UI listeners retaining per-task metrics in one long-lived JVM (fixed by test-only `spark.ui.retained*` limits).
 
-**Proposed registry entries** #13–#18 (BOM, RFC 4180 quotes, empty/header-only uploads, large files, upload name as path, content types): see the last section and `PLAN.md`.
+**Registry entries #13–#18** (approved) (BOM, RFC 4180 quotes, empty/header-only uploads, large files, upload name as path, content types): see the last section and `PLAN.md`.
 
 ## Coverage baseline
 
@@ -172,9 +172,9 @@ Remaining misses, all accepted as unreachable or compiler-generated (checked aga
 | `MongoGridFsStorageService` 49, 58, 67, 83, 91, 99 | one branch each | Lombok `@NonNull` parameter checks (`null` argument → `NullPointerException`); no caller passes `null` |
 | `algorithm.util.ArrayBufferHelperFactory` | nothing (2/2 lines) | unused by the application; covered by the original unit tests only |
 
-## Proposed registry entries
+## Registry entries from Phase 0
 
-Added to `PLAN.md`'s registry as #13–#18, marked **(proposed, pending owner approval)**. Each is legacy behavior found in Phase 0 that the new implementation should not reproduce and that no existing entry covers. Without an entry, a golden mismatch on these inputs could not be attributed.
+Added to `PLAN.md`'s registry as #13–#18 and approved by the owner on 2026-11-07. Each is legacy behavior found in Phase 0 that the new implementation should not reproduce and that no existing entry covers. Without an entry, a golden mismatch on these inputs could not be attributed.
 
 | # | Change | Evidence |
 |---|---|---|
