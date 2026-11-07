@@ -178,7 +178,7 @@ Phase 0 work:
    - Inputs: existing fixtures; small and medium public categorical datasets (e.g. UCI lenses, zoo, car, monks-1/2/3, tic-tac-toe, with attribution and license notes in the corpus folder); a few hundred seeded random small tables generated once and committed as CSV.
    - Outputs: for every input × 5 heuristics × 2 modes × 3 formats, produced by the legacy pipeline (CSV read → table extraction → MCD → heuristic → formatter). A handful of cases also go through the real HTTP + MongoDB path to pin naming and content types.
    - Every case is generated twice with different Spark parallelism (`local[1]` and `local[4]`); cases whose output differs are flagged as nondeterministic in the corpus metadata.
-   - Comparison is order-insensitive (multiset of lines, `index` column ignored), because legacy output order is arbitrary.
+   - Comparison is order-insensitive (multiset of lines; the `index` column only has to run 0..n−1), because legacy output order is arbitrary.
    - Large datasets that the legacy code is too slow for are left out of the corpus and covered by differential tests instead.
 4. Coverage target **(proposed)**: ≥95% lines in the algorithm, formatter and service code, and every branch of the heuristic choose/stop logic; remaining gaps listed and explicitly accepted by the owner.
 5. Owner review, then the owner tags `legacy-baseline`.

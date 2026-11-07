@@ -69,7 +69,7 @@ Larger UCI sets (mushroom, nursery) are left out: the legacy code is too slow on
 - `outputs/manifest.json`: every case with its outputs, or the exception class when the legacy code failed.
 - `outputs/nondeterministic.json`: cases whose output differed between the two runs.
 
-Outputs are compared order-insensitively, because legacy output order is arbitrary: `.rul` as a sorted set of lines; `.csv` with the leading index removed, sorted; `-wmetadata.csv` the same for rule lines, with the header and the six statistics lines compared verbatim. The reference implementation is `GoldenFiles.normalize` (`src/test/java/org/kduda/greedy/golden/GoldenFiles.java`).
+Outputs are compared order-insensitively, because legacy output order is arbitrary: `.rul` as a sorted list of lines; `.csv` with the leading index taken off each line, sorted, plus the set of indices, which must run 0..n−1 across all rules (legacy numbering does, in every golden file); `-wmetadata.csv` the same for rule lines, with the header and the six statistics lines compared verbatim. The reference implementation is `GoldenFiles.normalize` (`src/test/java/org/kduda/greedy/golden/GoldenFiles.java`).
 
 ## Current outputs
 

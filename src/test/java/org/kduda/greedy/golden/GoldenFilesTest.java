@@ -20,6 +20,21 @@ public class GoldenFilesTest {
 	}
 
 	@Test
+	public void csvIndexMustRunFromZeroAcrossAllRules() {
+		// legacy numbers rules 0..n-1 across all decision tables (PLAN.md, "Index runs across all decision tables")
+		assertThat(normalize("x.csv", "0,(A = 1) -> n,1\n0,(B = 0) -> y,1\n"))
+			.isNotEqualTo(normalize("x.csv", "0,(A = 1) -> n,1\n1,(B = 0) -> y,1\n"));
+	}
+
+	@Test
+	public void csvWithMetadataIndexMustRunFromZeroAcrossAllRules() {
+		String stats = "coverage\nmin,avg,max\n2,2.0,2\nlength\nmin,avg,max\n1,1.0,1\n";
+
+		assertThat(normalize("x-wmetadata.csv", "index,rule,coverage,length\n1,(A = 1) -> (D = n),2,1\n2,(B = 0) -> (E = y),2,1\n" + stats))
+			.isNotEqualTo(normalize("x-wmetadata.csv", "index,rule,coverage,length\n0,(A = 1) -> (D = n),2,1\n1,(B = 0) -> (E = y),2,1\n" + stats));
+	}
+
+	@Test
 	public void csvWithDifferentRulesDiffers() {
 		assertThat(normalize("x.csv", "0,(A = 1) -> n,1\n"))
 			.isNotEqualTo(normalize("x.csv", "0,(A = 1) -> y,1\n"));
