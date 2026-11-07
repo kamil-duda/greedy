@@ -58,7 +58,17 @@
       "Bash(fgrep *)",
       "Bash(zgrep *)",
       "Bash(git grep *)",
-      "Bash(git -C * grep *)"
+      "Bash(git -C * grep *)",
+      "Bash(git -c *)",
+      "Bash(git -P *)",
+      "Bash(git --no-pager *)",
+      "Bash(git --git-dir*)",
+      "Bash(git --work-tree*)",
+      "Bash(/usr/bin/git *)",
+      "Bash(/opt/homebrew/bin/git *)",
+      "Bash(command git *)",
+      "Bash(env git *)",
+      "Bash(xargs git *)"
     ],
     "ask": [
       "Bash(git restore *)",
