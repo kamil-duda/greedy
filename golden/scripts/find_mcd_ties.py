@@ -82,6 +82,27 @@ def ties_in(names, rows):
     return ties
 
 
+def render(input_modes):
+    """JSON with one tie per line: public/car alone has thousands of tied groups."""
+    def text(value):
+        return json.dumps(value, ensure_ascii=False)
+
+    lines = [
+        "{",
+        '  "generatedBy": "golden/scripts/find_mcd_ties.py",',
+        '  "description": ' + text("Input-modes whose legacy output depends on a most-common-decision tie "
+                                   "(registry #2). A superset of the input-modes in nondeterministic.json.") + ",",
+        '  "inputModes": [',
+    ]
+    for i, input_mode in enumerate(input_modes):
+        lines.append(f'    {{"input": {text(input_mode["input"])}, "mode": {text(input_mode["mode"])}, "ties": [')
+        ties = input_mode["ties"]
+        lines += ["      " + text(tie) + ("," if j < len(ties) - 1 else "") for j, tie in enumerate(ties)]
+        lines.append("    ]}" + ("," if i < len(input_modes) - 1 else ""))
+    lines += ["  ]", "}"]
+    return "\n".join(lines) + "\n"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--inputs", required=True, type=pathlib.Path)
@@ -99,13 +120,7 @@ def main():
             if ties:
                 input_modes.append({"input": input_id, "mode": mode, "ties": ties})
 
-    report = {
-        "generatedBy": "golden/scripts/find_mcd_ties.py",
-        "description": "Input-modes whose legacy output depends on a most-common-decision tie (registry #2). "
-                       "A superset of the input-modes in nondeterministic.json.",
-        "inputModes": input_modes,
-    }
-    args.out.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    args.out.write_text(render(input_modes), encoding="utf-8")
     print(f"{len(input_modes)} input-modes with MCD ties written to {args.out}")
 
 
