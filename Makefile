@@ -10,8 +10,9 @@ LEGACY_APP         := greedy-legacy-app
 LEGACY_M2          := greedy-legacy-m2
 
 # Maven runs inside the MongoDB container's network, so tests reach MongoDB on localhost:27017.
+# $(value ARGS) passes ARGS to the shell unexpanded, so a regex such as '^public/lenses$' keeps its $.
 LEGACY_MVN = docker run --rm --name greedy-legacy-mvn --network container:$(LEGACY_MONGO) \
-	-v "$(CURDIR)":/src -v $(LEGACY_M2):/root/.m2 -w /src $(LEGACY_MVN_IMAGE) mvn -B $(ARGS)
+	-v "$(CURDIR)":/src -v $(LEGACY_M2):/root/.m2 -w /src $(LEGACY_MVN_IMAGE) mvn -B $(value ARGS)
 
 .DEFAULT_GOAL := help
 .PHONY: help legacy-mongo legacy-build legacy-up legacy-down legacy-test legacy-test-one legacy-coverage legacy-golden
