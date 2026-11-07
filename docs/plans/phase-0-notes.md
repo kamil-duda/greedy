@@ -4,7 +4,7 @@ Findings log for [Phase 0](phase-0.md). Newest facts first within each section. 
 
 ## Summary for the owner's review
 
-Phase 0 (all tasks done 2026-11-07) pins what the 2017 code does, bugs included, before any logic changes. The owner accepted the coverage gaps and approved registry #13–#18 on 2026-11-07; the owner tags `legacy-baseline`.
+Phase 0 (all tasks done 2026-11-07) pins what the 2017 code does, bugs included, before any logic changes. The owner accepted the coverage gaps and approved registry #13–#18 on 2026-11-07, which completes Phase 0 (no baseline tag, by the owner's decision).
 
 **What is pinned.** `make legacy-test` (about 5.5 min, all in Docker) runs 119 tests: the original 53 unit + 4 integration tests (1 skipped, as before) and 62 new ones.
 

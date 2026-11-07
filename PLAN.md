@@ -181,7 +181,7 @@ Phase 0 work:
    - Comparison is order-insensitive (multiset of lines; the `index` column only has to run 0..n−1), because legacy output order is arbitrary.
    - Large datasets that the legacy code is too slow for are left out of the corpus and covered by differential tests instead.
 4. Coverage target **(proposed)**: ≥95% lines in the algorithm, formatter and service code, and every branch of the heuristic choose/stop logic; remaining gaps listed and explicitly accepted by the owner.
-5. Owner review, then the owner tags `legacy-baseline`.
+5. Owner review (done 2026-11-07; no baseline tag: the owner decided against tagging).
 
 ### During and after migration
 - Tests move before code: each phase ports its tests first (they fail), then the code, and the phase is done only when its ported tests and the golden corpus pass.
@@ -293,7 +293,7 @@ Detailed task plan: [docs/plans/phase-0.md](docs/plans/phase-0.md).
 - [x] Double-run nondeterminism check; flagged cases recorded
 - [x] HTTP + MongoDB end-to-end golden cases
 - [x] Coverage target met or gaps accepted by owner
-- [ ] Owner review (incl. any new registry entries); owner tags `legacy-baseline`
+- [x] Owner review (incl. any new registry entries)
 
 ### Phase 1: Spike (throwaway)
 - [ ] Compose: Spark 4.2 master + worker + Connect server (with MongoDB Spark Connector, event logging) + History Server + MongoDB; all UIs reachable on localhost
