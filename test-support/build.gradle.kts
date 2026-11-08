@@ -6,9 +6,13 @@ plugins {
 }
 
 dependencies {
+	implementation(libs.jackson.databind)
+	implementation(libs.fastcsv)
 	compileOnly(platform(libs.junit.bom))
 	compileOnly(libs.junit.jupiter.api)
 
+	// Kotest 6 pulls kotlin-reflect 2.2.21; the BOM keeps every Kotlin artifact at the catalog's version
+	testImplementation(platform(libs.kotlin.bom))
 	testImplementation(platform(libs.junit.bom))
 	testImplementation(libs.junit.jupiter)
 	testImplementation(libs.junit.platform.testkit)

@@ -9,6 +9,8 @@ scalatest = "3.2.19"
 scalatestplus-junit5 = "3.2.19.0"
 junit = "6.0.3"
 kotest = "6.2.6"
+jackson = "2.21.2"
+fastcsv = "4.4.0"
 spotless = "8.11.0"
 scalafmt = "3.11.5"
 ktlint = "1.8.0"
@@ -35,6 +37,7 @@ spark-sql = { module = "org.apache.spark:spark-sql_2.13", version.ref = "spark" 
 scalatest = { module = "org.scalatest:scalatest_2.13", version.ref = "scalatest" }
 scalatestplus-junit5 = { module = "org.scalatestplus:junit-5-13_2.13", version.ref = "scalatestplus-junit5" }
 
+kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
 spring-boot-starter-webmvc = { module = "org.springframework.boot:spring-boot-starter-webmvc" }
@@ -47,3 +50,5 @@ junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 junit-platform-testkit = { module = "org.junit.platform:junit-platform-testkit" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+fastcsv = { module = "de.siegmar:fastcsv", version.ref = "fastcsv" }

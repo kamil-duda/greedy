@@ -2,6 +2,11 @@
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
 # To regenerate this file, run: ./gradlew :test-support:dependencies --write-locks
+com.fasterxml.jackson.core:jackson-annotations:2.21=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+com.fasterxml.jackson.core:jackson-core:2.21.2=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+com.fasterxml.jackson.core:jackson-databind:2.21.2=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+com.fasterxml.jackson:jackson-bom:2.21.2=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+de.siegmar:fastcsv:4.4.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 dev.drewhamilton.poko:poko-annotations-jvm:0.17.1=detekt
 dev.drewhamilton.poko:poko-annotations:0.17.1=detekt
 io.github.davidburstrom.contester:contester-breakpoint:0.2.0=detekt
@@ -45,6 +50,7 @@ org.jcommander:jcommander:1.85=detekt
 org.jetbrains.intellij.deps:trove4j:1.0.20200330=detekt
 org.jetbrains.kotlin:abi-tools-api:2.3.21=kotlinInternalAbiValidation
 org.jetbrains.kotlin:abi-tools:2.3.21=kotlinInternalAbiValidation
+org.jetbrains.kotlin:kotlin-bom:2.3.21=testCompileClasspath,testRuntimeClasspath
 org.jetbrains.kotlin:kotlin-build-tools-api:2.3.21=kotlinBuildToolsApiClasspath,kotlinCompilerClasspath
 org.jetbrains.kotlin:kotlin-build-tools-compat:2.3.21=kotlinBuildToolsApiClasspath,kotlinCompilerClasspath
 org.jetbrains.kotlin:kotlin-build-tools-cri-impl:2.3.21=kotlinBuildToolsApiClasspath,kotlinCompilerClasspath
@@ -60,7 +66,7 @@ org.jetbrains.kotlin:kotlin-klib-commonizer-embeddable:2.3.21=kotlinKlibCommoniz
 org.jetbrains.kotlin:kotlin-metadata-jvm:2.3.21=kotlinInternalAbiValidation
 org.jetbrains.kotlin:kotlin-reflect:1.6.10=kotlinBuildToolsApiClasspath,kotlinCompilerClasspath,kotlinKlibCommonizerClasspath
 org.jetbrains.kotlin:kotlin-reflect:2.0.21=detekt
-org.jetbrains.kotlin:kotlin-reflect:2.2.21=testRuntimeClasspath
+org.jetbrains.kotlin:kotlin-reflect:2.3.21=testRuntimeClasspath
 org.jetbrains.kotlin:kotlin-script-runtime:2.0.21=detekt
 org.jetbrains.kotlin:kotlin-script-runtime:2.3.21=kotlinBuildToolsApiClasspath,kotlinCompilerClasspath,kotlinCompilerPluginClasspathMain,kotlinCompilerPluginClasspathTest,kotlinKlibCommonizerClasspath
 org.jetbrains.kotlin:kotlin-scripting-common:2.3.21=kotlinCompilerPluginClasspathMain,kotlinCompilerPluginClasspathTest
