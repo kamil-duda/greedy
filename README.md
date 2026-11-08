@@ -10,10 +10,10 @@ Legacy = what the project was built with in 2017 (resolved from the Maven build)
 | JDK | Runtime | 1.8 | 21 |
 | Java | Language (app code) | 8 | — (replaced by Kotlin) |
 | Kotlin | Language (app code) | — | 2.3.21 |
-| Scala | Language (Spark code) | 2.11.8 | 2.13.x (as built by Spark 4.2) |
-| Apache Spark (spark-core, spark-sql) | Framework | 2.1.0 | 4.2.1 |
+| Scala | Language (Spark code) | 2.11.8 | 2.13.18 (as built by Spark 4.3.0) |
+| Apache Spark (spark-core, spark-sql) | Framework | 2.1.0 | 4.3.0 |
 | Spark runtime | Infrastructure | embedded in the app, `local[4]` | separate local Spark services (standalone master, worker, Spark Connect server, History Server), official `apache/spark` image |
-| Spark Connect client | Library | — (app was the Spark driver) | 4.2.1 |
+| Spark Connect client | Library | — (app was the Spark driver) | 4.3.0 |
 | Spring Boot | Framework | 1.4.3.RELEASE | 4.1.2 |
 | Spring Framework | Framework | 4.3.5.RELEASE | 7.0.10 |
 | Spring Data MongoDB | Library | 1.9.6.RELEASE | — (replaced by PostgreSQL access through Spring `JdbcClient` or Spring Data JDBC, TBD) |
@@ -39,9 +39,9 @@ Legacy = what the project was built with in 2017 (resolved from the Maven build)
 | MongoDB Spark Connector | Library | — | — (Spark's built-in JDBC data source) |
 | Flyway | Library | — | managed by Spring Boot 4.1 (TBD) |
 | Upload storage | Infrastructure | MongoDB GridFS | TBD (Phase 1 spike: PostgreSQL large objects or an S3-compatible store) |
-| Hadoop client | Library | 2.2.0 | as bundled by Spark 4.2 |
+| Hadoop client | Library | 2.2.0 | 3.5.0 (as bundled by Spark 4.3.0) |
 | Jackson | Library | 2.6.7 (forced for Spark) | 3.1.7 (app) + 2.x required by Spark |
-| Janino | Library | 3.0.6 (forced for Spark) | as required by Spark 4.2 |
+| Janino | Library | 3.0.6 (forced for Spark) | as required by Spark 4.3 |
 | Logback | Library | 1.1.8 | 1.5.38 |
 | SLF4J | Library | 1.7.22 | 2.0.20 |
 | Lombok | Library | 1.16.12 | — (removed; Kotlin) |

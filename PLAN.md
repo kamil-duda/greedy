@@ -42,11 +42,11 @@ Versions checked on 2026-10-27 (PostgreSQL rows on 2026-11-07); pin exact patch 
 
 | Component | Version | Notes |
 |---|---|---|
-| Apache Spark | 4.2.x (4.2.1 released 2026-10-27) | **(owner)** "newest Spark supports". 4.2 line supported until Jan 2028. |
-| Spark runtime | Official `apache/spark` 4.2.x image (Scala 2.13, Java 21) via Docker Compose | **(owner)** separate local Spark; service layout below **(proposed)**. |
-| Spark Connect client | 4.2.x, Scala 2.13 | The app's only link to Spark **(proposed)**. |
-| Scala | 2.13 (the patch version Spark 4.2 is built with) | Spark 4 supports only 2.13. **(owner)** Spark code stays in Scala. |
-| JDK | 21 | **(proposed)** Spark 4.2 supports 17/21/25 (25 only from 25.0.3); 21 is installed locally. |
+| Apache Spark | 4.3.x (4.3.0 released 2026-10-30) | **(owner)** "newest Spark supports"; 4.3.0 replaced 4.2.1 on 2026-11-08 under that rule. 4.3.0 starts a quarterly feature-release cadence. |
+| Spark runtime | Official `apache/spark` 4.3.x image (`4.3.0-scala2.13-java21-ubuntu`; Hadoop 3.5.0, Connect server bundled) via Docker Compose | **(owner)** separate local Spark; service layout below **(proposed)**. |
+| Spark Connect client | 4.3.x, Scala 2.13 | The app's only link to Spark **(proposed)**. |
+| Scala | 2.13.18 (the patch version Spark 4.3.0 is built with) | Spark 4 supports only 2.13. **(owner)** Spark code stays in Scala. |
+| JDK | 21 | **(proposed)** Spark 4.3 images exist for Java 17, 21 and 25; 21 is installed locally. |
 | Spring Boot | 4.1.x (4.1.2 current) | Includes Spring Security. |
 | Kotlin | 2.3.x | Version Spring Boot 4.1 targets. |
 | Gradle | 9.x, Kotlin DSL, wrapper, version catalog | **(owner)** |
@@ -319,7 +319,9 @@ Detailed task plan: [docs/plans/phase-0.md](docs/plans/phase-0.md).
 - [x] Owner review (incl. any new registry entries)
 
 ### Phase 1: Spike (throwaway)
-- [ ] Compose: Spark 4.2 master + worker + Connect server (with the PostgreSQL JDBC driver, event logging) + History Server + PostgreSQL; all UIs reachable on localhost
+Detailed task plan: [docs/plans/phase-1.md](docs/plans/phase-1.md).
+
+- [ ] Compose: Spark 4.3 master + worker + Connect server (with the PostgreSQL JDBC driver, event logging) + History Server + PostgreSQL; all UIs reachable on localhost
 - [ ] Spring Boot 4.1 app on JDK 21 with the Spark Connect client: record any classpath conflicts and fixes
 - [ ] From a Spring bean, run a DataFrame job over Spark Connect that reads from PostgreSQL in parallel over JDBC and writes back over JDBC; job visible in the UIs under its run tag; cancel by tag works
 - [ ] Resumable chunked upload of a ~1 GB file through Spring Boot (tus or an equivalent); app memory stays flat; a dropped connection resumes

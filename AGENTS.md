@@ -8,7 +8,7 @@ A Spring Boot web app that induces decision rules from tabular data with greedy 
 
 ## Current state: modernization in progress
 
-`PLAN.md` is the source of truth for the rewrite (Gradle/Kotlin app, Scala 2.13 + Spark 4.2 via Spark Connect, multi-user security). Read it before changing anything:
+`PLAN.md` is the source of truth for the rewrite (Gradle/Kotlin app, Scala 2.13 + Spark 4.3 via Spark Connect, multi-user security). Read it before changing anything:
 - No algorithm or business-logic changes until Phase 0 (characterization tests + golden corpus on the legacy code) is ticked off and reviewed.
 - Every intended change to rule output goes into the behavior-change registry in `PLAN.md` and is delivered as a separate, self-contained change with its updated golden files, so the owner can commit it on its own.
 - Tick `PLAN.md` checkboxes as work lands; keep the legacy-vs-current versions table in `README.md` current.
