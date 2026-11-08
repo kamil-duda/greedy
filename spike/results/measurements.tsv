@@ -1,0 +1,8 @@
+candidate	input	step	seconds	peak_heap_mb	storage_bytes	ok	note
+probe	probe_rows-1M	app COPY load	0.843	66		false	discarded: attempt failed later on 'No suitable driver'
+probe	probe_rows-1M	app COPY load	0.786	75		true	run 1
+probe	probe_rows-1M	Spark JDBC read 4 partitions + group + write	1.289	41		true	run 1
+probe	probe_rows-1M	app COPY load	0.796	111		true	run 2
+probe	probe_rows-1M	Spark JDBC read 4 partitions + group + write	0.444	37		true	run 2
+probe	probe_rows-1M	app COPY load	0.781	111		true	run 3
+probe	probe_rows-1M	Spark JDBC read 4 partitions + group + write	0.411	37		true	run 3

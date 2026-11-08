@@ -16,3 +16,11 @@
 - Reliable `checkpoint()`: fails on both sides with "Checkpoint directory has not been set in the SparkContext" until `spark.checkpoint.dir` is set when the SparkContext starts. Classic: `.config("spark.checkpoint.dir", dir)` on the builder. Connect: server configuration only (`--conf spark.checkpoint.dir=s3a://checkpoints/spark` on the Connect server), and on a cluster it must be shared storage (S3A here). With S3A the bucket must exist before the Connect server starts, or SparkContext init fails with `UnknownStoreException`/`NoSuchBucket`. `localCheckpoint()` needs no setup on either side.
 - Classic sessions on JDK 21 need Spark's usual `--add-opens` list (JavaModuleOptions); Connect needs only `java.nio`.
 - Gradle 9 fails a test task that discovers no tests (`failOnNoDiscoveredTests`).
+
+## PostgreSQL over JDBC, run tags, cancel (Task 4)
+- App side: `COPY ... FROM STDIN` through pgjdbc `CopyManager` with rows generated on the fly: 1 M rows in ~0.8 s, heap 66–111 MiB.
+- Spark side over Connect: JDBC read with `partitionColumn=row_no`, bounds from `min/max`, `numPartitions=4` (the scan stage ran 4 tasks), `groupBy`, JDBC write with `reWriteBatchedInserts=true`: 0.41–0.44 s warm, 1.3 s cold, for 1 M rows.
+- `--packages` jars are not visible to `DriverManager` on the Connect server: without `.option("driver", "org.postgresql.Driver")` Spark fails with "No suitable driver".
+- Executors must get the Compose address (`postgres:5432`): the same round trip with the app's `localhost` URL fails with a connection error (tested).
+- Run tags: `addTag("run-<id>")` is per thread in the client; jobs carry `SparkConnect_SessionTag_User_<user>_Session_<session>_Tag_run-<id>` in the driver UI/REST API, so a run's jobs can be found by the `_Tag_run-<id>` suffix. The History Server lists the (running) Connect application.
+- Cancel: `interruptTag("run-cancel")` from another thread stops a job of > 60 s within the 10 s budget; no job with the tag keeps running.

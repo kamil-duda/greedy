@@ -40,6 +40,7 @@ tasks.register<Test>("integrationTest") {
 	classpath = sourceSets.test.get().runtimeClasspath
 	include("**/*IT.class")
 	environment(spikeEnv)
+	systemProperty("spike.results", rootProject.file("results").absolutePath)
 	jvmArgs("--add-opens=java.base/java.nio=ALL-UNNAMED")
 	testLogging { events("passed", "failed", "skipped"); showStandardStreams = false; exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL }
 }
