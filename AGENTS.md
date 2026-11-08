@@ -10,6 +10,7 @@ A Spring Boot web app that induces decision rules from tabular data with greedy 
 
 `PLAN.md` is the source of truth for the rewrite (Gradle/Kotlin app, Scala 2.13 + Spark 4.3 via Spark Connect, multi-user security). Read it before changing anything:
 - No algorithm or business-logic changes until Phase 0 (characterization tests + golden corpus on the legacy code) is ticked off and reviewed.
+- The legacy code under `src/main` stays unchanged (Phase 2 moves it to `legacy/`); new code goes into the Gradle modules.
 - Every intended change to rule output goes into the behavior-change registry in `PLAN.md` and is delivered as a separate, self-contained change with its updated golden files, so the owner can commit it on its own.
 - Tick `PLAN.md` checkboxes as work lands; keep the legacy-vs-current versions table in `README.md` current.
 
@@ -27,11 +28,11 @@ Anything that runs for minutes (full suite, golden generation, Docker builds) ru
 
 The owner's MacBook idle-sleeps 1 minute after the display turns off (`pmset -g`: `sleep 1`, `displaysleep 5`); a dark screen alone is only display sleep, real sleep shows in `pmset -g log | rg 'Entering Sleep|Wake from'`. Claude Code's own `caffeinate -i -t 300` covers only the minutes when the agent is active: on 2026-11-07 the Mac slept between monitor events and paused the golden run for 331 s. So every long job gets its own `caffeinate` tied to it: start the job in the background, take the PID of its `make` process (`pgrep -fl 'make legacy-'`), then run `caffeinate -di -w <pid>` in the background (`-d` keeps the display on too, at the owner's request; `-i` alone lets it go dark and lock); it exits with the job. Never start `caffeinate` without `-w <pid>` or `-t <seconds>`. Closing the lid still sleeps the Mac (except in clamshell mode on AC).
 
-Orphaned `caffeinate` processes have kept the Mac awake with no Claude session running. At session start, when a long job ends and before stopping work, check `ps -A -o pid,ppid,etime,args | awk '$4 == "caffeinate"'` (and `pmset -g assertions | rg -A1 caffeinate`). Expected: `caffeinate -i -t 300` whose parent is a live `claude` process, and `caffeinate -di -w <pid>` while `<pid>` runs. Anything else (no `-t`/`-w`, a `-w` PID that is gone, a parent that is gone past its `-t`) is an orphan: `kill` it and tell the owner. Likewise, with no job running `docker ps` shows no `greedy-legacy-mvn`; remove a leftover one with `docker rm -f greedy-legacy-mvn`.
+Orphaned `caffeinate` processes have kept the Mac awake with no Claude session running. At session start, when a long job ends and before stopping work, check `ps -A -o pid,ppid,etime,args | awk '$4 == "caffeinate"'` (and `pmset -g assertions | rg -A1 caffeinate`). Expected: `caffeinate -i -t 300` whose parent is a live `claude` process, and `caffeinate -di -w <pid>` while `<pid>` runs. Anything else (no `-t`/`-w`, a `-w` PID that is gone, a parent that is gone past its `-t`) is an orphan: `kill` it and tell the owner. Likewise, with no job running `docker ps` shows no `greedy-legacy-mvn`; remove a leftover one with `docker rm -f greedy-legacy-mvn`. When stopping work, stop only this project's jobs and containers (`make legacy-down`), never Colima or containers that belong to other projects.
 
 ## Environment
 
-Docker runs in Colima profile **`docker`** (4 CPUs, 8 GB), which is where `DOCKER_HOST` points. After a reboot start it with `colima start docker`; plain `colima start` starts the small `default` profile instead. The Maven cache lives in the `greedy-legacy-m2` volume.
+Docker runs in Colima profile **`docker`** (4 CPUs, 8 GB), which is where `DOCKER_HOST` points. After a reboot start it with `colima start docker`; plain `colima start` starts the small `default` profile instead. The Maven cache lives in the `greedy-legacy-m2` volume. The host has only JDK 21, so the legacy code builds only in Docker. Not every container on this Docker host is this project's: `elasticsearch` is stopped to save memory, and its `on-failure` restart policy can bring it back after a Colima restart (`docker stop elasticsearch` stops it again).
 
 ## Toolchain
 
