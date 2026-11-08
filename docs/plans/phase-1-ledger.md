@@ -66,3 +66,5 @@ Final: fixed I7 Spark Connect overclaim — "everything tested", untested items 
 Final: fixed I8 text[] encoding — spelled out with strict UTF-8, BOM, row-number errors; Phase 4 test values.
 Final: fixed I9 disk ratio — ~3.2x the CSV (3.24 recomputed), data-dependent 3-5x.
 Final: fixed M1 figures (24.5 s, 17 of 18 files for candidate 3, Garage first-run disk, ~1.8x), M2 heap method and 247-250 MiB peaks, M12 per-user tus scoping, M9 markers, M10 cascade/`?`/duplicate reference — all recomputed or checked with rg.
+
+Added after the copy (missed during execution): Task 2: Ruling: Gradle wrapper 9.9.0 instead of the plan's 9.8.2 — 9.8.2's download (GitHub release) answered 503 and 9.9.0 was the current release — cost if wrong: none for a throwaway spike; Phase 2 pins its own version.
