@@ -1,0 +1,6 @@
+.env
+results/data/
+build/
+.gradle/
+.kotlin/
+*/build/
