@@ -16,6 +16,17 @@ report() { # name, command...
 http_ok() { [ "$(curl -sL -o /dev/null -w '%{http_code}' --max-time 5 "$1")" = "200" ]; }
 tcp_ok() { nc -z -w 5 127.0.0.1 "$1"; }
 pg_ready() { $COMPOSE exec -T postgres pg_isready -U greedy -d greedy; }
+# A query as the app's user with the password from .env: fails when .env was regenerated after the pgdata volume was
+# initialised, since the volume keeps the old password. Over the Compose network (-h postgres): the image trusts the
+# local socket and 127.0.0.1 without a password and asks for one (scram-sha-256) only from other addresses. The
+# password reaches psql through the environment (-e PGPASSWORD without a value), not on a command line.
+pg_login() {
+	local PGPASSWORD
+	PGPASSWORD=$(sed -n 's/^GREEDY_DB_PASSWORD=//p' .env 2>/dev/null)
+	[ -n "$PGPASSWORD" ] || return 1
+	export PGPASSWORD
+	[ "$($COMPOSE exec -T -e PGPASSWORD postgres psql -h postgres -U greedy -d greedy -tAc 'select 1')" = 1 ]
+}
 has_jar() { $COMPOSE exec -T "$1" test -f "$JAR"; }
 # The driver's REST API: both properties must be in the environment of the running Connect application.
 driver_conf() {
@@ -29,6 +40,7 @@ sys.exit(0 if all(props.get(k) == v for k, v in want.items()) else 1)'
 }
 
 report "postgres     pg_isready (user greedy, db greedy)" pg_ready
+report "postgres     select 1 as greedy with the password from .env" pg_login
 report "spark-master UI http://127.0.0.1:8090" http_ok http://127.0.0.1:8090
 report "spark-worker UI http://127.0.0.1:8091" http_ok http://127.0.0.1:8091
 report "spark-connect driver UI http://127.0.0.1:4040" http_ok http://127.0.0.1:4040

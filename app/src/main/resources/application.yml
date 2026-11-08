@@ -2,6 +2,17 @@
 spring:
   application:
     name: greedy
+  # The local stack's PostgreSQL (`make db-up`); `make run` loads GREEDY_DB_PASSWORD from .env
+  datasource:
+    url: ${GREEDY_DB_URL:jdbc:postgresql://localhost:5432/greedy}
+    username: ${GREEDY_DB_USER:greedy}
+    password: ${GREEDY_DB_PASSWORD:}
+  # Devtools is on bootRun's classpath (developmentOnly); restarts and its development defaults (e.g. stack traces in
+  # error responses) only in profile dev
+  devtools:
+    restart:
+      enabled: false
+    add-properties: false
 
 server:
   port: 8081

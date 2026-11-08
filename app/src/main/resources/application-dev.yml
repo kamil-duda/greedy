@@ -1,0 +1,10 @@
+# Profile dev (`make run-dev`): devtools restarts and development defaults, DEBUG logging for the app's own code.
+spring:
+  devtools:
+    restart:
+      enabled: true
+    add-properties: true
+
+logging:
+  level:
+    org.kduda.greedy: DEBUG

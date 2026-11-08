@@ -42,3 +42,23 @@ fun Test.applyGreedyTestDefaults(project: Project) {
 		outputs.upToDateWhen { false }
 	}
 }
+
+/** JVM flag the Spark Connect client needs on JDK 21: Arrow allocates direct buffers through `java.nio` internals. */
+const val SPARK_CONNECT_JVM_ARG = "--add-opens=java.base/java.nio=ALL-UNNAMED"
+
+/**
+ * What the integration test tasks share: the Spark Connect client's JVM flag, a place after the unit tests, and
+ * Testcontainers on Colima. With `DOCKER_HOST` at Colima's socket on the host (`~/.colima/<profile>/docker.sock`),
+ * Testcontainers would mount that host path into its Ryuk container, where it does not exist; inside the VM the
+ * socket is `/var/run/docker.sock`. An override already in the environment wins.
+ */
+fun Test.applyGreedyIntegrationTestDefaults(project: Project) {
+	group = "verification"
+	jvmArgs(SPARK_CONNECT_JVM_ARG)
+	shouldRunAfter(project.tasks.named("test"))
+	val providers = project.providers
+	val colima = providers.environmentVariable("DOCKER_HOST").orNull?.contains("/.colima/") == true
+	if (colima && !providers.environmentVariable("TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE").isPresent) {
+		environment("TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE", "/var/run/docker.sock")
+	}
+}

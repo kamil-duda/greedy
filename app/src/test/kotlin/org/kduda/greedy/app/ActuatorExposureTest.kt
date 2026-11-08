@@ -11,8 +11,11 @@ import org.springframework.core.env.Environment
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 
-/** The skeleton serves health only, without details, and listens on localhost only. */
-@SpringBootTest
+/**
+ * The skeleton serves health only, without details, and listens on localhost only. Runs without a database, so the
+ * datasource's health check is off here (`ApplicationIT` checks health with PostgreSQL).
+ */
+@SpringBootTest(properties = ["management.health.db.enabled=false"])
 @AutoConfigureMockMvc
 class ActuatorExposureTest {
 	@Autowired
@@ -32,7 +35,17 @@ class ActuatorExposureTest {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = ["/actuator", "/actuator/env", "/actuator/heapdump", "/actuator/shutdown"])
+	@ValueSource(
+		strings = [
+			"/actuator",
+			"/actuator/env",
+			"/actuator/heapdump",
+			"/actuator/shutdown",
+			"/actuator/info",
+			"/actuator/mappings",
+			"/actuator/health/diskSpace",
+		],
+	)
 	fun `no other actuator endpoint is served`(path: String) {
 		mockMvc.get(path).andExpect { status { isNotFound() } }
 	}

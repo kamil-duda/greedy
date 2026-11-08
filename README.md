@@ -4,7 +4,7 @@
 
 * `spark-rules/` – Scala 2.13 module with the Spark rule-induction engine and its public API (stubs until Phase 3).
 * `app/` – Kotlin Spring Boot web app: UI, security, uploads, PostgreSQL access, exports (a health-only skeleton for now).
-* `test-support/` – Kotlin library used only by the other modules' tests (the `@Pending` marker for tests whose code arrives in a later phase, and `testing/golden`: access to the golden corpus, the order-insensitive output comparison, the legacy rule-line parser, the CSV input reader).
+* `test-support/` – Kotlin library used only by the other modules' tests (the `@Pending` marker for tests whose code arrives in a later phase; `testing/golden`: access to the golden corpus, the order-insensitive output comparison, the legacy rule-line parser, the CSV input reader; `testing/containers`: the Spark Connect server in a Testcontainers container, for the integration tests).
 * `build-logic/` – Gradle included build with the convention plugins (`greedy.kotlin`, `greedy.scala`, `greedy.collect-guard`) the modules apply, and the collect guard: an ASM bytecode scan that fails the build when `spark-rules` collects Spark data to the driver (allowlist: `spark-rules/collect-guard.txt`).
 * `config/` – linter configuration: `detekt.yml` (overrides of detekt's defaults); scalafmt, scalafix and ktlint settings are the dotfiles in the repo root (`.scalafmt.conf`, `.scalafix.conf`, `.editorconfig`).
 * `gradle/` – Gradle version catalog (`libs.versions.toml`) and wrapper.

@@ -1,10 +1,13 @@
 package org.kduda.greedy.rules.testing
 
 import org.apache.spark.sql.SparkSession
+import org.kduda.greedy.testing.containers.SparkConnectContainer
 
-/** The Spark session the tests share, one per test JVM. System property `greedy.spark.session` picks it; `classic`
-  * (also the default, e.g. when run from an IDE) is an in-process local session. The tests compile against
-  * `spark-sql-api` only, so the same code runs on any session the property can select.
+/** The Spark session the tests share, one per test JVM. System property `greedy.spark.session` picks it: `classic`
+  * (also the default, e.g. when run from an IDE) is an in-process local session, `connect` a Spark Connect session on
+  * the server in `SparkConnectContainer.shared`. The tests compile against `spark-sql-api` only, so the same code runs
+  * on either session; the build puts the matching runtime on the classpath (`test`: classic, `integrationTest`:
+  * Connect).
   */
 object TestSpark {
 
@@ -19,7 +22,9 @@ object TestSpark {
         .config("spark.sql.shuffle.partitions", "4")
         .config("spark.ui.enabled", "false")
         .getOrCreate()
+    case "connect" =>
+      SparkSession.builder().remote(SparkConnectContainer.getShared.connectUrl()).getOrCreate()
     case other =>
-      throw new IllegalArgumentException(s"greedy.spark.session=$other is not supported (expected: classic)")
+      throw new IllegalArgumentException(s"greedy.spark.session=$other is not supported (expected: classic or connect)")
   }
 }

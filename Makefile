@@ -1,5 +1,7 @@
 # Developer commands. `make` lists them.
-# build, lint, format, test-unit, test-one, lock and clean drive the Gradle build of the rewrite through the wrapper (JDK 21).
+# build, lint, format, test*, run*, lock and clean drive the Gradle build of the rewrite through the wrapper (JDK 21);
+# test, test-it and test-one (when an integration test matches) need Docker for Testcontainers; run and run-dev start
+# the Compose stack.
 # legacy-* targets build, test and run the 2017 code in Docker (JDK 8 + MongoDB 4.4); no local JDK needed.
 # Pass extra Maven arguments with ARGS, e.g. make legacy-test ARGS='-Dlegacy.spark.master=local[1]'.
 
@@ -26,7 +28,7 @@ LEGACY_MVN = docker run --rm --name greedy-legacy-mvn --network container:$(LEGA
 	-v "$(CURDIR)":/src -v $(LEGACY_M2):/root/.m2 -w /src/legacy $(LEGACY_MVN_IMAGE) mvn -B $(value ARGS)
 
 .DEFAULT_GOAL := help
-.PHONY: help build lint format test-unit test-one lock clean
+.PHONY: help build lint format test test-unit test-it test-one run run-dev lock clean
 .PHONY: db-up db-down spark-up spark-down spark-ui stack-check
 .PHONY: legacy-mongo legacy-build legacy-up legacy-down legacy-test legacy-test-one legacy-coverage legacy-golden
 
@@ -42,15 +44,29 @@ lint: ## Check formatting (Spotless: scalafmt, ktlint), scalafix, detekt and the
 format: ## Apply scalafmt, ktlint and scalafix fixes
 	$(GRADLE) spotlessApply scalafix
 
-test-unit: ## Unit tests of every module
+test: ## All tests: unit tests, then the integration tests (Docker)
+	$(GRADLE) test integrationTest
+
+test-unit: ## Unit tests of every module (no Docker)
 	$(GRADLE) test
 
-test-one: ## Tests matching a Gradle --tests pattern: make test-one T='*ModeAndHeuristicSpec' (ScalaTest: by class)
+test-it: ## Integration tests: spark-rules specs over Spark Connect, app *IT against PostgreSQL (Testcontainers)
+	$(GRADLE) integrationTest
+
+# --tests applies to the task named just before it, so each task gets its own copy
+test-one: ## Tests (unit and integration) matching a Gradle --tests pattern: make test-one T='*ModeAndHeuristicSpec' (ScalaTest: by class)
 	@[ -n '$(T)' ] || { echo "usage: make test-one T=<pattern>" >&2; exit 2; }
 	@mkdir -p $(dir $(TEST_ONE_STAMP)) && touch $(TEST_ONE_STAMP)
-	$(GRADLE) test --tests '$(T)' -PtestOne
+	$(GRADLE) test --tests '$(T)' integrationTest --tests '$(T)' -PtestOne
 	@[ -n "$$(find */build/test-results -name 'TEST-*.xml' ! -name 'TEST-Gradle-Test-Run-*' -newer $(TEST_ONE_STAMP) \
 		2>/dev/null | head -n 1)" ] || { echo "no test matched $(T)" >&2; exit 1; }
+
+# .env is sourced in the recipe's shell, so bootRun (through the Gradle daemon) gets GREEDY_DB_PASSWORD
+run: db-up spark-up ## Run the app on http://127.0.0.1:8081 against the local stack (started first)
+	set -a; . ./.env; set +a; $(GRADLE) :app:bootRun
+
+run-dev: db-up spark-up ## Like run, with profile dev: devtools restarts, DEBUG logging for org.kduda.greedy
+	set -a; . ./.env; set +a; SPRING_PROFILES_ACTIVE=dev $(GRADLE) :app:bootRun
 
 lock: ## Rewrite the dependency lockfiles (gradle.lockfile in every module and in build-logic)
 	$(GRADLE) resolveAndLockAll --write-locks
@@ -62,7 +78,8 @@ clean: ## Delete the Gradle build outputs and legacy/target
 
 # Generated once, never overwritten: delete .env to get a new password (the pgdata volume keeps the old one).
 .env:
-	docker/stack/make-env.sh > .env
+	@# Through a temporary file, so a failing make-env.sh never leaves an empty .env behind
+	docker/stack/make-env.sh > $@.tmp && mv $@.tmp $@ || { rm -f $@.tmp; exit 1; }
 	@echo "wrote .env"
 
 db-up: .env ## Start PostgreSQL 18 on 127.0.0.1:5432 and wait until it is healthy

@@ -14,4 +14,9 @@ class SparkSessionSpec extends AnyFlatSpec with Matchers {
     assume(TestSpark.mode == "classic")
     TestSpark.session.getClass.getName shouldBe "org.apache.spark.sql.classic.SparkSession"
   }
+
+  it should "be a Spark Connect session when greedy.spark.session is connect" in {
+    assume(TestSpark.mode == "connect")
+    TestSpark.session.getClass.getName shouldBe "org.apache.spark.sql.connect.SparkSession"
+  }
 }
