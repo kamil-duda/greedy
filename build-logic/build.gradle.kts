@@ -12,6 +12,15 @@ dependencies {
 	implementation(libs.spotless.gradle.plugin)
 	implementation(libs.scalafix.gradle.plugin)
 	implementation(libs.detekt.gradle.plugin)
+	implementation(libs.asm.tree)
+
+	testImplementation(platform(libs.junit.bom))
+	testImplementation(libs.junit.jupiter)
+	testRuntimeOnly(libs.junit.platform.launcher)
+}
+
+tasks.test {
+	useJUnitPlatform()
 }
 
 dependencyLocking {

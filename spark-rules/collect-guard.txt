@@ -1,0 +1,10 @@
+# Allowlist of the collect guard (build-logic, task :spark-rules:collectGuard).
+#
+# The guard scans the compiled main classes and fails on every call that brings Spark data to the driver:
+# Dataset.collect, collectAsList, toLocalIterator, take, takeAsList, tail, head, first, show, reduce, and the
+# one-argument RelationalGroupedDataset.pivot (it collects the distinct values).
+#
+# One line allows one call in one class:
+#   <top-level class> <Dataset|RelationalGroupedDataset>.<method>  # <reason>
+# The class is the fully qualified name without `$` suffixes (lambdas count against it). The reason is mandatory. An
+# entry that matches no call is reported as stale. Lines starting with # and blank lines are ignored.

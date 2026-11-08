@@ -34,3 +34,8 @@ configure<SpotlessExtension> {
 		ktlint(ktlintVersion)
 	}
 }
+
+// The tests of the convention plugins and of the collect guard live in build-logic, an included build
+tasks.named("check") {
+	dependsOn(gradle.includedBuild("build-logic").task(":test"))
+}

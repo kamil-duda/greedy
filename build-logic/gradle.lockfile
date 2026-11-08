@@ -1,7 +1,7 @@
 # This is a Gradle generated file for dependency locking.
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
-# To regenerate this file, run: ./gradlew :dependencies --write-locks
+# To regenerate this file, run: ./gradlew :build-logic:dependencies --write-locks
 ch.epfl.scala:scalafix-interfaces:0.14.9=precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testRuntimeClasspath
 com.diffplug.durian:durian-collect:1.2.0=precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testRuntimeClasspath
 com.diffplug.durian:durian-core:1.2.0=precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testRuntimeClasspath
@@ -35,6 +35,7 @@ org.apache.commons:commons-lang3:3.16.0=precompiledScriptPluginAccessorsGenerati
 org.apache.httpcomponents.client5:httpclient5:5.6.5=precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testRuntimeClasspath
 org.apache.httpcomponents.core5:httpcore5-h2:5.4.4=precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testRuntimeClasspath
 org.apache.httpcomponents.core5:httpcore5:5.4.4=precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testRuntimeClasspath
+org.apiguardian:apiguardian-api:1.1.2=testCompileClasspath
 org.eclipse.jgit:org.eclipse.jgit:7.8.0.202609011348-r=precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testRuntimeClasspath
 org.eclipse.platform:org.eclipse.osgi:3.24.300=precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testRuntimeClasspath
 org.jetbrains.kotlin:abi-tools-api:2.3.21=precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testRuntimeClasspath
@@ -92,7 +93,19 @@ org.jetbrains.kotlin:kotlin-util-klib-metadata:2.3.21=precompiledScriptPluginAcc
 org.jetbrains.kotlin:kotlin-util-klib:2.3.21=precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testRuntimeClasspath
 org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0=kotlinAbiValidationCompatClasspath,kotlinBuildToolsApiClasspath,kotlinCompilerClasspath,kotlinKlibCommonizerClasspath,precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testRuntimeClasspath
 org.jetbrains:annotations:13.0=compileClasspath,compilePluginsBlocksPluginClasspathElements,embeddedKotlin,kotlinAbiValidationCompatClasspath,kotlinBuildToolsApiClasspath,kotlinCompilerClasspath,kotlinCompilerPluginClasspathMain,kotlinCompilerPluginClasspathTest,kotlinKlibCommonizerClasspath,precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.jspecify:jspecify:1.0.0=testCompileClasspath
 org.jspecify:jspecify:1.0.1=precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testRuntimeClasspath
+org.junit.jupiter:junit-jupiter-api:6.0.3=testCompileClasspath,testRuntimeClasspath
+org.junit.jupiter:junit-jupiter-engine:6.0.3=testRuntimeClasspath
+org.junit.jupiter:junit-jupiter-params:6.0.3=testCompileClasspath,testRuntimeClasspath
+org.junit.jupiter:junit-jupiter:6.0.3=testCompileClasspath,testRuntimeClasspath
+org.junit.platform:junit-platform-commons:6.0.3=testCompileClasspath,testRuntimeClasspath
+org.junit.platform:junit-platform-engine:6.0.3=testRuntimeClasspath
+org.junit.platform:junit-platform-launcher:6.0.3=testRuntimeClasspath
+org.junit:junit-bom:6.0.3=testCompileClasspath,testRuntimeClasspath
+org.opentest4j:opentest4j:1.3.0=testCompileClasspath,testRuntimeClasspath
+org.ow2.asm:asm-tree:9.11.1=compileClasspath,precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.ow2.asm:asm:9.11.1=compileClasspath,precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 org.slf4j:slf4j-api:2.0.18=precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testRuntimeClasspath
 org.springframework.boot:spring-boot-buildpack-platform:4.1.2=precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testRuntimeClasspath
 org.springframework.boot:spring-boot-gradle-plugin:4.1.2=compileClasspath,precompiledScriptPluginAccessorsGenerationClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath

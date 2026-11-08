@@ -3,6 +3,7 @@
 
 plugins {
 	id("greedy.scala")
+	id("greedy.collect-guard")
 }
 
 dependencies {

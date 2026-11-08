@@ -31,8 +31,8 @@ help: ## List available targets
 build: ## Gradle build: compile and test every module
 	$(GRADLE) build
 
-lint: ## Check formatting (Spotless: scalafmt, ktlint), scalafix and detekt; part of build
-	$(GRADLE) spotlessCheck checkScalafix detekt
+lint: ## Check formatting (Spotless: scalafmt, ktlint), scalafix, detekt and the collect guard; part of build
+	$(GRADLE) spotlessCheck checkScalafix detekt :spark-rules:collectGuard
 
 format: ## Apply scalafmt, ktlint and scalafix fixes
 	$(GRADLE) spotlessApply scalafix

@@ -15,6 +15,7 @@ ktlint = "1.8.0"
 scalafix-plugin = "0.3.0"
 semanticdb = "4.17.4"
 detekt = "1.23.8"
+asm = "9.11.1"
 
 [libraries]
 # Gradle plugins: dependencies of build-logic, so module build files apply them by id without a version
@@ -24,6 +25,9 @@ spring-boot-gradle-plugin = { module = "org.springframework.boot:spring-boot-gra
 spotless-gradle-plugin = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
 scalafix-gradle-plugin = { module = "io.github.cosmicsilence:gradle-scalafix", version.ref = "scalafix-plugin" }
 detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
+
+# The collect guard in build-logic scans spark-rules bytecode with ASM
+asm-tree = { module = "org.ow2.asm:asm-tree", version.ref = "asm" }
 
 scala-library = { module = "org.scala-lang:scala-library", version.ref = "scala" }
 spark-sql-api = { module = "org.apache.spark:spark-sql-api_2.13", version.ref = "spark" }
