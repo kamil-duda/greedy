@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
 import org.springframework.context.annotation.Bean
+import org.springframework.test.json.JsonCompareMode
 import org.springframework.test.web.servlet.client.RestTestClient
 import org.testcontainers.postgresql.PostgreSQLContainer
 
@@ -18,7 +19,7 @@ class ApplicationIT {
 	private val client by lazy { RestTestClient.bindToServer().baseUrl("http://127.0.0.1:$port").build() }
 
 	@Test
-	fun `health is up`() {
+	fun `health is up and shows only the status`() {
 		client
 			.get()
 			.uri("/actuator/health")
@@ -26,8 +27,7 @@ class ApplicationIT {
 			.expectStatus()
 			.isOk
 			.expectBody()
-			.jsonPath("$.status")
-			.isEqualTo("UP")
+			.json("""{"status":"UP"}""", JsonCompareMode.STRICT)
 	}
 
 	@Test

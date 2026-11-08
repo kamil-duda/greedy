@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc
 import org.springframework.core.env.Environment
+import org.springframework.test.json.JsonCompareMode
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 
@@ -25,12 +26,10 @@ class ActuatorExposureTest {
 	private lateinit var environment: Environment
 
 	@Test
-	fun `health is up and shows neither components nor details`() {
+	fun `health is up and shows only the status`() {
 		mockMvc.get("/actuator/health").andExpect {
 			status { isOk() }
-			jsonPath("$.status") { value("UP") }
-			jsonPath("$.components") { doesNotExist() }
-			jsonPath("$.details") { doesNotExist() }
+			content { json("""{"status":"UP"}""", JsonCompareMode.STRICT) }
 		}
 	}
 
@@ -44,6 +43,8 @@ class ActuatorExposureTest {
 			"/actuator/info",
 			"/actuator/mappings",
 			"/actuator/health/diskSpace",
+			"/actuator/health/liveness",
+			"/actuator/health/readiness",
 		],
 	)
 	fun `no other actuator endpoint is served`(path: String) {

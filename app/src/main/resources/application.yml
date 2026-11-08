@@ -29,3 +29,6 @@ management:
     health:
       show-details: never
       show-components: never
+      # Boot 4 turns the liveness and readiness groups on by default (/actuator/health/liveness, .../readiness)
+      probes:
+        enabled: false
