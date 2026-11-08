@@ -131,6 +131,7 @@ services:
       GREEDY_DB_URL: jdbc:postgresql://postgres:5432/greedy
       GREEDY_DB_PASSWORD: ${GREEDY_DB_PASSWORD:?run make db-up to generate .env}
     ports: ["127.0.0.1:8081:8081"]
+    mem_limit: 1g
     depends_on:
       postgres: {condition: service_healthy}
       spark-connect: {condition: service_healthy}
