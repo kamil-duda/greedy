@@ -22,9 +22,12 @@ class TusConfig {
 @RestController
 class TusUploadController(
 	private val tus: TusFileUploadService,
-	private val sink: UploadSink,
+	sinks: List<UploadSink>,
+	@Value("\${spike.upload.sink}") sinkKind: String,
 	private val completed: CompletedUploads,
 ) {
+	private val sink = sinks.single { it.kind == sinkKind }
+
 	@RequestMapping(
 		value = ["/uploads", "/uploads/**"],
 		method = [RequestMethod.POST, RequestMethod.PATCH, RequestMethod.HEAD, RequestMethod.DELETE, RequestMethod.OPTIONS, RequestMethod.GET],

@@ -20,6 +20,8 @@ dependencies {
 		exclude(group = "org.apache.logging.log4j", module = "log4j-slf4j2-impl")
 	}
 	implementation(libs.tus.server)
+	implementation(platform("software.amazon.awssdk:bom:2.35.4"))
+	implementation("software.amazon.awssdk:s3")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation(libs.tus.client)
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")

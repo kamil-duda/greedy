@@ -30,3 +30,12 @@
 - 1 GiB (`large.csv`) in 8 MiB chunks, with the connection dropped mid-chunk (raw socket: headers for 8 MiB, half the bytes, hang-up) at ~50 % and ~99 %: resumes and arrives byte-identical (SHA-256), sink called exactly once; a re-sent final chunk is refused. 8.2–8.6 s on loopback (~125 MB/s incl. hashing), peak heap ~130 MiB with `-Xmx256m` (app, client and test in one JVM).
 - tus-java-client sends chunks as POST with `X-HTTP-Method-Override: PATCH` (HttpURLConnection cannot PATCH): server-side code that reacts to completed PATCHes must honour the override. Its `finish()` closes the TusUpload's stream: a resume needs a fresh TusUpload (same fingerprint).
 - Storing synchronously in the last PATCH makes the client wait for the store (seconds for 1 GiB); the real app should hand off to a background job.
+
+## Original storage: large object vs object store (Task 7, candidate 1)
+- Both round-trip `small.csv` and the 1 GiB `large.csv` byte-identical (SHA-256), 3 runs each, in a 256 MiB heap.
+- PostgreSQL large object (pgjdbc `LargeObjectManager`, one transaction): 1 GiB store 14.5–15.3 s, read back 5.6–6.3 s; disk growth 480 MB for 1,079 MB (the 2 KB `pg_largeobject` pages are compressed, ~2.2×). Deleting needs `lo_unlink` + `VACUUM pg_largeobject` to give space back.
+- Garage over S3 (AWS SDK v2 2.35.4, streamed multipart, 8 MiB parts): 1 GiB store 8.0–8.1 s, read back 3.5–3.6 s; disk growth 199 MB (zstd, ~5.4×). Runs 2–3 grew 0 bytes: Garage deduplicates blocks and collects deleted ones lazily.
+- AWS SDK v2 ≥ 2.30 sends flexible checksums by default; Garage rejects them ("Invalid payload signature"). Fix: `requestChecksumCalculation(WHEN_REQUIRED)` and `responseChecksumValidation(WHEN_REQUIRED)`. Spark's S3A may need the equivalent (Task 9).
+- Garage's image has no shell tools: disk use measured from a throwaway container mounting its volume.
+- Peak heap is summed over heap pools (garbage included): 249 MiB for LO read-back and S3 store, under the 256 MiB cap without OOM — memory stays bounded, but the 8 MiB part buffers and pgjdbc's LO stream buffering are where it goes.
+- Candidate 1 (original only, as a large object): Spark cannot read a large object in parallel — it would have to be unpacked into rows or a file before each run, which is exactly candidate 2/3/4's preparation. So candidate 1 is "original storage only", decided between LO and S3 here, and combined with one of candidates 2–4 for Spark.

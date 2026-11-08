@@ -1,6 +1,5 @@
 package spike.upload
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Component
 import java.io.InputStream
 import java.security.DigestInputStream
@@ -9,6 +8,8 @@ import java.util.concurrent.ConcurrentHashMap
 
 /** Where a completed upload's original goes; called once per upload. Tasks 7-9 provide real stores. */
 interface UploadSink {
+	/** Matches `spike.upload.sink`; the controller uses the sink of that kind. */
+	val kind: String
 	fun store(uploadId: String, input: InputStream): StoredOriginal
 }
 
@@ -29,10 +30,10 @@ class CompletedUploads {
 	fun calls(uploadId: String): Int = calls[uploadId] ?: 0
 }
 
-/** Only hashes the stream: the default until a store is chosen with `spike.upload.sink`. */
+/** Only hashes the stream (`spike.upload.sink: hash`). */
 @Component
-@ConditionalOnProperty("spike.upload.sink", havingValue = "hash", matchIfMissing = true)
 class HashingUploadSink : UploadSink {
+	override val kind = "hash"
 	override fun store(uploadId: String, input: InputStream): StoredOriginal = hashing(input) { counted -> counted.copyTo(java.io.OutputStream.nullOutputStream(), 1 shl 20) }
 		.let { (bytes, sha) -> StoredOriginal("hash", uploadId, bytes, sha) }
 }
