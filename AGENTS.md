@@ -61,6 +61,8 @@ Test JVMs get their Spark master, shuffle partitions and locality wait from the 
 
 No linter or formatter is configured. Java uses tabs; Scala uses 2-space indentation.
 
+Do not add symlinks to the repository. When code needs a path elsewhere in the repo, pass it as configuration (a system property, a Make variable).
+
 Search text with `rg` (ripgrep), never `grep`: `grep`, `egrep`, `fgrep`, `zgrep` and `git grep` are denied in `.claude/settings.json`. `rg` takes extended regexes by default (no `-E`), skips git-ignored files such as `target/` unless given `--no-ignore` or an explicit path, and also works at the end of a pipe (`docker ps | rg greedy`). `pgrep` looks up processes, not text, and stays allowed. The Makefile's `help` target still uses `grep` internally; that is fine.
 
 Profiles in `application.yml`: default (only the `/actuator` hypermedia endpoint is off; see Gotchas), `dev` (devtools restart also watches `src/main/scala`, `/shutdown` enabled without auth; in Docker pass `-e SPRING_PROFILES_ACTIVE=dev`), `container` (MongoDB at `mongodb://greedy-mongo`). Live reload of Scala in IntelliJ needs "Build project automatically" plus the `compiler.automake.allow.when.app.running` registry flag (see README).
