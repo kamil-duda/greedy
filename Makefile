@@ -29,7 +29,7 @@ LEGACY_MVN = docker run --rm --name greedy-legacy-mvn --network container:$(LEGA
 
 .DEFAULT_GOAL := help
 .PHONY: help build lint format test test-unit test-it test-one run run-dev lock clean
-.PHONY: db-up db-down spark-up spark-down spark-ui stack-check
+.PHONY: db-up db-down spark-up spark-down spark-ui stack-check image up down
 .PHONY: legacy-mongo legacy-build legacy-up legacy-down legacy-test legacy-test-one legacy-coverage legacy-golden
 
 help: ## List available targets
@@ -103,6 +103,18 @@ spark-ui: ## Print the Spark UI URLs and the Spark Connect address
 
 stack-check: ## Check that PostgreSQL and every Spark service are up and configured (OK/FAIL per check)
 	@COMPOSE='$(COMPOSE)' docker/stack/check.sh
+
+image: ## Build the app image greedy-app:dev (Paketo buildpacks; the first run pulls the builder)
+	$(GRADLE) :app:bootBuildImage
+
+up: .env image ## Start the whole stack, app included, and wait for http://127.0.0.1:8081/actuator/health
+	$(COMPOSE) --profile app up -d --build --wait
+	@for i in $$(seq 1 120); do \
+		curl -fs http://127.0.0.1:8081/actuator/health | rg -q '"status":"UP"' && { echo "app is UP"; exit 0; }; sleep 1; \
+	done; echo "app did not become healthy; see: $(COMPOSE) logs app" >&2; exit 1
+
+down: ## Stop and remove every container of the stack, app included (the volumes stay)
+	$(COMPOSE) --profile app down
 
 legacy-mongo: ## Start MongoDB 4.4 for the legacy app and tests (no-op if running)
 	@if [ "$$(docker inspect -f '{{.State.Running}}' $(LEGACY_MONGO) 2>/dev/null)" != "true" ]; then \

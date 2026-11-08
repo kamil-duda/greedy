@@ -186,7 +186,6 @@ org.scala-lang:scala-compiler:2.13.18=compileClasspath,productionRuntimeClasspat
 org.scala-lang:scala-library:2.13.18=compileClasspath,productionRuntimeClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 org.scala-lang:scala-reflect:2.13.18=compileClasspath,productionRuntimeClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 org.skyscreamer:jsonassert:1.5.3=testCompileClasspath,testRuntimeClasspath
-org.slf4j:jcl-over-slf4j:2.0.20=compileClasspath,productionRuntimeClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 org.slf4j:jul-to-slf4j:2.0.20=compileClasspath,productionRuntimeClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 org.slf4j:slf4j-api:2.0.20=compileClasspath,productionRuntimeClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 org.snakeyaml:snakeyaml-engine:2.7=detekt

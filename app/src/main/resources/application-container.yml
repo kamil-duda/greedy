@@ -1,0 +1,4 @@
+# Profile container (the app image, `make up`): the only profile that listens on all interfaces. Inside the container
+# that is needed for the published port; the host side stays bound to 127.0.0.1 (compose.yaml).
+server:
+  address: 0.0.0.0

@@ -122,6 +122,20 @@ services:
       <<: *tcp-health
       test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/18080"]
 
+  # The app image (`make image`); profile app, so `make db-up spark-up` and `make run` leave it out
+  app:
+    image: greedy-app:dev
+    profiles: [app]
+    environment:
+      SPRING_PROFILES_ACTIVE: container
+      GREEDY_DB_URL: jdbc:postgresql://postgres:5432/greedy
+      GREEDY_DB_PASSWORD: ${GREEDY_DB_PASSWORD:?run make db-up to generate .env}
+    ports: ["127.0.0.1:8081:8081"]
+    depends_on:
+      postgres: {condition: service_healthy}
+      spark-connect: {condition: service_healthy}
+    networks: [greedy]
+
 networks:
   greedy: {}
 

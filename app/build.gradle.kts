@@ -22,6 +22,8 @@ dependencies {
 		// The client brings log4j as an SLF4J binding, which clashes with Spring Boot's log4j-to-slf4j (Phase 1);
 		// log4j-core itself stays: the client loads its classes at runtime
 		exclude(group = "org.apache.logging.log4j", module = "log4j-slf4j2-impl")
+		// jcl-over-slf4j duplicates org.apache.commons.logging, which commons-logging already provides
+		exclude(group = "org.slf4j", module = "jcl-over-slf4j")
 	}
 	runtimeOnly(libs.postgresql)
 	// developmentOnly (bootRun's classpath only) does not extend implementation, so it needs the BOM too
@@ -54,4 +56,17 @@ tasks.register<Test>("integrationTest") {
 
 tasks.bootRun {
 	jvmArgs(SPARK_CONNECT_JVM_ARG)
+}
+
+// Image greedy-app:dev (`make image`): Paketo buildpacks on JDK 21. The Connect client needs java.nio opened for Arrow;
+// the buildpack's JAVA_TOOL_OPTIONS is appended to, with a space as the delimiter.
+tasks.bootBuildImage {
+	imageName.set("greedy-app:dev")
+	environment.set(
+		mapOf(
+			"BP_JVM_VERSION" to "21",
+			"BPE_DELIM_JAVA_TOOL_OPTIONS" to " ",
+			"BPE_APPEND_JAVA_TOOL_OPTIONS" to SPARK_CONNECT_JVM_ARG,
+		),
+	)
 }

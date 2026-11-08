@@ -8,7 +8,7 @@
 * `build-logic/` – Gradle included build with the convention plugins (`greedy.kotlin`, `greedy.scala`, `greedy.collect-guard`) the modules apply, and the collect guard: an ASM bytecode scan that fails the build when `spark-rules` collects Spark data to the driver (allowlist: `spark-rules/collect-guard.txt`).
 * `config/` – linter configuration: `detekt.yml` (overrides of detekt's defaults); scalafmt, scalafix and ktlint settings are the dotfiles in the repo root (`.scalafmt.conf`, `.scalafix.conf`, `.editorconfig`).
 * `gradle/` – Gradle version catalog (`libs.versions.toml`) and wrapper.
-* `docker/` – the local stack behind `compose.yaml` (`make db-up spark-up`): `spark/Dockerfile` (Spark 4.3 image with the PostgreSQL JDBC driver, checksum-verified) and `stack/` (`make-env.sh` writes `.env`, `check.sh` is `make stack-check`).
+* `docker/` – the local stack behind `compose.yaml` (`make db-up spark-up`; `make up` adds the app image): `spark/Dockerfile` (Spark 4.3 image with the PostgreSQL JDBC driver, checksum-verified) and `stack/` (`make-env.sh` writes `.env`, `check.sh` is `make stack-check`).
 * `golden/` – the golden corpus: what the 2017 code produces, which every new implementation is checked against (see `golden/README.md`).
 * `golden/inputs/` – input CSV files: legacy test fixtures, public UCI datasets, seeded random tables, edge cases.
 * `golden/outputs/` – legacy rule files for every input, mode, heuristic and format, with the manifest and the nondeterminism reports.
