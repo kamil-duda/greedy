@@ -1,0 +1,130 @@
+# The local stack: PostgreSQL and a Spark standalone cluster with a Spark Connect server and a History Server.
+# Every port is published on 127.0.0.1 only. The host (app, tests) uses the localhost ports; Spark executors use the
+# Compose names. Secrets and worker sizing come from the generated .env (see .env.example).
+name: greedy
+
+x-spark: &spark
+  image: greedy-spark:4.3.0
+  build: docker/spark
+  networks: [greedy]
+
+x-tcp-health: &tcp-health # bash /dev/tcp: the Spark image has no curl or nc
+  interval: 5s
+  timeout: 3s
+  retries: 30
+  start_period: 10s
+
+services:
+  postgres:
+    image: postgres:18.6
+    environment:
+      POSTGRES_DB: greedy
+      POSTGRES_USER: greedy
+      POSTGRES_PASSWORD: ${GREEDY_DB_PASSWORD:?run make db-up to generate .env}
+    command: ["postgres", "-c", "shared_buffers=512MB", "-c", "max_wal_size=1GB"]
+    ports: ["127.0.0.1:5432:5432"]
+    volumes: ["pgdata:/var/lib/postgresql"]
+    mem_limit: 1536m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U greedy -d greedy"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks: [greedy]
+
+  # Named volumes are created root-owned; the Spark image runs as the spark user (uid 185).
+  spark-volumes:
+    <<: *spark
+    user: root
+    entrypoint: ["sh", "-c", "mkdir -p /opt/spark/events && chown -R 185:185 /opt/spark/events"]
+    volumes: ["spark-events:/opt/spark/events"]
+    restart: "no"
+
+  spark-master:
+    <<: *spark
+    command: ["/opt/spark/bin/spark-class", "org.apache.spark.deploy.master.Master", "--host", "spark-master", "--port", "7077", "--webui-port", "8080"]
+    environment: {SPARK_DAEMON_MEMORY: 256m}
+    ports: ["127.0.0.1:8090:8080"]
+    healthcheck:
+      <<: *tcp-health
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/8080"]
+
+  spark-worker:
+    <<: *spark
+    command:
+      - /opt/spark/bin/spark-class
+      - org.apache.spark.deploy.worker.Worker
+      - spark://spark-master:7077
+      - --cores
+      - ${SPARK_WORKER_CORES:-2}
+      - --memory
+      - ${SPARK_WORKER_MEMORY:-3g}
+      - --webui-port
+      - "8081"
+    environment: {SPARK_DAEMON_MEMORY: 256m}
+    ports: ["127.0.0.1:8091:8081"]
+    depends_on:
+      spark-master: {condition: service_healthy}
+    healthcheck:
+      <<: *tcp-health
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/8081"]
+
+  spark-connect:
+    <<: *spark
+    command:
+      - /opt/spark/bin/spark-submit
+      - --class
+      - org.apache.spark.sql.connect.service.SparkConnectServer
+      - --master
+      - spark://spark-master:7077
+      - --conf
+      - spark.driver.host=spark-connect
+      - --conf
+      - spark.driver.bindAddress=0.0.0.0
+      - --conf
+      - spark.driver.memory=1g
+      - --conf
+      - spark.executor.memory=2g
+      - --conf
+      - spark.connect.grpc.binding.port=15002
+      - --conf
+      - spark.scheduler.mode=FAIR
+      - --conf
+      - spark.eventLog.enabled=true
+      - --conf
+      - spark.eventLog.dir=file:///opt/spark/events
+      - --conf
+      - spark.eventLog.rolling.enabled=true
+      - --conf
+      - spark.eventLog.rolling.maxFileSize=128m
+      - spark-internal
+    ports: ["127.0.0.1:15002:15002", "127.0.0.1:4040:4040"]
+    volumes: ["spark-events:/opt/spark/events"]
+    depends_on:
+      spark-volumes: {condition: service_completed_successfully}
+      spark-worker: {condition: service_healthy}
+    healthcheck:
+      <<: *tcp-health
+      start_period: 30s
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/15002 && exec 4<>/dev/tcp/127.0.0.1/4040"]
+
+  spark-history:
+    <<: *spark
+    command: ["/opt/spark/bin/spark-class", "org.apache.spark.deploy.history.HistoryServer"]
+    environment:
+      SPARK_DAEMON_MEMORY: 256m
+      SPARK_HISTORY_OPTS: -Dspark.history.fs.logDirectory=file:///opt/spark/events
+    ports: ["127.0.0.1:18080:18080"]
+    volumes: ["spark-events:/opt/spark/events"]
+    depends_on:
+      spark-volumes: {condition: service_completed_successfully}
+    healthcheck:
+      <<: *tcp-health
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/18080"]
+
+networks:
+  greedy: {}
+
+volumes:
+  pgdata: {}
+  spark-events: {}

@@ -4,6 +4,10 @@
 # Pass extra Maven arguments with ARGS, e.g. make legacy-test ARGS='-Dlegacy.spark.master=local[1]'.
 
 GRADLE := ./gradlew
+# `docker compose` when the plugin works, otherwise the standalone docker-compose (the case on the author's machine).
+COMPOSE := $(shell docker compose version >/dev/null 2>&1 && echo 'docker compose' || echo docker-compose)
+DB_SERVICES    := postgres
+SPARK_SERVICES := spark-volumes spark-master spark-worker spark-connect spark-history
 # Written before `make test-one` runs; a test result newer than it shows that some test matched. Results go to one
 # file per test class; TEST-Gradle-Test-Run-*.xml is the run's own suite, where the ScalaTest engine reports each suite
 # whose tests a pattern starting with * filtered out as one test, so it does not count.
@@ -23,6 +27,7 @@ LEGACY_MVN = docker run --rm --name greedy-legacy-mvn --network container:$(LEGA
 
 .DEFAULT_GOAL := help
 .PHONY: help build lint format test-unit test-one lock clean
+.PHONY: db-up db-down spark-up spark-down spark-ui stack-check
 .PHONY: legacy-mongo legacy-build legacy-up legacy-down legacy-test legacy-test-one legacy-coverage legacy-golden
 
 help: ## List available targets
@@ -54,6 +59,33 @@ lock: ## Rewrite the dependency lockfiles (gradle.lockfile in every module and i
 clean: ## Delete the Gradle build outputs and legacy/target
 	$(GRADLE) clean
 	rm -rf legacy/target
+
+# Generated once, never overwritten: delete .env to get a new password (the pgdata volume keeps the old one).
+.env:
+	docker/stack/make-env.sh > .env
+	@echo "wrote .env"
+
+db-up: .env ## Start PostgreSQL 18 on 127.0.0.1:5432 and wait until it is healthy
+	$(COMPOSE) up -d --wait $(DB_SERVICES)
+
+db-down: ## Stop and remove the PostgreSQL container (the pgdata volume stays)
+	$(COMPOSE) rm -sf $(DB_SERVICES)
+
+spark-up: .env ## Start the Spark master, worker, Connect server and History Server and wait until healthy
+	$(COMPOSE) up -d --build --wait $(SPARK_SERVICES)
+
+spark-down: ## Stop and remove the Spark containers (the volumes stay)
+	$(COMPOSE) rm -sf $(SPARK_SERVICES)
+
+spark-ui: ## Print the Spark UI URLs and the Spark Connect address
+	@echo "master UI       http://localhost:8090"
+	@echo "worker UI       http://localhost:8091"
+	@echo "driver UI       http://localhost:4040"
+	@echo "history server  http://localhost:18080"
+	@echo "Spark Connect   sc://localhost:15002"
+
+stack-check: ## Check that PostgreSQL and every Spark service are up and configured (OK/FAIL per check)
+	@COMPOSE='$(COMPOSE)' docker/stack/check.sh
 
 legacy-mongo: ## Start MongoDB 4.4 for the legacy app and tests (no-op if running)
 	@if [ "$$(docker inspect -f '{{.State.Running}}' $(LEGACY_MONGO) 2>/dev/null)" != "true" ]; then \
