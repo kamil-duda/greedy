@@ -1,0 +1,20 @@
+# Phase 2 skeleton: health only, without details, on localhost. Port 8080 stays with the legacy app until Phase 8.
+spring:
+  application:
+    name: greedy
+
+server:
+  port: 8081
+  address: 127.0.0.1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+      discovery:
+        enabled: false
+  endpoint:
+    health:
+      show-details: never
+      show-components: never

@@ -51,18 +51,18 @@ Legacy = what the project was built with in 2017 (resolved from the Maven build)
 | Apache Commons Configuration 2 | Library | 2.1 | — (replaced by Spring `@ConfigurationProperties`) |
 | Apache Commons IO | Library | 2.5 | — (removed) |
 | Maven (wrapper) | Build tool | 3.3.9 | — (replaced by Gradle) |
-| Gradle | Build tool | — | 9.x, Kotlin DSL (TBD) |
+| Gradle | Build tool | — | 9.9.0 (wrapper), Kotlin DSL |
 | Make | Build tool | — | Makefile wrapping Gradle |
 | maven-scala-plugin | Build plugin | 2.15.2 | — (Gradle `scala` plugin) |
 | maven-failsafe-plugin | Build plugin | 2.19.1 | — (Gradle test suites) |
 | docker-maven-plugin (Spotify) | Build plugin | 0.4.11 | — (Spring Boot `bootBuildImage`) |
 | JUnit | Test framework | 4.12 | JUnit Jupiter 6.0.3 |
-| ScalaTest | Test framework | — | TBD |
+| ScalaTest | Test framework | — | 3.2.19, on JUnit Platform 1.13 through scalatestplus `junit-5-13` 3.2.19.0 |
 | ScalaCheck | Test library | — | TBD |
 | Mockito | Test library | 1.10.19 | — (replaced by MockK) |
 | MockK | Test library | — | TBD |
 | AssertJ | Test library | 2.5.0 | — (replaced by Kotest assertions) |
-| Kotest assertions | Test library | — | TBD |
+| Kotest assertions | Test library | — | 6.2.6 |
 | Testcontainers | Test library | — | 2.0.5 |
 | scoverage | Coverage (Scala) | — | TBD |
 | Kover | Coverage (Kotlin) | — | TBD |
