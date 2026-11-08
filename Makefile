@@ -15,8 +15,7 @@ LEGACY_MVN = docker run --rm --name greedy-legacy-mvn --network container:$(LEGA
 	-v "$(CURDIR)":/src -v $(LEGACY_M2):/root/.m2 -w /src $(LEGACY_MVN_IMAGE) mvn -B $(value ARGS)
 
 .DEFAULT_GOAL := help
-.PHONY: help legacy-mongo legacy-build legacy-up legacy-down legacy-test legacy-test-one legacy-coverage legacy-golden \
-	spike-env spike-up spike-down spike-clean spike-ui spike-check spike-test spike-it
+.PHONY: help legacy-mongo legacy-build legacy-up legacy-down legacy-test legacy-test-one legacy-coverage legacy-golden
 
 help: ## List available targets
 	@grep -E '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  %-18s %s\n", $$1, $$2}'
@@ -62,34 +61,3 @@ legacy-coverage: legacy-test ## Tests + JaCoCo report (target/site/jacoco/index.
 	  END { for (p in lm) { l = lm[p] + lc[p]; b = bm[p] + bc[p]; \
 	    printf "  %-48s lines %5.1f%%  branches %s\n", p, (l ? 100 * lc[p] / l : 0), (b ? sprintf("%5.1f%%", 100 * bc[p] / b) : "    -") } }' \
 	  target/site/jacoco/jacoco.csv | sort
-
-# Phase 1 spike (throwaway; removed with spike/): Compose stack and checks.
-SPIKE_COMPOSE = docker-compose -f spike/compose.yaml -p greedy-spike --env-file spike/.env
-
-spike-env: ## Spike: create spike/.env with random secrets (once)
-	@[ -f spike/.env ] || spike/stack/make-env.sh > spike/.env
-
-spike-up: spike-env ## Spike: start PostgreSQL, Garage and the Spark services
-	$(SPIKE_COMPOSE) up -d postgres garage
-	spike/stack/init-garage.sh
-	$(SPIKE_COMPOSE) up -d
-
-spike-down: ## Spike: stop the spike stack (keeps its volumes)
-	-$(SPIKE_COMPOSE) down
-
-spike-clean: ## Spike: stop the spike stack and delete its volumes
-	-$(SPIKE_COMPOSE) down -v
-
-spike-ui: ## Spike: print the service URLs
-	@echo "Spark master  http://127.0.0.1:8090"; echo "Spark worker  http://127.0.0.1:8091"; \
-	echo "Driver (Connect server) http://127.0.0.1:4040"; echo "History       http://127.0.0.1:18080"; \
-	echo "Spark Connect sc://127.0.0.1:15002"; echo "PostgreSQL    127.0.0.1:5432 (db/user spike)"; echo "Garage S3     http://127.0.0.1:3900"
-
-spike-check: ## Spike: check every stack service from the host
-	@spike/stack/check.sh
-
-spike-test: ## Spike: unit tests and Scala tests on a local (classic) Spark session
-	cd spike && ./gradlew --no-daemon test :rules:testClassic
-
-spike-it: ## Spike: tests that need the spike stack (Spark Connect, PostgreSQL, Garage)
-	cd spike && ./gradlew --no-daemon integrationTest :rules:testConnect

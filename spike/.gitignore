@@ -1,8 +1,0 @@
-.env
-results/data/
-build/
-.gradle/
-.kotlin/
-*/build/
-!gradle/wrapper/gradle-wrapper.jar
-results/checkpoint-*.txt
