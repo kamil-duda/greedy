@@ -1,5 +1,20 @@
 ## Greedy algorithms implementation
 
+#### Directories
+
+* `spark-rules/` – Scala 2.13 module with the Spark rule-induction engine and its public API (stubs until Phase 3).
+* `app/` – Kotlin Spring Boot web app: UI, security, uploads, PostgreSQL access, exports (a health-only skeleton for now).
+* `test-support/` – Kotlin library used only by the other modules' tests (e.g. the `@Pending` marker for tests whose code arrives in a later phase).
+* `build-logic/` – Gradle included build with the convention plugins (`greedy.kotlin`, `greedy.scala`) the modules apply.
+* `gradle/` – Gradle version catalog (`libs.versions.toml`) and wrapper.
+* `golden/` – the golden corpus: what the 2017 code produces, which every new implementation is checked against (see `golden/README.md`).
+* `golden/inputs/` – input CSV files: legacy test fixtures, public UCI datasets, seeded random tables, edge cases.
+* `golden/outputs/` – legacy rule files for every input, mode, heuristic and format, with the manifest and the nondeterminism reports.
+* `golden/scripts/` – Python scripts that produced the public and random inputs and the list of most-common-decision ties.
+* `legacy/` – the 2017 Maven project (Spring Boot 1.4, Spark 2.1), run in Docker through `make legacy-*` to regenerate golden outputs; deleted in Phase 8.
+* `docs/plans/` – plans, notes, ledgers and measurements of each modernization phase ([PLAN.md](PLAN.md) is the overview).
+* `.claude/` – Claude Code project settings (permission rules for agents).
+
 
 #### Versions: legacy vs. current
 

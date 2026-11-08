@@ -12,7 +12,7 @@ A Spring Boot web app that induces decision rules from tabular data with greedy 
 - No algorithm or business-logic changes until Phase 0 (characterization tests + golden corpus on the legacy code) is ticked off and reviewed.
 - The legacy code under `src/main` stays unchanged (Phase 2 moves it to `legacy/`); new code goes into the Gradle modules.
 - Every intended change to rule output goes into the behavior-change registry in `PLAN.md` and is delivered as a separate, self-contained change with its updated golden files, so the owner can commit it on its own.
-- Tick `PLAN.md` checkboxes as work lands; keep the legacy-vs-current versions table in `README.md` current.
+- Tick `PLAN.md` checkboxes as work lands; keep the legacy-vs-current versions table in `README.md` current. `README.md`'s Directories section lists every important directory (`path` and one line on what it is); update it in the same commit that adds, moves or removes one.
 
 ## Git: agents commit on `master-ai`, the owner pushes
 
