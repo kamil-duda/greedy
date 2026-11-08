@@ -5,6 +5,8 @@ import org.kduda.greedy.build.lockAllDependencies
 
 plugins {
 	scala
+	id("com.diffplug.spotless")
+	id("io.github.cosmicsilence.scalafix")
 }
 
 java {
@@ -23,28 +25,56 @@ scala {
 }
 
 dependencies {
-	// strictly: a lock entry is itself a strict constraint, so a plain declaration below the locked version would be
-	// upgraded to it in silence; this way a catalog change to Scala without `make lock` fails in either direction
-	"implementation"(libs.findLibrary("scala-library").get()) {
-		version {
-			strictly(scalaRelease)
-		}
-	}
+	// Not strictly: Scala 2.13 is not forward binary compatible, so a dependency asking for a newer scala-library must
+	// win. The lock still fails an upward catalog change made without `make lock`; a lower catalog value resolving to
+	// the locked version is the lock doing its job.
+	"implementation"(libs.findLibrary("scala-library").get())
 }
 
 lockAllDependencies()
+
+spotless {
+	scala {
+		target("src/**/*.scala")
+		scalafmt(libs.findVersion("scalafmt").get().requiredVersion).configFile(rootProject.file(".scalafmt.conf"))
+	}
+	kotlinGradle {
+		target("*.gradle.kts")
+		ktlint(libs.findVersion("ktlint").get().requiredVersion)
+	}
+}
+
+scalafix {
+	configFile.set(rootProject.file(".scalafix.conf"))
+	semanticdb {
+		autoConfigure.set(true)
+		version.set(libs.findVersion("semanticdb").get().requiredVersion)
+	}
+}
 
 tasks.withType<ScalaCompile>().configureEach {
 	scalaCompileOptions.additionalParameters =
 		listOf("-deprecation", "-feature", "-unchecked", "-Xlint", "-Wunused:imports,privates,locals", "-Werror")
 }
 
-// The JDK module opens Spark's own launcher adds (JavaModuleOptions), needed by a classic in-process session
+// The JDK module opens a classic in-process local Spark session needed in Phase 1 (not Spark 4.3.0's own
+// JavaModuleOptions list, which differs)
 val sparkClassicJvmArgs =
 	listOf(
-		"java.lang", "java.lang.invoke", "java.lang.reflect", "java.io", "java.net", "java.nio", "java.util",
-		"java.util.concurrent", "java.util.concurrent.atomic", "jdk.internal.ref", "sun.nio.ch", "sun.nio.cs",
-		"sun.security.action", "sun.util.calendar",
+		"java.lang",
+		"java.lang.invoke",
+		"java.lang.reflect",
+		"java.io",
+		"java.net",
+		"java.nio",
+		"java.util",
+		"java.util.concurrent",
+		"java.util.concurrent.atomic",
+		"jdk.internal.ref",
+		"sun.nio.ch",
+		"sun.nio.cs",
+		"sun.security.action",
+		"sun.util.calendar",
 	).map { "--add-opens=java.base/$it=ALL-UNNAMED" } +
 		listOf("-Djdk.reflect.useDirectMethodHandle=false", "-Dio.netty.tryReflectionSetAccessible=true")
 

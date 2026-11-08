@@ -22,6 +22,8 @@ class PendingExtension : InvocationInterceptor {
 		extensionContext: ExtensionContext,
 	) = runPending(invocation, extensionContext)
 
+	// Every Throwable the body throws, assertion errors included, makes the test pending; only OutOfMemoryError escapes
+	@Suppress("TooGenericExceptionCaught", "ThrowsCount")
 	private fun runPending(
 		invocation: InvocationInterceptor.Invocation<Void?>,
 		context: ExtensionContext,

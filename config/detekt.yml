@@ -1,0 +1,4 @@
+# Overrides only: detekt runs with buildUponDefaultConfig = true, so everything else is detekt's default.
+style:
+  MaxLineLength:
+    maxLineLength: 120

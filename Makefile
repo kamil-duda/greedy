@@ -1,5 +1,5 @@
 # Developer commands. `make` lists them.
-# build, test-unit, test-one, lock and clean drive the Gradle build of the rewrite through the wrapper (JDK 21).
+# build, lint, format, test-unit, test-one, lock and clean drive the Gradle build of the rewrite through the wrapper (JDK 21).
 # legacy-* targets build, test and run the 2017 code in Docker (JDK 8 + MongoDB 4.4); no local JDK needed.
 # Pass extra Maven arguments with ARGS, e.g. make legacy-test ARGS='-Dlegacy.spark.master=local[1]'.
 
@@ -22,7 +22,7 @@ LEGACY_MVN = docker run --rm --name greedy-legacy-mvn --network container:$(LEGA
 	-v "$(CURDIR)":/src -v $(LEGACY_M2):/root/.m2 -w /src/legacy $(LEGACY_MVN_IMAGE) mvn -B $(value ARGS)
 
 .DEFAULT_GOAL := help
-.PHONY: help build test-unit test-one lock clean
+.PHONY: help build lint format test-unit test-one lock clean
 .PHONY: legacy-mongo legacy-build legacy-up legacy-down legacy-test legacy-test-one legacy-coverage legacy-golden
 
 help: ## List available targets
@@ -30,6 +30,12 @@ help: ## List available targets
 
 build: ## Gradle build: compile and test every module
 	$(GRADLE) build
+
+lint: ## Check formatting (Spotless: scalafmt, ktlint), scalafix and detekt; part of build
+	$(GRADLE) spotlessCheck checkScalafix detekt
+
+format: ## Apply scalafmt, ktlint and scalafix fixes
+	$(GRADLE) spotlessApply scalafix
 
 test-unit: ## Unit tests of every module
 	$(GRADLE) test

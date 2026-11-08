@@ -9,10 +9,14 @@ dependencies {
 	implementation(libs.kotlin.gradle.plugin)
 	implementation(libs.kotlin.allopen)
 	implementation(libs.spring.boot.gradle.plugin)
+	implementation(libs.spotless.gradle.plugin)
+	implementation(libs.scalafix.gradle.plugin)
+	implementation(libs.detekt.gradle.plugin)
 }
 
 dependencyLocking {
 	lockAllConfigurations()
+	lockMode = LockMode.STRICT
 }
 
 // `make lock` (./gradlew -p build-logic resolveAndLockAll --write-locks): the Gradle documentation's pattern

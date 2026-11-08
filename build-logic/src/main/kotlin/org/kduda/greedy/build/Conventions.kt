@@ -1,6 +1,7 @@
 package org.kduda.greedy.build
 
 import org.gradle.api.Project
+import org.gradle.api.artifacts.dsl.LockMode
 import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
@@ -11,6 +12,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
  */
 fun Project.lockAllDependencies() {
 	dependencyLocking.lockAllConfigurations()
+	dependencyLocking.lockMode.set(LockMode.STRICT)
 	tasks.register("resolveAndLockAll") {
 		notCompatibleWithConfigurationCache("Filters configurations at execution time")
 		doFirst {
