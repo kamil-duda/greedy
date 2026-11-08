@@ -38,7 +38,9 @@ Legacy = what the project was built with in 2017 (resolved from the Maven build)
 | PostgreSQL JDBC driver | Database driver | — | 42.7.14 |
 | MongoDB Spark Connector | Library | — | — (Spark's built-in JDBC data source) |
 | Flyway | Library | — | managed by Spring Boot 4.1 (TBD) |
-| Upload storage | Infrastructure | MongoDB GridFS | TBD (Phase 1 spike: PostgreSQL large objects or an S3-compatible store) |
+| Upload storage | Infrastructure | MongoDB GridFS | PostgreSQL large objects (originals) + one rows table (Phase 1) |
+| tus (resumable uploads) | Library | — (single multipart request) | tus-java-server 1.0.0-3.3 |
+| FastCSV | Library | — (Spark's CSV reader) | 4.4.0 |
 | Hadoop client | Library | 2.2.0 | 3.5.0 (as bundled by Spark 4.3.0) |
 | Jackson | Library | 2.6.7 (forced for Spark) | 3.1.7 (app) + 2.x required by Spark |
 | Janino | Library | 3.0.6 (forced for Spark) | as required by Spark 4.3 |

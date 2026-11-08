@@ -9,7 +9,7 @@ Findings of the [Phase 1 spike](phase-1.md), run 2026-11-08 on the owner's MacBo
 | Spark Connect or `spark-submit` per run? | **Spark Connect works** for everything tested: Spring Boot 4.1.2 + client 4.3.0 on JDK 21, parallel JDBC reads and writes, run tags visible in the UIs, cancel by tag, the same Scala code on classic and Connect sessions. No fallback needed. |
 | Upload protocol | **tus 1.0** (tus-java-server 1.0.0-3.3): 1 GiB with two mid-chunk drops arrives byte-identical in a 256 MiB heap. |
 | Where originals live | **PostgreSQL large objects** (owner, 2026-11-08: PostgreSQL only). Garage was measured faster and smaller (below) but adds a second store. |
-| Rows for Spark | Candidate 2 (one shared table) or 3 (table per upload): **owner's decision**, numbers below. Candidate 1 is "original storage only"; candidate 4 (object store) was dropped with Garage. |
+| Rows for Spark | **One shared table**, `dataset_rows(dataset_id, row_no, vals text[])` (candidate 2; owner, 2026-11-08): a table per upload would snowball and caps uploads at 1,599 columns. Accepted costs: slower than a table per upload (below) and periodic index maintenance. Candidate 1 is "original storage only"; candidate 4 (object store) was dropped with Garage. |
 
 ## Spark Connect and Spring Boot
 
