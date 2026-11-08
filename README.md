@@ -82,8 +82,8 @@ Legacy = what the project was built with in 2017 (resolved from the Maven build)
 | Testcontainers | Test library | — | 2.0.5 |
 | scoverage | Coverage (Scala) | — | TBD |
 | Kover | Coverage (Kotlin) | — | TBD |
-| scalafmt / scalafix | Code quality (Scala) | — | TBD |
-| ktlint / detekt | Code quality (Kotlin) | — | TBD |
+| scalafmt / scalafix | Code quality (Scala) | — | 3.11.5 / plugin 0.3.0 (SemanticDB 4.17.4) |
+| ktlint / detekt | Code quality (Kotlin) | — | 1.8.0 / 1.23.8 (via Spotless 8.11.0) |
 | Docker base image | Infrastructure | openjdk:8-jre-alpine | Paketo buildpacks via `bootBuildImage` |
 | Docker Compose file | Infrastructure | format version 2 | Compose Specification |
 
