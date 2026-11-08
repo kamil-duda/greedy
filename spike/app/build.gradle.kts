@@ -19,7 +19,9 @@ dependencies {
 		// log4j-core itself stays: the client references its classes directly
 		exclude(group = "org.apache.logging.log4j", module = "log4j-slf4j2-impl")
 	}
+	implementation(libs.tus.server)
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation(libs.tus.client)
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -42,5 +44,6 @@ tasks.register<Test>("integrationTest") {
 	environment(spikeEnv)
 	systemProperty("spike.results", rootProject.file("results").absolutePath)
 	jvmArgs("--add-opens=java.base/java.nio=ALL-UNNAMED")
+	maxHeapSize = "256m" // the app must handle 1 GiB uploads with flat memory
 	testLogging { events("passed", "failed", "skipped"); showStandardStreams = false; exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL }
 }

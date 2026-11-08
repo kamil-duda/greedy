@@ -24,3 +24,9 @@
 - Executors must get the Compose address (`postgres:5432`): the same round trip with the app's `localhost` URL fails with a connection error (tested).
 - Run tags: `addTag("run-<id>")` is per thread in the client; jobs carry `SparkConnect_SessionTag_User_<user>_Session_<session>_Tag_run-<id>` in the driver UI/REST API, so a run's jobs can be found by the `_Tag_run-<id>` suffix. The History Server lists the (running) Connect application.
 - Cancel: `interruptTag("run-cancel")` from another thread stops a job of > 60 s within the 10 s budget; no job with the tag keeps running.
+
+## Resumable uploads (Task 5)
+- tus 1.0 with tus-java-server 1.0.0-3.3 in Spring Boot 4.1 (Jakarta Servlet 6, no conflicts): chunks land on local disk, and when the last one arrives the controller streams the file once into the `UploadSink`, then deletes tus's copy.
+- 1 GiB (`large.csv`) in 8 MiB chunks, with the connection dropped mid-chunk (raw socket: headers for 8 MiB, half the bytes, hang-up) at ~50 % and ~99 %: resumes and arrives byte-identical (SHA-256), sink called exactly once; a re-sent final chunk is refused. 8.2–8.6 s on loopback (~125 MB/s incl. hashing), peak heap ~130 MiB with `-Xmx256m` (app, client and test in one JVM).
+- tus-java-client sends chunks as POST with `X-HTTP-Method-Override: PATCH` (HttpURLConnection cannot PATCH): server-side code that reacts to completed PATCHes must honour the override. Its `finish()` closes the TusUpload's stream: a resume needs a fresh TusUpload (same fingerprint).
+- Storing synchronously in the last PATCH makes the client wait for the store (seconds for 1 GiB); the real app should hand off to a background job.

@@ -6,3 +6,5 @@ probe	probe_rows-1M	app COPY load	0.796	111		true	run 2
 probe	probe_rows-1M	Spark JDBC read 4 partitions + group + write	0.444	37		true	run 2
 probe	probe_rows-1M	app COPY load	0.781	111		true	run 3
 probe	probe_rows-1M	Spark JDBC read 4 partitions + group + write	0.411	37		true	run 3
+upload	large.csv	tus upload 8 MiB chunks, 2 drops	8.599	129	1079059385	true	sink=hash
+upload	large.csv	tus upload 8 MiB chunks, 2 drops	8.173	130	1079059385	true	sink=hash

@@ -15,6 +15,9 @@ spike:
     bucket: uploads
     access-key: ${GARAGE_KEY_ID}
     secret-key: ${GARAGE_SECRET_KEY}
+  upload:
+    sink: hash
+    tus-dir: ${spike.results:../results}/data/tus
 
 spring:
   datasource:
