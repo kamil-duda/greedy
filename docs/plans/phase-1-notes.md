@@ -9,7 +9,7 @@ Findings of the [Phase 1 spike](phase-1.md), run 2026-11-08 on the owner's MacBo
 | Spark Connect or `spark-submit` per run? | **Spark Connect works** for everything tested: Spring Boot 4.1.2 + client 4.3.0 on JDK 21, parallel JDBC reads and writes, run tags visible in the UIs, cancel by tag, the same Scala code on classic and Connect sessions. No fallback needed. |
 | Upload protocol | **tus 1.0** (tus-java-server 1.0.0-3.3): 1 GiB with two mid-chunk drops arrives byte-identical in a 256 MiB heap. |
 | Where originals live | **PostgreSQL large objects** (owner, 2026-11-08: PostgreSQL only). Garage was measured faster and smaller (below) but adds a second store. |
-| Rows for Spark | **One shared table**, `dataset_rows(dataset_id, row_no, vals text[])` (candidate 2; owner, 2026-11-08): a table per upload would snowball and caps uploads at 1,599 columns. Accepted costs: slower than a table per upload (below) and periodic index maintenance. Candidate 1 is "original storage only"; candidate 4 (object store) was dropped with Garage. |
+| Rows for Spark | **One shared table**, `dataset_rows(dataset_id, row_no, vals text[])` (candidate 2; owner, 2026-11-08): a table per upload would snowball and caps uploads at 1,599 columns. Accepted costs: slower than a table per upload and about 1.8–2× its disk (below); deleted space is reused by later uploads, so no scheduled maintenance is needed. Candidate 1 is "original storage only"; candidate 4 (object store) was dropped with Garage. |
 
 ## Spark Connect and Spring Boot
 
@@ -23,7 +23,8 @@ Findings of the [Phase 1 spike](phase-1.md), run 2026-11-08 on the owner's MacBo
 ## PostgreSQL over JDBC, tags, cancel
 
 - App side: `COPY … FROM STDIN` through pgjdbc `CopyManager`, rows generated or parsed on the fly: 1 M rows in 0.8 s.
-- Spark side: JDBC read with `partitionColumn=row_no`, bounds from `min/max(row_no)`, `numPartitions` gives exactly that many scan tasks; write with `reWriteBatchedInserts=true`. 1 M rows read, grouped and written back in 0.44 s warm.
+- Spark side: JDBC read with `partitionColumn=row_no`, bounds from `min/max(row_no)`, `numPartitions` gives exactly that many scan tasks; write with `reWriteBatchedInserts=true`. 1 M rows read and grouped into 3 rows written back: 0.44 s warm. JDBC write throughput for many rows (rules) was not measured.
+- The spike's reads did not set `fetchsize`. With Spark's default of 0, pgjdbc loads each partition's whole result into executor memory before the first row and a cancel cannot stop the scan; at 1 GiB / 4 partitions it fit the 2 GB executor, at 4 GB it would not scale linearly. Set `fetchsize` (e.g. 10,000) on every read.
 - On the Connect server, jars from `--packages` are invisible to `DriverManager`: set `driver=org.postgresql.Driver` on every JDBC read and write ("No suitable driver" otherwise).
 - Executors must get the Compose address (`postgres:5432`); the app's `localhost` URL fails with a connection error (tested). Addresses are configuration on both sides.
 - Run tags: `addTag("run-<id>")` applies to operations started by the calling thread; jobs show `SparkConnect_SessionTag_User_<user>_Session_<session>_Tag_run-<id>` in the driver UI and REST API. `interruptTag` from another thread stops a job of > 60 s within 10 s.
@@ -31,8 +32,8 @@ Findings of the [Phase 1 spike](phase-1.md), run 2026-11-08 on the owner's MacBo
 ## Uploads (tus)
 
 - tus-java-server 1.0.0-3.3 runs on Spring Boot 4.1 (Jakarta Servlet 6) without conflicts. Chunks land on local disk; on the last chunk the controller streams the file once into the store and deletes tus's copy.
-- 1 GiB in 8 MiB chunks, the connection dropped mid-chunk at ~50 % and ~99 % (raw socket: headers for 8 MiB, half the bytes, hang-up): resumed and arrived byte-identical; the store ran once; a re-sent final chunk is refused. 8.3 s on loopback (~125 MB/s), peak heap ≤ 174 MiB with `-Xmx256m` (app, client and test in one JVM).
-- tus-java-client sends chunks as POST with `X-HTTP-Method-Override: PATCH`; server code reacting to completed uploads must honour the override. Storing inside the last PATCH makes the client wait; the app should hand the stored file to a background job.
+- 1 GiB in 8 MiB chunks, the connection dropped mid-chunk at ~50 % and ~99 % (raw socket: headers for 8 MiB, half the bytes, hang-up): resumed and arrived byte-identical, and the store ran once. A final chunk re-sent after the hand-over finished is refused (404). Not tested: an interruption inside the last chunk (the ~99 % drop hit the second-to-last one) and a re-send during the hand-over, which the spike's controller would have stored twice; Phase 4 lets only the completing request start the hand-over. 8.3 s on loopback (~125 MB/s), and the whole 1 GiB completed under `-Xmx256m` (app, client and test in one JVM).
+- tus-java-client sends chunks as POST with `X-HTTP-Method-Override: PATCH`; server code reacting to completed uploads must honour the override. Storing inside the last PATCH makes the client wait (~15 s per GiB into a large object); the app should hand the stored file to a background job. The spike did not scope uploads to users; tus-java-server's owner key does.
 
 ## Measurements (medians of 3 runs; 1 GiB = `large.csv`, 1,079 MB, 9.9 M rows × 20 columns)
 
@@ -40,27 +41,29 @@ Findings of the [Phase 1 spike](phase-1.md), run 2026-11-08 on the owner's MacBo
 |---|---|---|
 | store original | 14.7 s | 8.1 s |
 | read original back | 6.3 s | 3.6 s |
-| disk for the original | 480 MB (pages compressed ~2.2×) | 199 MB (zstd ~5.4×) |
+| disk for the original | 480 MB (pages compressed ~2.2×) | 199 MB (zstd ~5.4×; first run only, later runs grew 0 B because Garage deduplicates) |
 
 | Step | Candidate 2: `dataset_rows(dataset_id, row_no, vals text[])` | Candidate 3: `ds_<id>(row_no, c0 … cN)` |
 |---|---|---|
-| prepare: read the large object, parse, `COPY` | 32.5 s | 24.6 s |
+| prepare: read the large object, parse, `COPY` | 32.5 s | 24.5 s |
 | Spark JDBC `count()`, 4 partitions | 7.1 s | 4.4 s |
 | Spark JDBC `dropDuplicates().count()`, 4 partitions | 58.0 s | 47.7 s |
-| disk, table + index | 3.02 GB (clean run) | 1.71 GB |
+| disk, table + index | 3.02 GB (clean run), 3.33 GB once deleted space is in use | 1.71 GB |
 | widest file | no limit found (2,000 columns tested) | 1,599 data columns (PostgreSQL's 1,600-column limit) |
-| deleting a dataset | `DELETE` + `VACUUM`; the primary-key index keeps 596 MB until `REINDEX` | `DROP TABLE`, space freed at once |
+| deleting a dataset | `DELETE` + `VACUUM`; later uploads reuse the space (grew ~10% once, then level); not returned to the OS without `REINDEX`/`pg_repack` | `DROP TABLE`, space freed at once |
 | schema | fixed, created by a migration | DDL at runtime: the app's role needs `CREATE` (in a dedicated schema) |
 | code (spike, non-blank lines) | 29 | 29 (plus 48 shared helpers, 14 CSV parser) |
 
-Both candidates reproduce `small.csv` and all 18 awkward files exactly (multiset of rows, column names included): 500 columns, odd names (spaces, dots, quotes, Polish letters, 70 characters), a quoted line break, BOM + CRLF, empty cells (kept as empty strings: `COPY` CSV with every field quoted), the golden edge inputs. Peak app heap: 121–141 MiB while preparing, ~40 MiB while Spark reads.
+Candidate 2 reproduces `small.csv` and all 18 awkward files exactly, candidate 3 the 17 it can store (not `wide-2000`) (multiset of rows, column names included): 500 columns, odd names (spaces, dots, quotes, Polish letters, 70 characters), a quoted line break, BOM + CRLF, empty cells (kept as empty strings: `COPY` CSV with every field quoted), the golden edge inputs. Peak app heap: 121–141 MiB while preparing, ~40 MiB while Spark reads.
+
+How memory and the rest were measured: peak heap is the sum of each heap pool's peak after a `System.gc()`, garbage included, so under G1 it shows how much of `-Xmx` the collector used, not live data. The highest peaks were 247–250 MiB (large-object read-back, Garage store), under the 256 MiB cap; the evidence for flat memory is that every 1 GiB step completed under `-Xmx256m`. All ratios come from one synthetic file (short, low-cardinality ASCII values): compression and array overhead will differ for real data. The spike connected to PostgreSQL as a superuser; maintenance commands (`VACUUM pg_largeobject` in particular) behave differently for the least-privilege app role.
 
 ## 4 GB extrapolation (local VM, linear in size)
 
 - Upload: ~35 s on loopback; over a network, bandwidth decides.
 - Original as a large object: ~60 s to store, ~1.9 GB disk.
-- Rows: candidate 3 ~100 s to prepare, ~6.8 GB disk; candidate 2 ~130 s, ~12 GB.
-- Spark: `count()` ~18 s (cand. 3) / ~28 s (cand. 2); a full-width `dropDuplicates` ~3–4 min on the 2-core / 3 GB worker, the first step of every run (de-duplication) — memory beyond 1 GiB was not measured.
+- Rows: candidate 2 (chosen) ~130 s to prepare, ~12 GB disk; candidate 3 would have been ~100 s, ~6.8 GB.
+- Spark: `count()` ~28 s (cand. 2) / ~18 s (cand. 3), provided `fetchsize` is set; a full-width `dropDuplicates` ~3–4 min on the 2-core / 3 GB worker, the first step of every run (de-duplication) — memory beyond 1 GiB was not measured.
 - Disk per 4 GB dataset: ~9 GB (cand. 3) to ~14 GB (cand. 2) plus WAL. The first 1 GiB run filled the 98 GB Docker VM (mostly unrelated images and build cache) and crashed PostgreSQL with "No space left on device": the per-user storage limits in `PLAN.md` matter, and `max_wal_size` should be set deliberately.
 
 ## Practical notes

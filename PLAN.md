@@ -54,8 +54,8 @@ Versions checked on 2026-10-27 (PostgreSQL rows on 2026-11-07); pin exact patch 
 | PostgreSQL JDBC driver | 42.7.x (42.7.14 current) | In the app, and on the Spark Connect server's classpath for Spark's built-in JDBC data source; no separate Spark connector. |
 | Schema migrations | Flyway, version managed by Spring Boot | **(proposed)** |
 | Upload storage | PostgreSQL only: originals as large objects, rows in one shared table **(owner, Phase 1)** | No object store (see the data model and `docs/plans/phase-1-notes.md`). |
-| Uploads | tus 1.0 via tus-java-server 1.0.0-3.x | Resumable chunked uploads, chosen in Phase 1. |
-| CSV parsing in the app | FastCSV 4.x | RFC 4180, streaming; chosen in Phase 1. |
+| Uploads | tus 1.0 via tus-java-server 1.0.0-3.x | **(proposed, Phase 1)** Resumable chunked uploads. |
+| CSV parsing in the app | FastCSV 4.x | **(proposed, Phase 1)** RFC 4180, streaming. |
 | Templates / UI | Thymeleaf + htmx 2 + Alpine.js + Tailwind CSS 4 + daisyUI 5, Tabulator, Apache ECharts | **(owner)** Option B; library picks **(proposed)**. |
 
 ## Architecture
@@ -79,40 +79,40 @@ The app connects through Spark Connect and is never a Spark driver itself **(pro
 - Spark's dependencies stay out of the Spring Boot classpath (thin client).
 - One Spark Connect session per run; every operation is tagged with the run id, so each run's jobs, stages and SQL plans are identifiable in the UI, and a run can be cancelled by interrupting its tag.
 - The Connect server uses the FAIR scheduler so concurrent runs share executors.
-- Data never passes through the app: executors read the uploaded rows from PostgreSQL over JDBC in parallel row-number ranges and write rules back over JDBC. Every JDBC read and write names `driver=org.postgresql.Driver` (jars added to the Connect server are invisible to `DriverManager`).
+- Data never passes through the app: executors read the uploaded rows from PostgreSQL over JDBC in parallel row-number ranges and write rules back over JDBC. Every JDBC read and write names `driver=org.postgresql.Driver` (jars added to the Connect server are invisible to `DriverManager`), and every read sets `fetchsize` (e.g. 10,000): with Spark's default of 0, pgjdbc loads a partition's whole result into executor memory before returning the first row, and a cancel cannot stop the scan.
 - The app's JVM needs `--add-opens=java.base/java.nio=ALL-UNNAMED` (Arrow), and the client's `log4j-slf4j2-impl` is excluded in favour of Spring Boot's logging (Phase 1).
 
-Phase 1 confirmed Spark Connect for everything `spark-rules` needs (window functions, cache, local checkpoints, JDBC reads and writes, run tags, cancel by tag). The `spark-submit`-per-run fallback is not needed.
+Spark Connect **(proposed, Phase 1)**: everything Phase 1 tested worked: a window function, cache, local checkpoints and group/count on small data, parallel JDBC reads and writes, run tags, cancel by tag on a long `range` job. Not tested: many local checkpoints per run and when their blocks are released, joins at scale, concurrent sessions under the FAIR scheduler, Scala UDFs (their classes must be uploaded to the server as artifacts). If Phase 3 hits a gap, the contingency is one Spark application per run on the same standalone master (`spark-submit` / `SparkLauncher` with a `spark-rules` main class), equally visible in the master UI and the History Server.
 
 Exact UI ports may move if they clash; `make spark-ui` prints them.
 
 Nothing assumes that the app, PostgreSQL and Spark share a machine **(owner)**: the Spark Connect address and the JDBC URLs (one for the app, one for the executors) are configuration; executors reach data over the network, never through local files; worker count and memory are configuration. Moving to a larger cluster changes settings, not code.
 
 ### PostgreSQL data model (proposed)
-Schema managed by Flyway migrations. Every table that holds user data has `owner_id`; repository methods take the current user and always filter by it, so an unscoped query cannot be written by accident. PostgreSQL row-level security as a second line of defense is decided in Phase 4.
+Schema managed by Flyway migrations. Every table that holds user data has `owner_id`; repository methods take the current user and always filter by it, so an unscoped query cannot be written by accident. PostgreSQL row-level security as a second line of defense is decided in Phase 4. Exception: `dataset_rows` has no `owner_id`. Its rows are reached only through their dataset, whose ownership the app checks before any read or run; Spark reads by the dataset id the app hands it after that check and connects with its own role, limited to reading `dataset_rows` and writing `rules`.
 
 - `users`: `id, username (unique), password_hash, role (ADMIN|USER), must_change_password, disabled, failed_logins, locked_until, created_at, created_by`.
-- `datasets`: `id, owner_id, name, source_format (csv|tab), columns (ordered column names), row_count, size_bytes, status (UPLOADING|PREPARING|READY|FAILED), uploaded_at`, plus the reference to the stored original. Column names are kept exactly as uploaded and never used as SQL identifiers.
+- `datasets`: `id, owner_id, name, source_format (csv|tab), columns (ordered column names), row_count, size_bytes, status (UPLOADING|STORING|PREPARING|READY|FAILED), uploaded_at`. Column names are kept exactly as uploaded and never used as SQL identifiers.
 - `datasets` also holds `original_oid`, the large object with the uploaded file as received, used for "download original" and for preparation.
 - `dataset_rows(dataset_id, row_no, vals text[], primary key (dataset_id, row_no))`: every upload's rows in one table **(owner, Phase 1)**, values as text in column order, empty cells as empty strings.
 - `runs`: `id, owner_id, dataset_id, heuristic, mode (dt|is), status (QUEUED|RUNNING|SUCCEEDED|FAILED|CANCELLED), progress, error, created_at, started_at, finished_at`; per-decision-attribute statistics (rule count, coverage and length min/avg/max) in a child table or a JSON column.
 - `rules`: `run_id, owner_id, decision_attribute, conditions (ordered attribute/value pairs), decision, support, length`, written by Spark over JDBC. Indexed on `owner_id, run_id` plus the sort fields the UI uses.
-- Deleting a dataset deletes its runs, rules, stored data and original (foreign keys with cascade; the original by its own cleanup).
+- Deleting a dataset removes its runs, rules, rows and original in a background job: the rows with an explicit `DELETE` on `dataset_rows` (a cascade over millions of rows would run inside the user's request), the original with `lo_unlink`. Phase 4 measures the time and WAL for deleting a 4 GB dataset.
 
 #### Uploaded data (decided in Phase 1)
 Uploads are CSV files with a header row, each with its own columns; the algorithm treats every value as text, so an upload is "a list of column names plus rows of text values", up to 4 GB **(owner)**. Decided after the Phase 1 measurements (`docs/plans/phase-1-notes.md`):
 
-- PostgreSQL only **(owner)**: no object store, so one system to run, secure and back up; an object store measured about 2× faster and 2.4× smaller for originals.
-- The original is a large object (a `bytea` value caps at 1 GB): streamed in, never held in memory; 1 GiB stores in ~15 s and takes ~0.48 GB on disk.
-- Rows go into the one shared `dataset_rows` table **(owner)**, not a table per upload, which would snowball and cap uploads at 1,599 columns. Fixed schema, no DDL at runtime, no column limit found (2,000 columns tested). 1 GiB (9.9 M rows) loads with `COPY` in ~33 s and takes ~3 GB with its index; Spark counts it over JDBC in ~7 s.
-- Loading: the app parses with FastCSV (RFC 4180, BOM dropped) and writes `COPY … FORMAT csv` with every field quoted, so empty cells stay empty strings.
-- Reading: Spark reads `(select row_no, vals from dataset_rows where dataset_id = ?)` over JDBC with `partitionColumn=row_no`, bounds from `min/max(row_no)` and a partition count sized to the data, then turns `vals` back into named columns from `datasets.columns`.
-- Deleting: `DELETE` plus `VACUUM`; the primary-key index keeps its size, so the app runs index maintenance (`REINDEX … CONCURRENTLY` or similar) on a schedule.
+- PostgreSQL only **(owner)**: no object store, so one system to run, secure and back up; an object store measured about 1.8× faster and 2.4× smaller for originals (its disk figure from the first run; it deduplicates).
+- The original is a large object (a `bytea` value caps at 1 GB): streamed in, never held in memory; 1 GiB stores in ~15 s and takes ~0.48 GB on disk (the spike's synthetic CSV compresses well; incompressible data takes close to its own size). The large object and `original_oid` are written in one transaction, so a crash leaves no orphaned large object.
+- Rows go into the one shared `dataset_rows` table **(owner)**, not a table per upload, which would snowball and cap uploads at 1,599 columns. Fixed schema, no DDL at runtime, no column limit found (2,000 columns tested). 1 GiB (9.9 M rows) loads with `COPY` in ~33 s and takes ~3 GB with its index; Spark counts it over JDBC in ~7 s (measured with that one dataset in the table).
+- Loading: the app decodes UTF-8 strictly (invalid bytes or a NUL character reject the file, #19), drops a BOM (#13) and parses with FastCSV (RFC 4180; a row whose field count differs from the header's is rejected with its row number, #20). It streams `COPY dataset_rows (dataset_id, row_no, vals) FROM STDIN (FORMAT csv)` lines of the form `<id>,<row_no>,"<vals>"`: `<vals>` is a `text[]` literal whose every element is in double quotes with `\` and `"` backslash-escaped, and the whole literal is CSV-quoted with `"` doubled. Quoting every element keeps empty cells as empty strings and the text `NULL` as text. Errors are reported with the CSV row number, never a COPY line number.
+- Reading: Spark reads `(select row_no, vals from dataset_rows where dataset_id = <id>) as t` over JDBC (the numeric id inlined: `dbtable` cannot bind parameters, and `query` cannot be combined with `partitionColumn`) with `partitionColumn=row_no`, bounds from `min/max(row_no)`, a partition count sized to the data and `fetchsize` set, then turns `vals` back into named columns from `datasets.columns`.
+- Deleting: autovacuum frees the deleted rows' space and later uploads reuse it (Phase 1: table plus index grew ~10% after the first delete, then stayed level). The disk is not returned to the operating system; `REINDEX … CONCURRENTLY` or `pg_repack` can reclaim it as an optional operator task, not on a schedule. `VACUUM` and `REINDEX` need table ownership or the `MAINTAIN` privilege (PostgreSQL 17+), and `VACUUM pg_largeobject` needs a superuser, so the app relies on autovacuum. Phase 1 ran as a superuser; Phase 4 tests run as the least-privilege app role.
 
 Retention **(proposed)**: datasets and results are kept until their owner deletes them (or an admin deletes the user); backup and restore are not part of the deliverable.
 
 ### Upload and run flow
-1. Upload: the browser sends the file in resumable chunks (tus 1.0, chosen in Phase 1), up to 4 GB; a dropped connection resumes instead of restarting. The app keeps the chunks on local disk until the last one arrives, then streams the file into a large object and deletes the chunks, never holding the file in memory; this hand-over runs in the background, not inside the last request. The `datasets` row tracks progress.
+1. Upload: the browser sends the file in resumable chunks (tus 1.0, chosen in Phase 1), up to 4 GB; a dropped connection resumes instead of restarting. The app keeps the chunks on local disk until the last one arrives, then streams the file into a large object and deletes the chunks, never holding the file in memory; this hand-over runs in the background, not inside the last request. Only the request whose PATCH completed the upload starts it, guarded by a conditional status change on `datasets` (UPLOADING → STORING), so a client that re-sends the last chunk cannot store the file twice. Uploads are scoped to their owner (tus-java-server's owner key); another user's upload id answers 404. The `datasets` row tracks progress.
 2. Preparation, in the background: stream-parse the large object (CSV now, RSES `.tab` in Phase 7), validate, and bulk-load the rows into `dataset_rows` with `COPY`. Progress is shown in plain steps; validation errors point at the offending row.
 3. Run: the user picks heuristic and mode; the app creates a `runs` row and queues it. Output format is **not** chosen here any more (see registry).
 4. Execution: the app opens a Spark Connect session tagged with the run id and calls `spark-rules`, which reads the dataset over JDBC in parallel row-number ranges, prepares decision tables, induces rules, writes them to `rules` over JDBC, and computes stats with a Spark aggregation (a single result row, read on the driver, which is allowed). The app stores the stats with the run.
@@ -135,7 +135,7 @@ Required by the owner; mechanisms **(proposed)**:
 - CSRF protection on every state-changing request; htmx sends the token in a header.
 - Session cookie `HttpOnly`, `SameSite=Lax`, `Secure` behind HTTPS; session fixation protection (Spring default).
 - Security headers: Content-Security-Policy without inline scripts (Alpine.js CSP build), `X-Content-Type-Options`, `frame-ancestors 'none'`, `Referrer-Policy`.
-- Uploads: size limit 4 GB per file **(owner)** (configurable; legacy: 128 MB) and per-user limits on datasets, storage and queued runs. The uploaded file name is display text only, never used as a path.
+- Uploads: size limit 4 GB per file **(owner)** (configurable; legacy: 128 MB) and per-user limits on datasets, storage and queued runs. tus upload URLs are scoped to their owner. The uploaded file name is display text only, never used as a path.
 - Actuator: only `/actuator/health`, without details for anonymous callers; everything else off. Error pages never show stack traces.
 - Infrastructure: PostgreSQL with password authentication and a least-privilege role for the app (no superuser, no DDL at runtime); PostgreSQL, Spark Connect (no authentication of its own) and the Spark UIs bound to `127.0.0.1` / the internal Docker network only. The Spark UIs are tools for whoever runs the machine and are never linked from the app. Secrets come from environment variables.
 - `make audit`: dependency vulnerability scan (OSV-Scanner against Gradle lockfiles).
@@ -331,7 +331,7 @@ Detailed task plan: [docs/plans/phase-1.md](docs/plans/phase-1.md).
 - [x] Resumable chunked upload of a ~1 GB file through Spring Boot (tus or an equivalent); app memory stays flat; a dropped connection resumes
 - [x] Upload storage: candidates measured with a small CSV, a ~1 GB CSV and the awkward set (object store dropped for PostgreSQL only); decision: large objects for originals, one shared `dataset_rows` table **(owner)**; numbers in `docs/plans/phase-1-notes.md`
 - [x] The same Scala code runs on an in-process local session (test mode) and over Spark Connect, incl. window functions and checkpoint/cache
-- [x] Decision recorded here: **Spark Connect** (no `spark-submit` fallback needed)
+- [x] Decision recorded here: **Spark Connect** (proposed; one Spark application per run stays as a Phase 3 contingency)
 - [x] Spike code deleted
 
 ### Phase 2: Skeleton
@@ -359,7 +359,8 @@ Detailed task plan: [docs/plans/phase-1.md](docs/plans/phase-1.md).
 ### Phase 4: Storage and exports
 - [ ] PostgreSQL schema with Flyway (`users`, `datasets` with `original_oid`, `dataset_rows`, `runs`, `rules`), `owner_id` everywhere, indexes, least-privilege role; decide on row-level security
 - [ ] tus uploads up to 4 GB into large objects (hand-over in the background); streaming preparation: FastCSV, `COPY` into `dataset_rows`
-- [ ] Deleting datasets: large objects unlinked, rows deleted, scheduled index maintenance on `dataset_rows`
+- [ ] Deleting datasets in a background job: rows deleted, large objects unlinked; time and WAL for a 4 GB dataset measured; optional disk reclaim (`REINDEX CONCURRENTLY`, `pg_repack`) documented for operators
+- [ ] Tests carried over from the Phase 1 review: an interruption inside the last tus chunk and a re-sent final chunk during the hand-over; another user's upload id; cancel during a JDBC scan with `fetchsize` set; everything as the least-privilege app role; values with `\`, `{`, `}`, `,`, `"`, `NULL` and line breaks, and invalid UTF-8, NUL and ragged rows rejected with CSV row numbers; reads from `dataset_rows` holding several datasets (ANALYZE after COPY, primary-key range scans); JDBC write throughput for many rules
 - [ ] Spark reads `dataset_rows` and writes rules over JDBC
 - [ ] Streaming exports: legacy csv, csvm, rses; correct `Content-Type`; safe `Content-Disposition`
 - [ ] Registry #3, #4, #5, #11 applied
@@ -411,22 +412,22 @@ Detailed task plan: [docs/plans/phase-1.md](docs/plans/phase-1.md).
 - [ ] Browser end-to-end smoke tests
 
 ## Risks
-- Spark Connect must support everything `spark-rules` needs: confirmed in Phase 1 for window functions, cache, local checkpoints, the JDBC data source, job tags and interruption.
+- Spark Connect must support everything `spark-rules` needs: Phase 1 confirmed window functions, cache, local checkpoints, the JDBC data source, job tags and interruption on small data. Untested: many local checkpoints per run, joins at scale, concurrent sessions under FAIR, Scala UDFs over Connect (artifact upload). Contingency: one Spark application per run.
 - Spring Boot 4.1 with the Spark Connect client: Phase 1 found one conflict (log4j binding, excluded) and one required JVM flag (`--add-opens` for Arrow).
 - Resource use: app, PostgreSQL and four Spark services on one machine (the local Docker VM has 4 CPUs / 8 GB); worker and driver memory must be sized accordingly.
 - Legacy runtime on large datasets is slow and occasionally stalls; the corpus is limited to small and medium datasets.
 - Legacy output nondeterminism (MCD ties, ordering): handled by double runs, order-insensitive comparison and registry items 2–3.
 - Round-based induction on wide tables: the number of (rule, attribute) pairs per round is rows × attributes; Phase 3 measures this.
-- 4 GB uploads: browser upload time, chunk resumption, preparation time and, if rows are stored, roughly double the storage; tens of millions of rows for the algorithm. Storing them must work; finding rules on them is best effort on the local machine **(owner)**. Phase 1 measured 1 GiB: ~15 s to store, ~33 s to load as rows, ~0.5 GB + ~3 GB disk; a 4 GB file therefore needs ~14 GB of database disk and a full-width de-duplication took ~1 min per GiB on the 2-core worker. Phase 3 measures the algorithm.
-- Disk: rows take about three times the CSV's size, and the first 1 GiB spike run filled the 98 GB Docker VM. Per-user storage limits, `max_wal_size` and disk monitoring are part of Phases 4 and 5.
-- JDBC between Spark and PostgreSQL: parallel reads need a numeric partition column and bounds; writing many rules with batched inserts may be slow (pgjdbc `reWriteBatchedInserts`, or a staging table loaded with `COPY`). Phase 1: reads split into exactly the requested partitions; 1 M rows read, grouped and written back in 0.44 s.
+- 4 GB uploads: browser upload time, chunk resumption, preparation time and about 3× the CSV's size on disk (rows plus original: 3.5 GB for the spike's 1.08 GB synthetic file; data-dependent, plausibly 3–5×); tens of millions of rows for the algorithm. Storing them must work; finding rules on them is best effort on the local machine **(owner)**. Phase 1 measured 1 GiB: ~15 s to store, ~33 s to load as rows, ~0.5 GB + ~3 GB disk; a 4 GB file therefore needs ~14 GB of database disk and a full-width de-duplication took ~1 min per GiB on the 2-core worker; Spark reads only scale linearly once `fetchsize` is set. Phase 3 measures the algorithm.
+- Disk: a stored dataset (rows plus original) takes about 3.2× the CSV's size for the spike's synthetic data, more for data that compresses worse, and the first 1 GiB spike run filled the 98 GB Docker VM. Per-user storage limits, `max_wal_size` and disk monitoring are part of Phases 4 and 5.
+- JDBC between Spark and PostgreSQL: parallel reads need a numeric partition column and bounds; writing many rules with batched inserts may be slow (pgjdbc `reWriteBatchedInserts`, or a staging table loaded with `COPY`). Phase 1: reads split into exactly the requested partitions; 1 M rows were read and grouped into 3 rows written back in 0.44 s, so rule-write throughput for many rows is still unmeasured (Phases 3 and 4).
 
 ## Open questions for the owner
-None. Answered on 2026-10-27 **(owner)**: several users with isolated data; accounts created by an admin, username + password only, local, no email, default admin `admin`/`admin`; one machine with a local Spark service the app connects to; exact math; no legacy deployment to migrate. Answered on 2026-11-07 **(owner)**: PostgreSQL replaces MongoDB; uploads up to 4 GB; how uploads are stored is decided by the Phase 1 spike; agents commit on `master-ai` with Conventional Commits and the owner pushes (see `AGENTS.md`). Answered on 2026-11-08 **(owner)**: very large files are not expected soon, but the app must be ready for them (storing 4 GB works; finding rules on them is best effort locally); one machine now, a large cluster possible later; registry #19–#20 approved.
+None. Answered on 2026-10-27 **(owner)**: several users with isolated data; accounts created by an admin, username + password only, local, no email, default admin `admin`/`admin`; one machine with a local Spark service the app connects to; exact math; no legacy deployment to migrate. Answered on 2026-11-07 **(owner)**: PostgreSQL replaces MongoDB; uploads up to 4 GB; how uploads are stored is decided by the Phase 1 spike; agents commit on `master-ai` with Conventional Commits and the owner pushes (see `AGENTS.md`). Answered on 2026-11-08 **(owner)**: Phase 1 decisions, PostgreSQL only (no object store) and one shared `dataset_rows` table; very large files are not expected soon, but the app must be ready for them (storing 4 GB works; finding rules on them is best effort locally); one machine now, a large cluster possible later; registry #19–#20 approved.
 
 ## Left to the builder
 - Join/grouping strategy of the induction engine and the exact-math mechanism, within the design above.
-- PostgreSQL column types for lists (`text[]` or JSON) and the statistics layout, within the data model above.
+- Column types for `rules.conditions` (array or JSON) and the statistics layout; `dataset_rows.vals` is `text[]` (decided in Phase 1).
 - Exact Gradle plugin versions, Docker image tags and the collect-guard mechanism.
 - Seeds, sizes and shapes of the random corpus tables.
 - Page layouts and styling details.
