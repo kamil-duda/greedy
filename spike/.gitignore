@@ -4,3 +4,4 @@ build/
 .gradle/
 .kotlin/
 */build/
+!gradle/wrapper/gradle-wrapper.jar

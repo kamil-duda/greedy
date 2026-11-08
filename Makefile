@@ -16,7 +16,7 @@ LEGACY_MVN = docker run --rm --name greedy-legacy-mvn --network container:$(LEGA
 
 .DEFAULT_GOAL := help
 .PHONY: help legacy-mongo legacy-build legacy-up legacy-down legacy-test legacy-test-one legacy-coverage legacy-golden \
-	spike-env spike-up spike-down spike-clean spike-ui spike-check
+	spike-env spike-up spike-down spike-clean spike-ui spike-check spike-test spike-it
 
 help: ## List available targets
 	@grep -E '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  %-18s %s\n", $$1, $$2}'
@@ -86,3 +86,9 @@ spike-ui: ## Spike: print the service URLs
 
 spike-check: ## Spike: check every stack service from the host
 	@spike/stack/check.sh
+
+spike-test: ## Spike: unit tests and Scala tests on a local (classic) Spark session
+	cd spike && ./gradlew --no-daemon test
+
+spike-it: ## Spike: tests that need the spike stack (Spark Connect, PostgreSQL, Garage)
+	cd spike && ./gradlew --no-daemon integrationTest
