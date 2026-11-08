@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class GoldenCorpusTest {
 
-	private static final File OUTPUTS = new File("golden/outputs");
+	private static final File OUTPUTS = new File(System.getProperty("golden.root", "golden"), "outputs");
 
 	@Test
 	public void everyNondeterministicCaseHasAnMcdTie() throws IOException {

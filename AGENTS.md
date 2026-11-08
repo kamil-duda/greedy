@@ -36,7 +36,7 @@ Docker runs in Colima profile **`docker`** (4 CPUs, 8 GB), which is where `DOCKE
 
 ## Toolchain
 
-Legacy stack: Spring Boot 1.4.3, Java 8, Scala 2.11.8, Spark 2.1.0, MongoDB Java driver 3.2.2 (GridFS), Thymeleaf 2 with Bootstrap 3 / jQuery webjars. It builds only on JDK 8 (Scala 2.11.8 and Spring Boot 1.4 predate JDK 9+) and needs an old MongoDB server (4.4 verified; current versions fail with the 3.2.2 driver). `./mvnw` is unusable because `.mvn/wrapper/maven-wrapper.jar` was never committed, and `docker/*.sh` / `docker/greedy/docker-compose.yml` use `mongo:latest`. Run everything in Docker instead.
+Legacy stack: Spring Boot 1.4.3, Java 8, Scala 2.11.8, Spark 2.1.0, MongoDB Java driver 3.2.2 (GridFS), Thymeleaf 2 with Bootstrap 3 / jQuery webjars. It builds only on JDK 8 (Scala 2.11.8 and Spring Boot 1.4 predate JDK 9+) and needs an old MongoDB server (4.4 verified; current versions fail with the 3.2.2 driver). `legacy/mvnw` is unusable because `legacy/.mvn/wrapper/maven-wrapper.jar` was never committed, and `legacy/docker/*.sh` / `legacy/docker/greedy/docker-compose.yml` use `mongo:latest`. Run everything in Docker instead.
 
 ## Commands
 
@@ -45,17 +45,19 @@ Run from the repo root; `make` lists all targets. The Docker recipes live in the
 ```bash
 make legacy-test                                              # unit + integration tests + 95% line-coverage check, about 5–6 min (starts MongoDB 4.4 if needed)
 make legacy-test-one T=HeuristicsMTest#shouldReturnValidRules # one test; comma-separate classes; *IT classes work too
-make legacy-build                                             # target/greedy-0.0.1.jar, tests skipped
+make legacy-build                                             # legacy/target/greedy-0.0.1.jar, tests skipped
 make legacy-up                                                # app on http://localhost:8080
 make legacy-down                                              # stop app and MongoDB
 make legacy-test ARGS='-Dlegacy.spark.master=local[1] -Dlegacy.spark.shufflePartitions=4'   # extra Maven args; test-only Spark settings
 make legacy-test-one T=HeuristicChoiceTest ARGS=-o            # -o: Maven offline, faster once dependencies are cached
-make legacy-coverage                                          # tests + JaCoCo report (target/site/jacoco/index.html), per-package summary
+make legacy-coverage                                          # tests + JaCoCo report (legacy/target/site/jacoco/index.html), per-package summary
 make legacy-golden ARGS=-o                                    # regenerate golden/outputs: run A local[4], run B local[1], compare; about 1 h 45 min
 make legacy-test-one T=GoldenGenerator ARGS="-o '-Dgolden.include=^public/lenses$' -Dgolden.out=target/golden-check"   # partial golden run; quote the regex
 ```
 
-Test JVMs get their Spark master, shuffle partitions and locality wait from the `legacy.spark.*` Maven properties (`src/test/resources/spark.properties` reads `${sys:greedy.spark.master}`), plus fixed limits on Spark's UI history (`spark.ui.retained*`, without them a long-lived test JVM fills its heap); the app's own `src/main/resources/spark.properties` is unchanged.
+The golden tests read the corpus from the `golden.root` system property (default `golden`; `legacy/pom.xml` sets `${project.basedir}/../golden`). Explicit `golden.inputs`, `golden.out`, `golden.a` and `golden.b` values resolve against the working directory, which is `legacy/` under Docker (so `-Dgolden.b=../golden/outputs`, `-Dgolden.out=target/golden-check` is `legacy/target/golden-check`).
+
+Test JVMs get their Spark master, shuffle partitions and locality wait from the `legacy.spark.*` Maven properties (`legacy/src/test/resources/spark.properties` reads `${sys:greedy.spark.master}`), plus fixed limits on Spark's UI history (`spark.ui.retained*`, without them a long-lived test JVM fills its heap); the app's own `legacy/src/main/resources/spark.properties` is unchanged.
 
 `verify` (so `make legacy-test` and `make legacy-coverage`) fails when any `org.kduda.greedy.algorithm*` or `org.kduda.greedy.service*` package drops below 95% line coverage; the accepted gaps are listed in `docs/plans/phase-0-notes.md`. `make legacy-test` deletes `target/jacoco.exec` first, because JaCoCo appends across runs.
 
@@ -65,14 +67,14 @@ Do not add symlinks to the repository. When code needs a path elsewhere in the r
 
 Search text with `rg` (ripgrep), never `grep`: `grep`, `egrep`, `fgrep`, `zgrep` and `git grep` are denied in `.claude/settings.json`. `rg` takes extended regexes by default (no `-E`), skips git-ignored files such as `target/` unless given `--no-ignore` or an explicit path, and also works at the end of a pipe (`docker ps | rg greedy`). `pgrep` looks up processes, not text, and stays allowed. The Makefile's `help` target still uses `grep` internally; that is fine.
 
-Profiles in `application.yml`: default (only the `/actuator` hypermedia endpoint is off; see Gotchas), `dev` (devtools restart also watches `src/main/scala`, `/shutdown` enabled without auth; in Docker pass `-e SPRING_PROFILES_ACTIVE=dev`), `container` (MongoDB at `mongodb://greedy-mongo`). Live reload of Scala in IntelliJ needs "Build project automatically" plus the `compiler.automake.allow.when.app.running` registry flag (see README).
+Profiles in `application.yml`: default (only the `/actuator` hypermedia endpoint is off; see Gotchas), `dev` (devtools restart also watches `legacy/src/main/scala`, `/shutdown` enabled without auth; in Docker pass `-e SPRING_PROFILES_ACTIVE=dev`), `container` (MongoDB at `mongodb://greedy-mongo`). Live reload of Scala in IntelliJ needs "Build project automatically" plus the `compiler.automake.allow.when.app.running` registry flag (see README).
 
 ## Architecture
 
 One Maven module with two languages:
-- `src/main/java`: the Spring layer (controllers, exploration service, repositories over GridFS).
-- `src/main/scala`: Spark access and the algorithms. Java calls Scala `object`s directly (e.g. `HeuristicsM.calculateDecisionRules(...)`), so `scala.collection.immutable.Map`/`List` and `scala.Tuple2` appear in Java signatures and tests.
-- `src/main/scala/worksheet`: scratch worksheets, not application code.
+- `legacy/src/main/java`: the Spring layer (controllers, exploration service, repositories over GridFS).
+- `legacy/src/main/scala`: Spark access and the algorithms. Java calls Scala `object`s directly (e.g. `HeuristicsM.calculateDecisionRules(...)`), so `scala.collection.immutable.Map`/`List` and `scala.Tuple2` appear in Java signatures and tests.
+- `legacy/src/main/scala/worksheet`: scratch worksheets, not application code.
 
 ### Storage
 
@@ -80,7 +82,7 @@ Uploaded data and generated rules both live in MongoDB GridFS, behind `MongoGrid
 
 ### Exploration pipeline (`DataExplorationService.exploreAndSave`)
 
-1. `SparkMongo` copies the GridFS file to `tmp-storage/<original filename>`, reads it with Spark (`header=true`, every column a string), caches it and deletes the temp file.
+1. `SparkMongo` copies the GridFS file to `legacy/tmp-storage/<original filename>`, reads it with Spark (`header=true`, every column a string), caches it and deletes the temp file.
 2. Type `dt`: the file is one decision table whose last column is the decision. Type `is` (information system): `DecisionTableFactory.extractDecisionTables` builds one decision table per column, moving that column to the end.
 3. `DecisionTableFactory.removeInconsistenciesMCD` collapses rows with equal conditions but different decisions to the most common decision.
 4. `createMapOf` keys the tables by decision column name.
@@ -96,23 +98,23 @@ Rule representation from the heuristics onward: `Map[decisionAttribute, List[Lis
 
 ### Spark
 
-`GreedySparkInstance` is a Scala `object` (one per JVM, created on first use) configured from the classpath `spark.properties` through commons-configuration, not through Spring. Classes get it by mixing in the `SparkAware` trait. Tests have their own `src/test/resources/spark.properties`.
+`GreedySparkInstance` is a Scala `object` (one per JVM, created on first use) configured from the classpath `spark.properties` through commons-configuration, not through Spring. Classes get it by mixing in the `SparkAware` trait. Tests have their own `legacy/src/test/resources/spark.properties`.
 
 ## Tests
 
 - The original unit tests extend `SpringUnitTest` (`@SpringBootTest`), so even pure algorithm tests start the full Spring context and Spark.
 - Integration tests (`*IT`) extend `SpringIntegrationTest` and write to a real GridFS.
-- Fixtures are in `src/test/resources/files`; `paper-sample*` and `complex-sample*` come with expected rules in `.csv` and `.rul` form.
-- Phase 0 characterization tests (`src/test/java/org/kduda/greedy/characterization`) pin current behavior, bugs included. Algorithm and formatter tests skip Spring and use `GreedySparkInstance` directly through the helpers in `characterization/support`: `LegacyTables` (inline tables, the service's `dt`/`is` preparation), `LegacyRules` (rules as `B=0 & A=0 => D=y [1]`) and `LegacyPipeline` (the service's steps without MongoDB). Web and storage tests use MockMvc and real MongoDB (`*IT`).
+- Fixtures are in `legacy/src/test/resources/files`; `paper-sample*` and `complex-sample*` come with expected rules in `.csv` and `.rul` form.
+- Phase 0 characterization tests (`legacy/src/test/java/org/kduda/greedy/characterization`) pin current behavior, bugs included. Algorithm and formatter tests skip Spring and use `GreedySparkInstance` directly through the helpers in `characterization/support`: `LegacyTables` (inline tables, the service's `dt`/`is` preparation), `LegacyRules` (rules as `B=0 & A=0 => D=y [1]`) and `LegacyPipeline` (the service's steps without MongoDB). Web and storage tests use MockMvc and real MongoDB (`*IT`).
 - `golden/` is the language-independent corpus (see `golden/README.md`): 126 inputs (fixtures, public UCI sets, 100 seeded random tables, 15 edge cases) and the legacy outputs for every input × mode × heuristic × format, with `outputs/manifest.json` (per-case outputs, or the exception class) and `outputs/nondeterministic.json` (cases that differed between run A and run B). `make legacy-golden` regenerates it through `GoldenGenerator` and `GoldenCompare` (test classes run only by name). Outputs are compared with `GoldenFiles.normalize` (order-insensitive). Every nondeterministic case is a most-common-decision tie (registry #2), and that list is a lower bound: `outputs/mcd-ties.json` (from `golden/scripts/find_mcd_ties.py`) lists all 110 tie-dependent input-modes. `EndToEndGoldenIT` replays four cases through HTTP and MongoDB. `golden/.gitattributes` stops git from converting line endings, because `golden/inputs/edge/bom-crlf.csv` must keep CRLF.
 
 ## Gotchas
 
-- Failsafe 2.19.1 puts the Boot-repackaged jar (classes under `BOOT-INF/classes`) on the integration-test classpath even when `classesDirectory` is set; `pom.xml` adds `target/classes` via `additionalClasspathElements`. Without it, `*IT` fail with `NoClassDefFoundError`.
+- Failsafe 2.19.1 puts the Boot-repackaged jar (classes under `BOOT-INF/classes`) on the integration-test classpath even when `classesDirectory` is set; `legacy/pom.xml` adds `target/classes` via `additionalClasspathElements`. Without it, `*IT` fail with `NoClassDefFoundError`.
 - Exploring runs synchronously inside `POST /explore/{id}` and takes 20+ s even for 3 rows (200 shuffle partitions). Browser automation (`playwright-cli` is installed) needs timeouts above its 5 s default, or wait for `Job complete!` in the app log.
 - `TestRestTemplate` form POSTs on this stack send `Content-Length` twice, and Tomcat 8.5 answers 500 before any filter or controller runs (visible only with `-Dlogging.level.org.apache.coyote=DEBUG`). Post forms with a plain `HttpURLConnection`, as `EndToEndGoldenIT.explore` does; multipart uploads and GETs are fine.
-- Tests that run without a Spring context must not log at DEBUG: Spark floods stdout, surefire falls behind and the test JVM blocks (looks like a Spark stall). `src/test/resources/logback-test.xml` keeps the root level at WARN.
-- Thread dump of a hanging test: `docker exec greedy-legacy-mvn ps -eo pid,args | rg surefirebooter` lists two processes; take the PID of the `java` line, not the `/bin/sh -c` wrapper, then `docker exec greedy-legacy-mvn jstack <pid>` (or `jstat -gc <pid>`). Attaching to the wrapper makes the shell dump `core` and leaves `.attach_pid<pid>` in the repo root; delete both. `pgrep -f surefirebooter` inside `sh -c` matches the shell itself.
+- Tests that run without a Spring context must not log at DEBUG: Spark floods stdout, surefire falls behind and the test JVM blocks (looks like a Spark stall). `legacy/src/test/resources/logback-test.xml` keeps the root level at WARN.
+- Thread dump of a hanging test: `docker exec greedy-legacy-mvn ps -eo pid,args | rg surefirebooter` lists two processes; take the PID of the `java` line, not the `/bin/sh -c` wrapper, then `docker exec greedy-legacy-mvn jstack <pid>` (or `jstat -gc <pid>`). Attaching to the wrapper makes the shell dump `core` and leaves `.attach_pid<pid>` in `legacy/`; delete both. `pgrep -f surefirebooter` inside `sh -c` matches the shell itself.
 - Rule output order is hash-based and arbitrary: compare rule files order-insensitively, e.g. `diff <(sort a) <(sort b)`.
 - Actuator `/env`, `/heapdump` and `/dump` are open without auth in the default profile; never expose the legacy app beyond localhost.
 

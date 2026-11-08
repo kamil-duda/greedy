@@ -29,7 +29,7 @@ public class GoldenCompare {
 
 	@Test
 	public void compare() throws IOException {
-		File a = new File(System.getProperty("golden.a", "golden/outputs"));
+		File a = new File(System.getProperty("golden.a", System.getProperty("golden.root", "golden") + "/outputs"));
 		File b = new File(System.getProperty("golden.b", "target/golden-run-b"));
 		JsonNode manifestA = JSON.readTree(new File(a, "manifest.json"));
 		JsonNode manifestB = JSON.readTree(new File(b, "manifest.json"));

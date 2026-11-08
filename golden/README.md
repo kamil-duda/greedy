@@ -6,7 +6,7 @@ What the 2017 implementation produces, recorded once, so every later implementat
 
 | Path | Contents |
 |---|---|
-| `inputs/fixtures/` | Copies of the legacy test fixtures (`src/test/resources/files`): `paper-sample`, `complex-sample`, `sample`, `inconsistencies`, `tic-tac-toe` |
+| `inputs/fixtures/` | Copies of the legacy test fixtures (`legacy/src/test/resources/files`): `paper-sample`, `complex-sample`, `sample`, `inconsistencies`, `tic-tac-toe` |
 | `inputs/public/` | Public categorical datasets from the UCI Machine Learning Repository (attribution below) |
 | `inputs/random/` | 100 seeded random small decision tables (`random-001` … `random-100`) |
 | `inputs/edge/` | Hand-made edge cases (table below) |
@@ -23,7 +23,7 @@ python3 -I golden/scripts/prepare_public_datasets.py --source-dir <dir> --out go
 # random
 python3 -I golden/scripts/generate_random_tables.py --seed 20261027 --count 100 --out golden/inputs/random
 # fixtures
-cp src/test/resources/files/{paper-sample,complex-sample,sample,inconsistencies,tic-tac-toe}.csv golden/inputs/fixtures/
+cp legacy/src/test/resources/files/{paper-sample,complex-sample,sample,inconsistencies,tic-tac-toe}.csv golden/inputs/fixtures/
 ```
 
 Public datasets keep their values unchanged; only id columns are dropped (lenses: row number; zoo: `animal_name`; monks: `data_N`), a header is added and, for monks, the class moves to the last column. Random table *i* is drawn from `random.Random(20261027 + i)` (Python 3.15.2): 3–40 rows, 1–5 condition columns `c1…cK` with 2–4 values from `0 1 2 3`, decision `d` with 2–3 values from `a b c`, and with probability 0.1 one empty cell. The committed files are the reference; a different Python version may draw differently.
@@ -57,7 +57,7 @@ All from the [UCI Machine Learning Repository](https://archive.ics.uci.edu), lic
 | `public/lenses` | Cendrowska, J. (1987). Lenses [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5K88Z | https://archive.ics.uci.edu/static/public/58/lenses.zip | `782e06afbf115ee0802c17a87c6840619450a97d8c66d59f8eb9577989cd7d7b` | 24 |
 | `public/zoo` | Forsyth, R. (1990). Zoo [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5R59V | https://archive.ics.uci.edu/static/public/111/zoo.zip | `d49013253628277182bb172f5ab1bf3befad090b54bbb7e52733c9c9534e240a` | 101 |
 | `public/car` | Bohanec, M. (1988). Car Evaluation [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5JP48 | https://archive.ics.uci.edu/static/public/19/car+evaluation.zip | `1559d51dcf327f4f8c71b711ceed7fd95a382fc8d8e1998667f4f23b82860403` | 1728 |
-| `fixtures/tic-tac-toe` | Aha, D. (1991). Tic-Tac-Toe Endgame [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5688J | https://archive.ics.uci.edu/static/public/101/tic+tac+toe+endgame.zip | – (copied from `src/test/resources/files/tic-tac-toe.csv`) | 958 |
+| `fixtures/tic-tac-toe` | Aha, D. (1991). Tic-Tac-Toe Endgame [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5688J | https://archive.ics.uci.edu/static/public/101/tic+tac+toe+endgame.zip | – (copied from `legacy/src/test/resources/files/tic-tac-toe.csv`) | 958 |
 | `public/monks-1`, `-2`, `-3` (training sets) | Wnek, J. (1993). MONK's Problems [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5R30R | https://archive.ics.uci.edu/static/public/70/monk+s+problems.zip | `7501acef87251b1d427726d7c381a2488c166fbbf70ac4096e09f05951c30a29` | 124, 169, 122 |
 
 Larger UCI sets (mushroom, nursery) are left out: the legacy code is too slow on them. The new implementation covers them with differential tests instead.
@@ -71,7 +71,7 @@ Larger UCI sets (mushroom, nursery) are left out: the legacy code is too slow on
 - `outputs/nondeterministic.json`: cases whose output differed between the two runs.
 - `outputs/mcd-ties.json`: every input and mode whose output depends on a most-common-decision tie, with the tied group and decisions, computed from the inputs by `scripts/find_mcd_ties.py` (it models the legacy semantics; see its docstring). A superset of the cases in `nondeterministic.json`, which `GoldenCorpusTest` checks.
 
-Outputs are compared order-insensitively, because legacy output order is arbitrary: blank lines are ignored; `.rul` as a sorted list of lines (a multiset: repeated lines count); `.csv` with the leading index taken off each line, sorted, plus the set of indices, which must run 0..n−1 across all rules (legacy numbering does, in every golden file); `-wmetadata.csv` the same for rule lines, with the header and the six statistics lines compared verbatim. The reference implementation is `GoldenFiles.normalize` (`src/test/java/org/kduda/greedy/golden/GoldenFiles.java`).
+Outputs are compared order-insensitively, because legacy output order is arbitrary: blank lines are ignored; `.rul` as a sorted list of lines (a multiset: repeated lines count); `.csv` with the leading index taken off each line, sorted, plus the set of indices, which must run 0..n−1 across all rules (legacy numbering does, in every golden file); `-wmetadata.csv` the same for rule lines, with the header and the six statistics lines compared verbatim. The reference implementation is `GoldenFiles.normalize` (`legacy/src/test/java/org/kduda/greedy/golden/GoldenFiles.java`).
 
 ## Current outputs
 
@@ -89,4 +89,4 @@ Generated 2026-11-07 by `make legacy-golden` from the legacy code (Spark 2.1.0, 
 
 Every nondeterministic case comes from a most-common-decision tie (registry #2). That list is a lower bound: `outputs/mcd-ties.json` lists all 110 input-modes that contain such a tie; only 42 resolved differently in these two runs. A mismatch on a case listed in `mcd-ties.json` may be a tie resolved the other way rather than a regression; check the tied group before concluding either.
 
-Partial runs, e.g. to check one input: `make legacy-test-one T=GoldenGenerator ARGS="-o '-Dgolden.include=^public/lenses$' -Dgolden.out=target/golden-check"` (the regex is matched against input ids; quote it inside `ARGS`).
+Partial runs, e.g. to check one input: `make legacy-test-one T=GoldenGenerator ARGS="-o '-Dgolden.include=^public/lenses$' -Dgolden.out=target/golden-check"` (output goes to `legacy/target/golden-check`; the regex is matched against input ids; quote it inside `ARGS`).

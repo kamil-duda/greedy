@@ -43,6 +43,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class EndToEndGoldenIT extends SpringIntegrationTest {
 
+	private static final String GOLDEN_ROOT = System.getProperty("golden.root", "golden");
+
 	@Autowired private TestRestTemplate rest;
 	@Autowired private FileRepository fileRepository;
 	@Autowired private RulesRepository rulesRepository;
@@ -71,7 +73,7 @@ public class EndToEndGoldenIT extends SpringIntegrationTest {
 
 	private void check(String input, String uploadName, String heuristics, String type, String output,
 					   String goldenFile, String storedName) throws IOException {
-		String dataId = upload(new File("golden/inputs/" + input + ".csv"), uploadName);
+		String dataId = upload(new File(GOLDEN_ROOT + "/inputs/" + input + ".csv"), uploadName);
 		try {
 			HttpStatus explored = explore(dataId, heuristics, type, output);
 			List<FileModel> rules = rulesRepository.listByParent(dataId);
@@ -92,7 +94,7 @@ public class EndToEndGoldenIT extends SpringIntegrationTest {
 			// legacy finding: rule files are served as JSON
 			assertThat(download.getHeaders().getContentType().toString()).startsWith("application/json");
 
-			String golden = FileUtils.readFileToString(new File("golden/outputs/" + input + "/" + goldenFile), StandardCharsets.UTF_8);
+			String golden = FileUtils.readFileToString(new File(GOLDEN_ROOT + "/outputs/" + input + "/" + goldenFile), StandardCharsets.UTF_8);
 			assertThat(GoldenFiles.normalize(goldenFile, new String(download.getBody(), StandardCharsets.UTF_8)))
 				.isEqualTo(GoldenFiles.normalize(goldenFile, golden));
 		} finally {
@@ -155,7 +157,7 @@ public class EndToEndGoldenIT extends SpringIntegrationTest {
 
 	/** True when golden/outputs/manifest.json records this case (or this format) as failing in the legacy pipeline. */
 	private static boolean failsInGoldenRun(String input, String mode, String heuristic, String format) throws IOException {
-		JsonNode manifest = new ObjectMapper().readTree(new File("golden/outputs/manifest.json"));
+		JsonNode manifest = new ObjectMapper().readTree(new File(GOLDEN_ROOT + "/outputs/manifest.json"));
 		for (JsonNode node : manifest.get("cases")) {
 			if (node.get("input").asText().equals(input) && node.get("mode").asText().equals(mode)
 				&& node.get("heuristic").asText().equals(heuristic)) {

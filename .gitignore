@@ -1,5 +1,5 @@
 target/
-!.mvn/wrapper/maven-wrapper.jar
+!legacy/.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
 .apt_generated
@@ -30,10 +30,10 @@ pom.xml.next
 release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
-.mvn/timing.properties
+legacy/.mvn/timing.properties
 
 # Exclude maven wrapper
-!/.mvn/wrapper/maven-wrapper.jar
+!/legacy/.mvn/wrapper/maven-wrapper.jar
 
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
@@ -119,8 +119,8 @@ hs_err_pid*
 ### Greedy
 
 # dev tmp-storage
-tmp-storage/*
-!tmp-storage/readme.txt
+legacy/tmp-storage/*
+!legacy/tmp-storage/readme.txt
 
 # local session hand-over notes (not shared)
 resume-claude-session.md

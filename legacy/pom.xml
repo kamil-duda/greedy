@@ -220,6 +220,8 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<systemPropertyVariables>
+						<!--corpus directory for the golden tests; a -Dgolden.root on the Maven command line overrides it-->
+						<golden.root>${project.basedir}/../golden</golden.root>
 						<greedy.spark.master>${legacy.spark.master}</greedy.spark.master>
 						<spark.sql.shuffle.partitions>${legacy.spark.shufflePartitions}</spark.sql.shuffle.partitions>
 						<spark.locality.wait>${legacy.spark.localityWait}</spark.locality.wait>
@@ -245,6 +247,8 @@
 						<additionalClasspathElement>${project.build.outputDirectory}</additionalClasspathElement>
 					</additionalClasspathElements>
 					<systemPropertyVariables>
+						<!--corpus directory for the golden tests; a -Dgolden.root on the Maven command line overrides it-->
+						<golden.root>${project.basedir}/../golden</golden.root>
 						<greedy.spark.master>${legacy.spark.master}</greedy.spark.master>
 						<spark.sql.shuffle.partitions>${legacy.spark.shufflePartitions}</spark.sql.shuffle.partitions>
 						<spark.locality.wait>${legacy.spark.localityWait}</spark.locality.wait>

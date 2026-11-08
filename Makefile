@@ -12,7 +12,7 @@ LEGACY_M2          := greedy-legacy-m2
 # Maven runs inside the MongoDB container's network, so tests reach MongoDB on localhost:27017.
 # $(value ARGS) passes ARGS to the shell unexpanded, so a regex such as '^public/lenses$' keeps its $.
 LEGACY_MVN = docker run --rm --name greedy-legacy-mvn --network container:$(LEGACY_MONGO) \
-	-v "$(CURDIR)":/src -v $(LEGACY_M2):/root/.m2 -w /src $(LEGACY_MVN_IMAGE) mvn -B $(value ARGS)
+	-v "$(CURDIR)":/src -v $(LEGACY_M2):/root/.m2 -w /src/legacy $(LEGACY_MVN_IMAGE) mvn -B $(value ARGS)
 
 .DEFAULT_GOAL := help
 .PHONY: help legacy-mongo legacy-build legacy-up legacy-down legacy-test legacy-test-one legacy-coverage legacy-golden
@@ -27,12 +27,12 @@ legacy-mongo: ## Start MongoDB 4.4 for the legacy app and tests (no-op if runnin
 		echo "started $(LEGACY_MONGO)"; \
 	fi
 
-legacy-build: legacy-mongo ## Build target/greedy-0.0.1.jar (tests skipped)
+legacy-build: legacy-mongo ## Build legacy/target/greedy-0.0.1.jar (tests skipped)
 	$(LEGACY_MVN) -DskipTests package
 
 legacy-up: legacy-build ## Run the legacy app on http://localhost:8080
 	@docker rm -f $(LEGACY_APP) >/dev/null 2>&1 || true
-	docker run -d --name $(LEGACY_APP) --network container:$(LEGACY_MONGO) -v "$(CURDIR)":/src -w /src \
+	docker run -d --name $(LEGACY_APP) --network container:$(LEGACY_MONGO) -v "$(CURDIR)":/src -w /src/legacy \
 		$(LEGACY_JRE_IMAGE) java -jar target/greedy-0.0.1.jar
 	@echo "waiting for http://localhost:8080 ..."; \
 	for i in $$(seq 1 120); do curl -s -o /dev/null http://localhost:8080/ && exit 0; sleep 1; done; \
@@ -42,22 +42,22 @@ legacy-down: ## Stop and remove the legacy app and MongoDB containers
 	-@docker rm -f $(LEGACY_APP) $(LEGACY_MONGO) >/dev/null 2>&1
 
 legacy-test: legacy-mongo ## Unit + integration tests and the coverage check (about 6 min)
-	@rm -f target/jacoco.exec  # JaCoCo appends; start fresh so coverage reflects this suite run only
+	@rm -f legacy/target/jacoco.exec  # JaCoCo appends; start fresh so coverage reflects this suite run only
 	$(LEGACY_MVN) verify
 
 legacy-test-one: legacy-mongo ## One test: make legacy-test-one T=HeuristicsMTest#shouldReturnValidRules (comma-separate classes)
 	$(LEGACY_MVN) test -Dtest='$(T)' -DfailIfNoTests=false
 
 legacy-golden: legacy-mongo ## Regenerate golden/outputs: legacy-default run, a local[1] run, determinism report (1-2 h)
-	$(LEGACY_MVN) test -Dtest=GoldenGenerator -DfailIfNoTests=false -Dgolden.out=golden/outputs \
+	$(LEGACY_MVN) test -Dtest=GoldenGenerator -DfailIfNoTests=false \
 		-Dlegacy.spark.master='local[4]' -Dlegacy.spark.shufflePartitions=200
 	$(LEGACY_MVN) test -Dtest=GoldenGenerator -DfailIfNoTests=false -Dgolden.out=target/golden-run-b \
 		-Dlegacy.spark.master='local[1]' -Dlegacy.spark.shufflePartitions=1
-	$(LEGACY_MVN) test -Dtest=GoldenCompare -DfailIfNoTests=false -Dgolden.a=golden/outputs -Dgolden.b=target/golden-run-b
+	$(LEGACY_MVN) test -Dtest=GoldenCompare -DfailIfNoTests=false -Dgolden.b=target/golden-run-b
 	python3 -I golden/scripts/find_mcd_ties.py --inputs golden/inputs --out golden/outputs/mcd-ties.json
 
-legacy-coverage: legacy-test ## Tests + JaCoCo report (target/site/jacoco/index.html) and a per-package summary
+legacy-coverage: legacy-test ## Tests + JaCoCo report (legacy/target/site/jacoco/index.html) and a per-package summary
 	@awk -F, 'NR > 1 { bm[$$2] += $$6; bc[$$2] += $$7; lm[$$2] += $$8; lc[$$2] += $$9 } \
 	  END { for (p in lm) { l = lm[p] + lc[p]; b = bm[p] + bc[p]; \
 	    printf "  %-48s lines %5.1f%%  branches %s\n", p, (l ? 100 * lc[p] / l : 0), (b ? sprintf("%5.1f%%", 100 * bc[p] / b) : "    -") } }' \
-	  target/site/jacoco/jacoco.csv | sort
+	  legacy/target/site/jacoco/jacoco.csv | sort

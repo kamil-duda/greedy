@@ -28,15 +28,18 @@ import java.util.regex.Pattern;
  * Runs the legacy pipeline over every golden input × mode × heuristic and writes all three formats plus a manifest.
  * Not part of the normal suite (the class name does not end in Test); run it with {@code make legacy-golden}.
  * <p>
- * System properties: {@code golden.inputs} (default golden/inputs), {@code golden.out} (default golden/outputs),
+ * System properties: {@code golden.inputs} (default <root>/inputs), {@code golden.out} (default <root>/outputs),
+ * {@code golden.root} (corpus directory, default golden; legacy/pom.xml sets ../golden),
  * {@code golden.include} (optional regex on input ids, for partial runs).
  */
 public class GoldenGenerator {
 
+	private static final String GOLDEN_ROOT = System.getProperty("golden.root", "golden");
+
 	@Test
 	public void generate() throws IOException {
-		File inputs = new File(System.getProperty("golden.inputs", "golden/inputs"));
-		File out = new File(System.getProperty("golden.out", "golden/outputs"));
+		File inputs = new File(System.getProperty("golden.inputs", GOLDEN_ROOT + "/inputs"));
+		File out = new File(System.getProperty("golden.out", GOLDEN_ROOT + "/outputs"));
 		String include = System.getProperty("golden.include");
 		Pattern included = include == null || include.isEmpty() ? null : Pattern.compile(include);
 
