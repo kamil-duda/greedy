@@ -16,7 +16,7 @@ Legacy = what the project was built with in 2017 (resolved from the Maven build)
 | Spark Connect client | Library | — (app was the Spark driver) | 4.2.1 |
 | Spring Boot | Framework | 1.4.3.RELEASE | 4.1.2 |
 | Spring Framework | Framework | 4.3.5.RELEASE | 7.0.10 |
-| Spring Data MongoDB | Library | 1.9.6.RELEASE | 5.1.2 |
+| Spring Data MongoDB | Library | 1.9.6.RELEASE | — (replaced by PostgreSQL access through Spring `JdbcClient` or Spring Data JDBC, TBD) |
 | Spring Data REST | Library | 2.5.6.RELEASE | — (removed) |
 | Spring Security | Library | — (no security) | managed by Spring Boot 4.1.2 |
 | Spring Boot Actuator | Library | 1.4.3.RELEASE | 4.1.2 (health only) |
@@ -32,9 +32,13 @@ Legacy = what the project was built with in 2017 (resolved from the Maven build)
 | Tabulator | Frontend library | — | TBD |
 | Apache ECharts | Frontend library | — | TBD |
 | WebJars locator | Library | webjars-locator 0.32 | webjars-locator-lite 1.1.5 |
-| MongoDB server | Database | `latest` (unpinned; legacy verified on 4.4) | TBD (pinned) |
-| MongoDB Java driver | Database driver | mongodb-driver 3.2.2 | mongodb-driver-sync 5.8.1 |
-| MongoDB Spark Connector | Library | — | 11.x (mongo-spark-connector_2.13) |
+| MongoDB server | Database | `latest` (unpinned; legacy verified on 4.4) | — (replaced by PostgreSQL) |
+| PostgreSQL | Database | — | 18.x, or 19 once released (TBD, pinned) |
+| MongoDB Java driver | Database driver | mongodb-driver 3.2.2 | — (replaced by the PostgreSQL JDBC driver) |
+| PostgreSQL JDBC driver | Database driver | — | 42.7.14 |
+| MongoDB Spark Connector | Library | — | — (Spark's built-in JDBC data source) |
+| Flyway | Library | — | managed by Spring Boot 4.1 (TBD) |
+| Upload storage | Infrastructure | MongoDB GridFS | TBD (Phase 1 spike: PostgreSQL large objects or an S3-compatible store) |
 | Hadoop client | Library | 2.2.0 | as bundled by Spark 4.2 |
 | Jackson | Library | 2.6.7 (forced for Spark) | 3.1.7 (app) + 2.x required by Spark |
 | Janino | Library | 3.0.6 (forced for Spark) | as required by Spark 4.2 |

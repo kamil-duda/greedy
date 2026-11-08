@@ -12,12 +12,13 @@ The project is a 2017 Spring Boot app that induces decision rules with five gree
 - Spark runs as its own local service (cluster manager, worker, dashboards) that the app connects to, so all running work can be watched in Spark's own UIs. **(owner)**
 - A test safety net covering the current behavior exists **before** any algorithm or logic change, and every later change is checked against it. **(owner)**
 - High test coverage of business logic and of the Spark algorithms, enforced by the build. **(owner)**
-- MongoDB stays as the database, with a modern way of storing files and data. **(owner)**
+- PostgreSQL is the database, replacing MongoDB: it is what most modern apps use, and the data model is simple (uploaded files, their data, runs and rules) with no need for document-database features. **(owner, 2026-11-07)**
+- Ready for big inputs and big deployments, though neither is expected soon: uploads of up to 4 GB per file are stored reliably; finding rules scales with the Spark resources available and is best effort for very large files on the local machine; the app runs on one machine now and must be able to move to a large Spark cluster later without redesign. **(owner, 2026-11-07/08)**
 - Several users share one installation; each user sees and manages only their own data. **(owner)**
 - Accounts are created by an admin; there is no self sign-up. **(owner)**
 - Security is part of the rewrite: login, per-user authorization on every route and query, no open admin or diagnostic endpoints. **(owner)**
 - A modern server-rendered UI (Option B below). **(owner)**
-- A user-friendly UI: for users, this is an app where they upload data and get rules back. Spark, jobs, MongoDB and other internals are invisible to them. **(owner)**
+- A user-friendly UI: for users, this is an app where they upload data and get rules back. Spark, jobs, the database and other internals are invisible to them. **(owner)**
 - Scores are compared with exact math; legacy rounding artifacts are not reproduced. **(owner)**
 - All common tasks run through a `Makefile` wrapping Gradle. **(owner)**
 
@@ -25,7 +26,7 @@ The project is a 2017 Spring Boot app that induces decision rules with five gree
 - GitHub Actions or any other CI. **(owner)**
 - Dropping Spark or replacing it with an in-memory implementation. **(owner)**
 - A single-page app (React/Vue/etc.) or Vaadin. **(owner)**
-- A remote or production Spark cluster: Spark runs on the same machine as the app. **(owner)**
+- Running on a remote or production cluster now: everything runs on one machine for the time being. The design must not rule a large cluster out (see Goals). **(owner)**
 - Migrating data from a legacy deployment: there is none; the new app starts empty. **(owner)**
 
 ### Anti-goals (would make this a failure even if it works)
@@ -33,11 +34,11 @@ The project is a 2017 Spring Boot app that induces decision rules with five gree
 - Driver-side collection of data in the algorithm module.
 - Algorithm or logic code changed before Phase 0 is finished and reviewed.
 - A user seeing, downloading, changing or even learning of the existence of another user's data.
-- The UI exposing implementation details (Spark, jobs, stages, collections, stack traces) or requiring users to understand them.
+- The UI exposing implementation details (Spark, jobs, stages, database tables, stack traces) or requiring users to understand them.
 
 ## Target stack
 
-Versions checked on 2026-10-27; pin exact patch versions in the version catalog when Phase 2 starts. The README has the full legacy-vs-current version table.
+Versions checked on 2026-10-27 (PostgreSQL rows on 2026-11-07); pin exact patch versions in the version catalog when Phase 2 starts. The README has the full legacy-vs-current version table.
 
 | Component | Version | Notes |
 |---|---|---|
@@ -49,15 +50,17 @@ Versions checked on 2026-10-27; pin exact patch versions in the version catalog 
 | Spring Boot | 4.1.x (4.1.2 current) | Includes Spring Security. |
 | Kotlin | 2.3.x | Version Spring Boot 4.1 targets. |
 | Gradle | 9.x, Kotlin DSL, wrapper, version catalog | **(owner)** |
-| MongoDB server | current LTS, pinned (not `latest`), authentication on | |
-| MongoDB Spark Connector | 11.x, `mongo-spark-connector_2.13` | Supports Spark 4.0+. Installed on the Spark side, not in the app. |
+| PostgreSQL | 18.x (18.6 current; 19 is in release candidates, general availability planned for 2026-11-19), pinned image tag, password authentication | **(owner)** replaces MongoDB. Use the major that is current when Phase 2 starts. |
+| PostgreSQL JDBC driver | 42.7.x (42.7.14 current) | In the app, and on the Spark Connect server's classpath for Spark's built-in JDBC data source; no separate Spark connector. |
+| Schema migrations | Flyway, version managed by Spring Boot | **(proposed)** |
+| Upload storage | Decided in the Phase 1 spike (see the data model) | If it is an object store: an S3-compatible service such as SeaweedFS or Garage. MinIO stopped publishing free images in 2025. |
 | Templates / UI | Thymeleaf + htmx 2 + Alpine.js + Tailwind CSS 4 + daisyUI 5, Tabulator, Apache ECharts | **(owner)** Option B; library picks **(proposed)**. |
 
 ## Architecture
 
 ### Modules
-- `spark-rules` (Scala 2.13): data preparation, the rule-induction engine, the five heuristics, run statistics. No Spring. Uses only Spark's shared DataFrame / Column API (no RDDs, no `SparkContext`, no Scala UDFs unless unavoidable) so the same code runs over Spark Connect in the app and on an in-process session in tests. MongoDB is read and written through the connector's data source by name, so the connector is not a compile dependency. Public API is Java-friendly: takes a `SparkSession` and parameters, returns DataFrames; no Scala collections in signatures. **(proposed)**
-- `app` (Kotlin, Spring Boot): web UI, security, upload ingestion, MongoDB access, run queue, exports. Depends on the Spark Connect client, not on Spark itself.
+- `spark-rules` (Scala 2.13): data preparation, the rule-induction engine, the five heuristics, run statistics. No Spring. Uses only Spark's shared DataFrame / Column API (no RDDs, no `SparkContext`, no Scala UDFs unless unavoidable) so the same code runs over Spark Connect in the app and on an in-process session in tests. The database is read and written through Spark's built-in JDBC data source (and, if the spike chooses an object store, Spark's file readers), so `spark-rules` has no database driver as a compile dependency. Public API is Java-friendly: takes a `SparkSession` and parameters, returns DataFrames; no Scala collections in signatures. **(proposed)**
+- `app` (Kotlin, Spring Boot): web UI, security, upload ingestion, PostgreSQL access, run queue, exports. Depends on the Spark Connect client, not on Spark itself.
 - `legacy/`: the current Maven project, moved here in Phase 2 and kept runnable (JDK 8 in Docker) to regenerate golden outputs. Deleted in Phase 8. **(proposed)**
 
 ### Spark runtime
@@ -67,36 +70,52 @@ Spark runs as its own services on the same machine, independent of the app **(ow
 |---|---|---|
 | `spark-master` | Standalone cluster manager | UI http://localhost:8090 |
 | `spark-worker` | Executor host (1 by default; cores and memory configurable) | UI http://localhost:8091 |
-| `spark-connect` | Spark Connect server, a long-running Spark application on the master with the MongoDB Spark Connector on its classpath; event logging on | gRPC `sc://localhost:15002`, driver UI (Jobs, Stages, SQL, Connect tabs) http://localhost:4040 |
+| `spark-connect` | Spark Connect server, a long-running Spark application on the master with the PostgreSQL JDBC driver (and S3 client libraries, if the spike picks an object store) on its classpath; event logging on | gRPC `sc://localhost:15002`, driver UI (Jobs, Stages, SQL, Connect tabs) http://localhost:4040 |
 | `spark-history` | History Server reading event logs from a shared volume, so finished work stays inspectable after restarts | UI http://localhost:18080 |
 
 The app connects through Spark Connect and is never a Spark driver itself **(proposed)**:
 - Spark's dependencies stay out of the Spring Boot classpath (thin client).
 - One Spark Connect session per run; every operation is tagged with the run id, so each run's jobs, stages and SQL plans are identifiable in the UI, and a run can be cancelled by interrupting its tag.
 - The Connect server uses the FAIR scheduler so concurrent runs share executors.
-- Data never passes through the app: executors read rows from MongoDB and write rules to MongoDB through the connector.
+- Data never passes through the app: executors read the uploaded data (from PostgreSQL over JDBC in parallel row-number ranges, or from the object store) and write rules to PostgreSQL over JDBC.
 
 Fallback if the Phase 1 spike finds Spark Connect cannot do something `spark-rules` needs: each run is submitted as its own Spark application to the same standalone master (`spark-submit` / `SparkLauncher` with a `spark-rules` main class). It is equally visible in the master UI and the History Server.
 
 Exact UI ports may move if they clash; `make spark-ui` prints them.
 
-### MongoDB data model (proposed)
-- `users`: `{_id, username, passwordHash, roles (ADMIN|USER), mustChangePassword, disabled, failedLogins, lockedUntil, createdAt, createdBy}`.
-- GridFS bucket `uploads`: the original uploaded file, unchanged, accessed through the current `GridFsTemplate` / `GridFSBucket` API, `metadata.ownerId`. Used only for "download original".
-- `datasets`: `{_id, ownerId, name, originalFileId, sourceFormat (csv|tab), columns: [{name, field, type}], rowCount, uploadedAt}`. `field` is a positional field name (`c0`, `c1`, …) because column names may contain `.` or `$`, which MongoDB field names cannot safely hold.
-- One collection per dataset for its rows (e.g. `dataset_<id>_rows`), one document per row, values stored as strings under the positional fields. Spark reads it through the connector with an explicit schema built from `datasets.columns`. Deleting a dataset drops the collection.
-- `runs`: `{_id, ownerId, datasetId, heuristic, mode (dt|is), status (QUEUED|RUNNING|SUCCEEDED|FAILED|CANCELLED), progress, error, createdAt, startedAt, finishedAt, stats: [{decisionAttribute, ruleCount, coverage {min,avg,max}, length {min,avg,max}}]}`.
-- `rules`: `{runId, ownerId, decisionAttribute, conditions: [{attribute, value}], decision, support, length}`, written by Spark through the connector. Indexed on `ownerId` + `runId` (+ sort fields used by the UI).
-- Every document and file carries `ownerId`; repository methods take the current user and always filter by it, so an unscoped query cannot be written by accident.
+Nothing assumes that the app, PostgreSQL, the object store (if any) and Spark share a machine **(owner)**: the Spark Connect address, the JDBC URL and the object-store endpoint are configuration; executors reach data over the network, never through local files; worker count and memory are configuration. Moving to a larger cluster changes settings, not code.
+
+### PostgreSQL data model (proposed)
+Schema managed by Flyway migrations. Every table that holds user data has `owner_id`; repository methods take the current user and always filter by it, so an unscoped query cannot be written by accident. PostgreSQL row-level security as a second line of defense is decided in Phase 4.
+
+- `users`: `id, username (unique), password_hash, role (ADMIN|USER), must_change_password, disabled, failed_logins, locked_until, created_at, created_by`.
+- `datasets`: `id, owner_id, name, source_format (csv|tab), columns (ordered column names), row_count, size_bytes, status (UPLOADING|PREPARING|READY|FAILED), uploaded_at`, plus the reference to the stored original. Column names are kept exactly as uploaded and never used as SQL identifiers.
+- Uploaded data: **decided in the Phase 1 spike**, see below.
+- `runs`: `id, owner_id, dataset_id, heuristic, mode (dt|is), status (QUEUED|RUNNING|SUCCEEDED|FAILED|CANCELLED), progress, error, created_at, started_at, finished_at`; per-decision-attribute statistics (rule count, coverage and length min/avg/max) in a child table or a JSON column.
+- `rules`: `run_id, owner_id, decision_attribute, conditions (ordered attribute/value pairs), decision, support, length`, written by Spark over JDBC. Indexed on `owner_id, run_id` plus the sort fields the UI uses.
+- Deleting a dataset deletes its runs, rules, stored data and original (foreign keys with cascade; the original by its own cleanup).
+
+#### Uploaded data: candidates for the Phase 1 spike
+Uploads are CSV files with a header row, each with its own columns (number, names, order); the algorithm treats every value as text, so an upload is always "a list of column names plus rows of text values". Files go up to 4 GB **(owner)**, so the original can never be a `bytea` value (1 GB cap) and is never held in memory. Candidates:
+
+1. **Original only**, as a PostgreSQL large object. Shape-agnostic; Spark cannot read it in parallel, so something must unpack it before every run.
+2. **Original plus rows in one shared table**, e.g. `dataset_rows(dataset_id, row_no, values text[])`, bulk-loaded with `COPY`. One schema fits every upload; Spark reads row-number ranges in parallel over JDBC and turns the list back into named columns using `datasets.columns`.
+3. **Original plus one table per upload**, one text column per CSV column under positional names (`c0`, `c1`, …), bulk-loaded with `COPY`. Most natural for Spark; costs DDL per upload and thousands of tables over time.
+4. **Original in an S3-compatible object store**, only its details in PostgreSQL. Spark's CSV reader reads and splits the file itself. One more service to run, secure and back up.
+
+For candidates 2 and 3 the original is kept as a large object or in an object store as well, for "download original". Candidate 1 needs the large object unpacked on the Spark side, never through the app ("data never passes through the app"). Candidate 4 parses each file twice, in the app to validate and in Spark to run, so both parsers must agree on #13 (BOM), #14 (RFC 4180 quoting) and row numbers in messages; and Spark's CSV reader cannot read RSES `.tab` files (Phase 7), so those would also need a converted CSV copy. The spike measures, for a small CSV and a ~1 GB CSV (the local Docker VM has 8 GB; the 4 GB target is checked against the measured throughput): upload time and app memory (must stay flat), preparation time, Spark read time over Spark Connect, storage used; it also runs an awkward set (hundreds of columns, odd and duplicate names, BOM, quoted values, empty cells, the golden edge inputs) and weighs code size and deletion, and records what backing up each candidate would take. The choice and the numbers are recorded in Phase 1.
+
+Retention **(proposed)**: datasets and results are kept until their owner deletes them (or an admin deletes the user); backup and restore are not part of the deliverable.
 
 ### Upload and run flow
-1. Upload: the app stores the original in GridFS, stream-parses it (CSV now, RSES `.tab` in Phase 7) and bulk-inserts rows into the dataset's collection, then writes the `datasets` document. Parsing is streaming; the file is never fully loaded into memory.
-2. Run: the user picks heuristic and mode; the app creates a `runs` document and queues it. Output format is **not** chosen here any more (see registry).
-3. Execution: the app opens a Spark Connect session tagged with the run id and calls `spark-rules`, which reads the rows collection via the connector, prepares decision tables, induces rules, writes them to `rules`, and computes stats with a Spark aggregation (a single result row, read on the driver, which is allowed). The app stores the stats in `runs`.
-4. Queue **(proposed)**: global concurrency 2 by default; fair round-robin across users; a per-user cap on queued runs; users can cancel their own runs. Progress is reported per induction round. On app restart, runs left in `RUNNING` are interrupted on the Spark side and marked `FAILED`.
+1. Upload: the browser sends the file in resumable chunks (the tus protocol or an equivalent, confirmed in the spike), up to 4 GB; a dropped connection resumes instead of restarting. The app streams each chunk into storage and never holds the file in memory; the `datasets` row tracks progress.
+2. Preparation, in the background, as decided in the spike: stream-parse (CSV now, RSES `.tab` in Phase 7), validate, and, if rows are stored, bulk-load them with `COPY`. Progress is shown in plain steps; validation errors point at the offending row.
+3. Run: the user picks heuristic and mode; the app creates a `runs` row and queues it. Output format is **not** chosen here any more (see registry).
+4. Execution: the app opens a Spark Connect session tagged with the run id and calls `spark-rules`, which reads the dataset (over JDBC in parallel row-number ranges, or from the object store), prepares decision tables, induces rules, writes them to `rules` over JDBC, and computes stats with a Spark aggregation (a single result row, read on the driver, which is allowed). The app stores the stats with the run.
+5. Queue **(proposed)**: global concurrency 2 by default; fair round-robin across users; a per-user cap on queued runs; users can cancel their own runs. Progress is reported per induction round. On app restart, runs left in `RUNNING` are interrupted on the Spark side and marked `FAILED`.
 
 ### Downloads
-Formats are generated on request from the `rules` collection, only for the run's owner: the app queries a run's rules in a fixed order and streams them through a formatter into the HTTP response (`Content-Disposition: attachment` with an RFC 6266-encoded file name, correct `Content-Type`). Memory use is constant regardless of rule count. RSES header data (attributes, decision values, rule count) comes from `datasets` and `runs`. Formats: legacy CSV, legacy CSV with metadata, legacy RSES (rule lines only) until Phase 7, then full RSES `.rul`; in `is` mode RSES export is a `.zip` with one `.rul` per decision attribute. Caching generated files in GridFS is not planned; add it only if exports prove slow.
+Formats are generated on request from the `rules` table, only for the run's owner: the app queries a run's rules in a fixed order and streams them through a formatter into the HTTP response (`Content-Disposition: attachment` with an RFC 6266-encoded file name, correct `Content-Type`). Memory use is constant regardless of rule count. RSES header data (attributes, decision values, rule count) comes from `datasets` and `runs`. Formats: legacy CSV, legacy CSV with metadata, legacy RSES (rule lines only) until Phase 7, then full RSES `.rul`; in `is` mode RSES export is a `.zip` with one `.rul` per decision attribute. Caching generated files is not planned; add it only if exports prove slow.
 
 ### Security
 Required by the owner; mechanisms **(proposed)**:
@@ -112,10 +131,11 @@ Required by the owner; mechanisms **(proposed)**:
 - CSRF protection on every state-changing request; htmx sends the token in a header.
 - Session cookie `HttpOnly`, `SameSite=Lax`, `Secure` behind HTTPS; session fixation protection (Spring default).
 - Security headers: Content-Security-Policy without inline scripts (Alpine.js CSP build), `X-Content-Type-Options`, `frame-ancestors 'none'`, `Referrer-Policy`.
-- Uploads: configurable size limit (legacy: 128 MB) and per-user limits on datasets, storage and queued runs. The uploaded file name is display text only, never used as a path.
+- Uploads: size limit 4 GB per file **(owner)** (configurable; legacy: 128 MB) and per-user limits on datasets, storage and queued runs. The uploaded file name is display text only, never used as a path.
 - Actuator: only `/actuator/health`, without details for anonymous callers; everything else off. Error pages never show stack traces.
-- Infrastructure: MongoDB with authentication; MongoDB, Spark Connect (no authentication of its own) and the Spark UIs bound to `127.0.0.1` / the internal Docker network only. The Spark UIs are tools for whoever runs the machine and are never linked from the app. Secrets come from environment variables.
+- Infrastructure: PostgreSQL with password authentication and a least-privilege role for the app (no superuser, no DDL at runtime unless the spike picks one table per upload); PostgreSQL, the object store if any, Spark Connect (no authentication of its own) and the Spark UIs bound to `127.0.0.1` / the internal Docker network only. The Spark UIs are tools for whoever runs the machine and are never linked from the app. Secrets come from environment variables.
 - `make audit`: dependency vulnerability scan (OSV-Scanner against Gradle lockfiles).
+- Scope **(owner)**: one machine, operated by trusted people; app users never get OS accounts on it (Spark Connect has no authentication of its own, so anyone with a shell there could reach every user's data through it). Before the app is reachable from other machines or runs on a cluster, the "Beyond one machine" item under Later must be done.
 
 ### The algorithm as it works today (the behavior to preserve)
 Builders must reproduce this exactly unless the registry says otherwise. Reference: `src/main/scala/org/kduda/greedy/algorithm/**`.
@@ -189,7 +209,7 @@ Phase 0 work:
 - Property tests: every rule is true on its table, covers its source row, has correct support and length; finished rules have a single decision.
 - Spark execution: fast `spark-rules` tests run on an in-process local session; an integration suite runs the same code through Spark Connect against the Spark services started with Testcontainers.
 - Security tests: an authorization matrix (a second user, and an admin, get 404 on every route, download and delete for the first user's data; non-admins cannot reach admin pages), forced password change, disabled users cannot log in, login throttling, CSRF, security headers, Actuator exposure, upload limits.
-- Tools: ScalaTest + ScalaCheck (Scala), JUnit 5 + Kotest assertions + MockK + Spring MockMvc + Spring Security test (Kotlin), Testcontainers for MongoDB and Spark.
+- Tools: ScalaTest + ScalaCheck (Scala), JUnit 5 + Kotest assertions + MockK + Spring MockMvc + Spring Security test (Kotlin), Testcontainers for PostgreSQL and Spark.
 - Coverage: scoverage (Scala) and Kover (Kotlin), thresholds enforced by `make coverage` on `spark-rules` and the app's domain / service / security / export packages: ≥95% lines, ≥90% branches **(proposed)**. Verify both plugins work on Gradle 9; JaCoCo is the fallback.
 - Linters: scalafmt + scalafix, ktlint + detekt.
 - Collect guard: a build check that fails on driver-side collection (`collect`, `collectAsList`, `toLocalIterator`, `take`, `first`, `head` on Datasets, etc.) in `spark-rules`, with an explicit allowlist. Mechanism left to the builder.
@@ -218,8 +238,10 @@ Every intended difference from legacy output. Each is delivered as a separate, s
 | 16 | Files of any size within the upload limit are read completely (legacy: every file over 4 MiB fails: Spark splits it into several partitions, and `SparkMongo` deletes its temporary copy after reading only the first; `SparkException` caused by `FileNotFoundException`, pinned at 4 MiB ± 1 KiB by `SparkMongoIT`). | 4 |
 | 17 | The upload name is display text only (legacy: it is used as a temporary file path, so a name with a directory part makes the run fail with `Path does not exist`). | 4 |
 | 18 | Rule downloads carry their format's content type (`text/csv` for csv and csvm, `text/plain` for `.rul`; legacy: `application/json`, pinned by `EndToEndGoldenIT`). | 4 |
+| 19 | Uploads must be valid UTF-8 without NUL characters; other files are rejected at upload with a clear message (legacy: Spark 2.1 decodes as UTF-8 and silently replaces invalid bytes; PostgreSQL text can hold neither invalid UTF-8 nor NUL). Other encodings may come later as a separate change. | 4 |
+| 20 | A row with more or fewer values than the header is rejected with its row number (legacy: Spark 2.1's permissive CSV mode pads short rows with nulls and drops extra values; not pinned by a golden case). | 4 |
 
-New registry entries found during Phase 0 are proposed by the builder and approved by the owner at the Phase 0 review; #13–#18 were approved on 2026-11-07.
+New registry entries are proposed by the builder and approved by the owner before the change that needs them is built; #13–#18 came from Phase 0 and were approved on 2026-11-07; #19–#20 came with the PostgreSQL upload path and were approved on 2026-11-08.
 
 ### Decisions from the plan review **(proposed)**
 - Empty CSV cells, until #9 lands: an ordinary value, as legacy treats them everywhere except MCD. Stored as an empty string; legacy-compatible formats print it as `null`, as legacy does; grouping and joins are null-safe.
@@ -233,7 +255,7 @@ New registry entries found during Phase 0 are proposed by the builder and approv
 |---|---|
 | `help` | Lists targets (default). |
 | `build` | Compile, lint, test, coverage check, package. |
-| `test` / `test-unit` / `test-it` | All tests / without Docker / Testcontainers integration tests (MongoDB, Spark). |
+| `test` / `test-unit` / `test-it` | All tests / without Docker / Testcontainers integration tests (PostgreSQL, Spark). |
 | `test-one T=<pattern>` | Single test class or method in any module. |
 | `golden` | Run the golden corpus against the new implementation. |
 | `coverage` | Coverage reports for both languages, fail under thresholds. |
@@ -241,20 +263,20 @@ New registry entries found during Phase 0 are proposed by the builder and approv
 | `audit` | Dependency vulnerability scan. |
 | `spark-up` / `spark-down` | Local Spark services (master, worker, Connect server, History Server). |
 | `spark-ui` | Print the Spark UI URLs. |
-| `mongo-up` / `mongo-down` | Local MongoDB container. |
-| `run` / `run-dev` | Run the app from Gradle against the local MongoDB and Spark services (started if not running); `run-dev` uses the dev profile. |
+| `db-up` / `db-down` | Local PostgreSQL container (and the object store, if the spike picks one). |
+| `run` / `run-dev` | Run the app from Gradle against the local PostgreSQL and Spark services (started if not running); `run-dev` uses the dev profile. |
 | `image` | App Docker image via `bootBuildImage`. |
-| `up` / `down` | Whole stack (app, MongoDB, Spark services) via Docker Compose. |
+| `up` / `down` | Whole stack (app, PostgreSQL, Spark services) via Docker Compose. |
 | `deps-updates` | Report available dependency updates (Gradle versions plugin). |
 | `legacy-up` / `legacy-down` / `legacy-test` / `legacy-golden` | Legacy app, tests and golden-output generation in the JDK 8 container (removed with `legacy/`). |
 | `clean` | Clean all build outputs. |
 
 ## UI (Option B)
 
-Server-rendered Thymeleaf pages; htmx for partial updates (run status via polling or the SSE extension); Alpine.js (CSP build) for small client state; Tailwind CSS 4 + daisyUI 5 built with the Tailwind standalone CLI from a Gradle task, so no Node toolchain **(proposed)**; fallback Bootstrap 5.3 if the standalone CLI cannot load daisyUI. Tabulator for the rule table (remote paging/sorting backed by MongoDB queries), Apache ECharts for heuristic comparison. Browser libraries come from WebJars (`org.webjars.npm`) with pinned versions **(proposed)**.
+Server-rendered Thymeleaf pages; htmx for partial updates (run status via polling or the SSE extension); Alpine.js (CSP build) for small client state; Tailwind CSS 4 + daisyUI 5 built with the Tailwind standalone CLI from a Gradle task, so no Node toolchain **(proposed)**; fallback Bootstrap 5.3 if the standalone CLI cannot load daisyUI. Tabulator for the rule table (remote paging/sorting backed by PostgreSQL queries), Apache ECharts for heuristic comparison. Browser libraries come from WebJars (`org.webjars.npm`) with pinned versions **(proposed)**.
 
 ### User experience principles **(owner)**
-- For users the app does one thing: **upload data, get rules back.** Spark, background jobs, MongoDB and the like never appear in the UI, in messages or in errors. "Run" in this document is an internal term; the UI talks about "results".
+- For users the app does one thing: **upload data, get rules back.** Spark, background jobs, the database and the like never appear in the UI, in messages or in errors. "Run" in this document is an internal term; the UI talks about "results".
 - The main path works with defaults and as few decisions as possible: choose a file, click "Find rules", watch progress, see and download the rules.
 - Every choice is explained in plain words with a sensible default **(proposed)**:
   - Mode: "Predict the last column" (`dt`, default) vs. "Find rules for every column" (`is`).
@@ -262,7 +284,8 @@ Server-rendered Thymeleaf pages; htmx for partial updates (run status via pollin
   - Format is chosen when downloading, with a one-line explanation of each (spreadsheet CSV, CSV with statistics, RSES rule file).
 - Progress is shown in plain steps ("Reading your data", "Finding rules", "Done: 42 rules found"), not as technical stages. Users can stop a search that is still running.
 - Errors explain what is wrong with the user's data and how to fix it ("Row 17 has 5 values but the header has 6 columns"); internal errors show a friendly message, details only in logs.
-- Upload validation happens immediately, before any work starts: file present and non-empty, header row, consistent column count, unique column names, at least one condition column and a decision column with two or more values.
+- Upload validation happens immediately, before any work starts: file present and non-empty, header row, unique column names, at least two columns. For big files **(proposed)**: these header checks run on the first bytes (in the browser, then again on the server); checks on every row (consistent column count and the like) run during background preparation and name the offending row. "Find rules" can be clicked while the upload is still running; the search waits until the data is ready, and if preparation fails the waiting search is cancelled with that message.
+- A decision column with a single value is not an upload error **(proposed)**: in "find rules for every column" mode such a file still yields rules for the other columns, as legacy does; a "predict the last column" search on it finishes with no rules and a plain explanation.
 - Login and account screens follow the same plain-language rules.
 
 ### Screens
@@ -296,9 +319,11 @@ Detailed task plan: [docs/plans/phase-0.md](docs/plans/phase-0.md).
 - [x] Owner review (incl. any new registry entries)
 
 ### Phase 1: Spike (throwaway)
-- [ ] Compose: Spark 4.2 master + worker + Connect server (with MongoDB Spark Connector, event logging) + History Server + MongoDB; all UIs reachable on localhost
+- [ ] Compose: Spark 4.2 master + worker + Connect server (with the PostgreSQL JDBC driver, event logging) + History Server + PostgreSQL; all UIs reachable on localhost
 - [ ] Spring Boot 4.1 app on JDK 21 with the Spark Connect client: record any classpath conflicts and fixes
-- [ ] From a Spring bean, run a DataFrame job over Spark Connect that reads from and writes to MongoDB through the connector; job visible in the UIs under its run tag; cancel by tag works
+- [ ] From a Spring bean, run a DataFrame job over Spark Connect that reads from PostgreSQL in parallel over JDBC and writes back over JDBC; job visible in the UIs under its run tag; cancel by tag works
+- [ ] Resumable chunked upload of a ~1 GB file through Spring Boot (tus or an equivalent); app memory stays flat; a dropped connection resumes
+- [ ] Upload storage: try the four candidates (data model) with a small CSV, a ~1 GB CSV and the awkward set; measure upload, preparation and Spark read time, memory and storage; record the choice and the numbers here
 - [ ] The same Scala code runs on an in-process local session (test mode) and over Spark Connect, incl. window functions and checkpoint/cache
 - [ ] Decision recorded here: Spark Connect, or the fallback (`spark-submit` per run)
 - [ ] Spike code deleted
@@ -306,7 +331,7 @@ Detailed task plan: [docs/plans/phase-0.md](docs/plans/phase-0.md).
 ### Phase 2: Skeleton
 - [ ] Move the Maven project to `legacy/`; legacy targets still work
 - [ ] Gradle 9 multi-module build (`spark-rules`, `app`), wrapper, version catalog, dependency locking, JDK 21 toolchain
-- [ ] Compose file for MongoDB and the Spark services; `spark-up` / `spark-down` / `spark-ui`
+- [ ] Compose file for PostgreSQL (and the object store, if chosen) and the Spark services; `spark-up` / `spark-down` / `spark-ui`, `db-up` / `db-down`
 - [ ] Makefile with all targets above
 - [ ] Linters, coverage plugins and thresholds, collect guard, `make audit`
 - [ ] Golden corpus runner (order-insensitive) and ported characterization tests, failing
@@ -326,9 +351,9 @@ Detailed task plan: [docs/plans/phase-0.md](docs/plans/phase-0.md).
 - [ ] Acceptance: job count independent of rows; 3-row file fast; nursery runs on the local Spark services
 
 ### Phase 4: Storage and exports
-- [ ] MongoDB data model (`users`, `uploads` bucket, `datasets`, per-dataset rows collections, `runs`, `rules`), `ownerId` everywhere, indexes, MongoDB authentication
-- [ ] Streaming CSV upload ingestion
-- [ ] Spark reads rows and writes rules through the connector
+- [ ] PostgreSQL schema with Flyway (`users`, `datasets`, uploaded data as decided in Phase 1, `runs`, `rules`), `owner_id` everywhere, indexes, least-privilege role; decide on row-level security
+- [ ] Resumable chunked uploads up to 4 GB; streaming preparation as decided in Phase 1 (`COPY` bulk load if rows are stored)
+- [ ] Spark reads the uploaded data and writes rules over JDBC (or reads the object store)
 - [ ] Streaming exports: legacy csv, csvm, rses; correct `Content-Type`; safe `Content-Disposition`
 - [ ] Registry #3, #4, #5, #11 applied
 - [ ] Testcontainers integration tests; golden corpus passes through the export path
@@ -352,7 +377,7 @@ Detailed task plan: [docs/plans/phase-0.md](docs/plans/phase-0.md).
 - [ ] Results screen (plain-language progress, stop button, summary, readable rule table, downloads)
 - [ ] My data screen (history, download original, delete with confirmation, new search)
 - [ ] Compare screen (table + charts)
-- [ ] UI copy review: no internal terms (Spark, job, run, collection) anywhere users can see, incl. error pages
+- [ ] UI copy review: no internal terms (Spark, job, run, table, database) anywhere users can see, incl. error pages
 - [ ] MockMvc tests for pages and htmx fragments
 
 ### Phase 7: RSES and other intended changes
@@ -369,6 +394,7 @@ Detailed task plan: [docs/plans/phase-0.md](docs/plans/phase-0.md).
 - [ ] RSES 2.2 guide: link to it or keep the PDF in the repo (owner decision; redistribution rights unclear)
 
 ### Later (not scheduled)
+- [ ] Beyond one machine: HTTPS through a reverse proxy that allows 4 GB uploads and long requests; no default admin password; Spark Connect behind authentication or network isolation; TLS to PostgreSQL and the object store; secrets from a secret store
 - [ ] Single sign-on (OIDC) as an alternative to local accounts
 - [ ] Classify with induced rules (voting by support) and cross-validation, comparable with RSES
 - [ ] Rseslib 3 as a test-only reference (check its GPL version against this repo's AGPL-3.0 before any runtime use)
@@ -378,18 +404,21 @@ Detailed task plan: [docs/plans/phase-0.md](docs/plans/phase-0.md).
 - [ ] Browser end-to-end smoke tests
 
 ## Risks
-- Spark Connect must support everything `spark-rules` needs (window functions, checkpoint/cache, the MongoDB data source, job tags, interruption). The Phase 1 spike checks this; fallback is `spark-submit` per run.
+- Spark Connect must support everything `spark-rules` needs (window functions, checkpoint/cache, the JDBC data source, job tags, interruption). The Phase 1 spike checks this; fallback is `spark-submit` per run.
 - Spring Boot 4.1 with the Spark Connect client: smaller conflict surface than embedding Spark, still checked in Phase 1.
-- Resource use: app, MongoDB and four Spark services on one machine (the local Docker VM has 4 CPUs / 8 GB); worker and driver memory must be sized accordingly.
+- Resource use: app, PostgreSQL (plus the object store, if chosen) and four Spark services on one machine (the local Docker VM has 4 CPUs / 8 GB); worker and driver memory must be sized accordingly.
 - Legacy runtime on large datasets is slow and occasionally stalls; the corpus is limited to small and medium datasets.
 - Legacy output nondeterminism (MCD ties, ordering): handled by double runs, order-insensitive comparison and registry items 2–3.
 - Round-based induction on wide tables: the number of (rule, attribute) pairs per round is rows × attributes; Phase 3 measures this.
+- 4 GB uploads: browser upload time, chunk resumption, preparation time and, if rows are stored, roughly double the storage; tens of millions of rows for the algorithm. Storing them must work; finding rules on them is best effort on the local machine **(owner)**. The spike (storage) and Phase 3 (algorithm) measure how far the local machine gets, and the numbers go to the owner.
+- JDBC between Spark and PostgreSQL: parallel reads need a numeric partition column and bounds; writing many rules with batched inserts may be slow (pgjdbc `reWriteBatchedInserts`, or a staging table loaded with `COPY`). Measured in the spike.
 
 ## Open questions for the owner
-None. Answered on 2026-10-27 **(owner)**: several users with isolated data; accounts created by an admin, username + password only, local, no email, default admin `admin`/`admin`; agents may stage (`git add`) but never commit, push or pull; one machine with a local Spark service the app connects to; exact math; no legacy deployment to migrate.
+None. Answered on 2026-10-27 **(owner)**: several users with isolated data; accounts created by an admin, username + password only, local, no email, default admin `admin`/`admin`; one machine with a local Spark service the app connects to; exact math; no legacy deployment to migrate. Answered on 2026-11-07 **(owner)**: PostgreSQL replaces MongoDB; uploads up to 4 GB; how uploads are stored is decided by the Phase 1 spike; agents commit on `master-ai` with Conventional Commits and the owner pushes (see `AGENTS.md`). Answered on 2026-11-08 **(owner)**: very large files are not expected soon, but the app must be ready for them (storing 4 GB works; finding rules on them is best effort locally); one machine now, a large cluster possible later; registry #19–#20 approved.
 
 ## Left to the builder
 - Join/grouping strategy of the induction engine and the exact-math mechanism, within the design above.
+- PostgreSQL column types for lists (`text[]` or JSON) and the statistics layout, within the data model above.
 - Exact Gradle plugin versions, Docker image tags and the collect-guard mechanism.
 - Seeds, sizes and shapes of the random corpus tables.
 - Page layouts and styling details.
