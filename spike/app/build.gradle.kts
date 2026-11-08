@@ -20,6 +20,7 @@ dependencies {
 		exclude(group = "org.apache.logging.log4j", module = "log4j-slf4j2-impl")
 	}
 	implementation(libs.tus.server)
+	implementation("de.siegmar:fastcsv:4.4.0")
 	implementation(platform("software.amazon.awssdk:bom:2.35.4"))
 	implementation("software.amazon.awssdk:s3")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

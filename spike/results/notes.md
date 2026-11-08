@@ -39,3 +39,18 @@
 - Garage's image has no shell tools: disk use measured from a throwaway container mounting its volume.
 - Peak heap is summed over heap pools (garbage included): 249 MiB for LO read-back and S3 store, under the 256 MiB cap without OOM — memory stays bounded, but the 8 MiB part buffers and pgjdbc's LO stream buffering are where it goes.
 - Candidate 1 (original only, as a large object): Spark cannot read a large object in parallel — it would have to be unpacked into rows or a file before each run, which is exactly candidate 2/3/4's preparation. So candidate 1 is "original storage only", decided between LO and S3 here, and combined with one of candidates 2–4 for Spark.
+
+## Rows in PostgreSQL: shared table vs table per upload (Task 8, candidates 2 and 3)
+- App parser: FastCSV 4.4.0 (RFC 4180, BOM dropped by hand, quoted line breaks, CRLF). COPY ... FORMAT csv with every field quoted, so empty cells stay empty strings (unquoted empty = NULL in COPY).
+- Correctness: both candidates give back exactly the rows the app parsed (multiset, column names included) for `small.csv` and all 18 awkward files: 500 columns, odd names (spaces, dots, quotes, Polish letters, 70 characters), a quoted line break, BOM + CRLF, empty cells, the golden edge inputs. Candidate 3 uses positional column names (`c0`…), so names never matter; it cannot hold more than 1,599 data columns (PostgreSQL's 1,600-column limit, `wide-2000.csv` fails at CREATE TABLE). Candidate 2 has no such limit.
+- The JDBC read splits into exactly the requested partitions (4 tasks for 4 partitions) with bounds from `min/max(row_no)`.
+- 1 GiB (`large.csv`, 9.9 M rows × 20 columns) from the stored large object, medians of 3 runs:
+
+| | prepare (read LO, parse, COPY) | Spark `count()` | Spark `dropDuplicates().count()` | disk (table + index) |
+|---|---|---|---|---|
+| candidate 2: `dataset_rows(dataset_id, row_no, vals text[])` | 32.5 s | 7.1 s | 58.0 s | 3.02 GB (clean run) |
+| candidate 3: `ds_<id>(row_no, c0 … c19)` | 24.6 s | 4.4 s | 47.7 s | 1.71 GB |
+
+- Candidate 2's arrays cost space (array header and per-element lengths) and its deletes leave bloat: after deleting and vacuuming every dataset the primary-key index still held 596 MB; it needs `REINDEX`/`VACUUM FULL` from time to time. Candidate 3's `DROP TABLE` frees everything immediately.
+- Peak app heap during preparation: 121–141 MiB (streaming parse + COPY), Spark reads ~40 MiB in the app.
+- Disk: the 1 GiB dataset as rows plus its original (0.48 GB) plus WAL is several GB; the first full run filled the Colima VM disk (98 GB, mostly other images and build cache) and crashed PostgreSQL ("No space left on device"). Rerun after resetting the spike's database and pruning build cache, with `max_wal_size=1GB`.

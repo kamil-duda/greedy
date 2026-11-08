@@ -13,7 +13,7 @@ services:
       POSTGRES_DB: spike
       POSTGRES_USER: spike
       POSTGRES_PASSWORD: ${PG_PASSWORD}
-    command: ["postgres", "-c", "shared_buffers=512MB", "-c", "max_wal_size=4GB", "-c", "checkpoint_timeout=15min"]
+    command: ["postgres", "-c", "shared_buffers=512MB", "-c", "max_wal_size=1GB", "-c", "checkpoint_timeout=15min"]
     ports: ["127.0.0.1:5432:5432"]
     volumes: ["pgdata:/var/lib/postgresql"]
     mem_limit: 1536m
