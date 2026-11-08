@@ -29,6 +29,7 @@ val spikeEnv = rootProject.extra["spikeEnv"] as Map<String, String>
 tasks.test {
 	useJUnitPlatform()
 	exclude("**/*IT.class")
+	failOnNoDiscoveredTests = false // the spike's app tests all need the stack (*IT)
 }
 
 tasks.register<Test>("integrationTest") {

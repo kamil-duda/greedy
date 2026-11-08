@@ -70,8 +70,9 @@ spike-env: ## Spike: create spike/.env with random secrets (once)
 	@[ -f spike/.env ] || spike/stack/make-env.sh > spike/.env
 
 spike-up: spike-env ## Spike: start PostgreSQL, Garage and the Spark services
-	$(SPIKE_COMPOSE) up -d
+	$(SPIKE_COMPOSE) up -d postgres garage
 	spike/stack/init-garage.sh
+	$(SPIKE_COMPOSE) up -d
 
 spike-down: ## Spike: stop the spike stack (keeps its volumes)
 	-$(SPIKE_COMPOSE) down
@@ -88,7 +89,7 @@ spike-check: ## Spike: check every stack service from the host
 	@spike/stack/check.sh
 
 spike-test: ## Spike: unit tests and Scala tests on a local (classic) Spark session
-	cd spike && ./gradlew --no-daemon test
+	cd spike && ./gradlew --no-daemon test :rules:testClassic
 
 spike-it: ## Spike: tests that need the spike stack (Spark Connect, PostgreSQL, Garage)
-	cd spike && ./gradlew --no-daemon integrationTest
+	cd spike && ./gradlew --no-daemon integrationTest :rules:testConnect

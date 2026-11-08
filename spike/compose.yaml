@@ -92,6 +92,8 @@ services:
       - spark.hadoop.fs.s3a.access.key=${GARAGE_KEY_ID}
       - --conf
       - spark.hadoop.fs.s3a.secret.key=${GARAGE_SECRET_KEY}
+      - --conf
+      - spark.checkpoint.dir=s3a://checkpoints/spark
       - spark-internal
     ports: ["127.0.0.1:15002:15002", "127.0.0.1:4040:4040"]
     volumes: ["spark-events:/opt/spark/events", "spark-ivy:/opt/spark/ivy"]
