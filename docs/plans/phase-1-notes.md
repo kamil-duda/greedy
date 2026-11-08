@@ -1,6 +1,6 @@
 # Phase 1 notes
 
-Findings of the [Phase 1 spike](phase-1.md), run 2026-11-08 on the owner's MacBook (Colima VM: 4 CPUs, 8 GB, aarch64). The spike code is deleted; the raw measurements are in [phase-1-data/measurements.tsv](phase-1-data/measurements.tsv), the execution record in the git history (`chore(spike): …` commits).
+Findings of the [Phase 1 spike](phase-1.md), run 2026-11-08 on the owner's MacBook (Colima VM: 4 CPUs, 8 GB, aarch64). The spike code is deleted; the raw measurements are in [phase-1-data/measurements.tsv](phase-1-data/measurements.tsv), every ruling in [phase-1-ledger.md](phase-1-ledger.md), the code in the git history (`chore(spike): …` commits).
 
 ## Summary
 
